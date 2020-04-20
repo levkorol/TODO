@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.levkorol.todo.model.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 object NoteRepository {
@@ -18,27 +19,25 @@ object NoteRepository {
     fun getNotes(): LiveData<List<Note>> = noteDao.getAll()
 
     fun addNote(note: Note) {
-        noteDao.insert(note)
-    }
-
-    fun removeNote(noteId: Long) {
-
+        GlobalScope.launch(Dispatchers.IO) {
+            noteDao.insert(note)
+        }
     }
 
     fun delete(note: Note) {
-        CoroutineScope(Dispatchers.IO).launch {
+        GlobalScope.launch(Dispatchers.IO) {
             noteDao.delete(note)
         }
     }
 
-    fun deleteById(id: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun deleteById(id: Long) {
+        GlobalScope.launch(Dispatchers.IO) {
             noteDao.deleteById(id)
         }
     }
 
     fun update(note: Note) {
-        CoroutineScope(Dispatchers.IO).launch {
+        GlobalScope.launch(Dispatchers.IO) {
             noteDao.update(note)
         }
     }

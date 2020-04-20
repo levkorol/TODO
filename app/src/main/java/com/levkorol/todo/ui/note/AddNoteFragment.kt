@@ -1,6 +1,11 @@
 package com.levkorol.todo.ui.note
 
+import android.content.Intent
+import android.content.Intent.ACTION_PICK
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
+import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,11 +37,12 @@ class AddNoteFragment : Fragment() {
 //        }
 //    }
 
+    var photoUri: Uri? = null // > AddNoteViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.add_note, container, false)
     }
 
@@ -47,6 +53,10 @@ class AddNoteFragment : Fragment() {
         save_note_btn.setOnClickListener {
             (activity as MainActivity).loadFragment(NotesFragment())
             saveNote()
+        }
+        photoView.setOnClickListener {
+            //startActivityForResult(Intent(ACTION_PICK, EXTERNAL_CONTENT_URI))
+            startActivityForResult(Intent(ACTION_IMAGE_CAPTURE), 99)
         }
     }
 
@@ -75,13 +85,11 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun saveNote() {
-        GlobalScope.launch(Dispatchers.IO) {
-            NoteRepository.addNote(
-                Note(
-                    name = add_title_text.text.toString(),
-                    description = add_description_note_text.text.toString()
-                )
+        NoteRepository.addNote(
+            Note(
+                name = add_title_text.text.toString(),
+                description = add_description_note_text.text.toString()
             )
-        }
+        )
     }
 }

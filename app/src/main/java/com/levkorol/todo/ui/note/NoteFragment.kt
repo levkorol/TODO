@@ -26,9 +26,10 @@ import kotlinx.android.synthetic.main.fragment_note.*
 class NoteFragment : Fragment() {
 
     private lateinit var viewModel: NotesViewModel
+    private var noteId: Long = -1
 
     companion object {
-
+        private const val NOTE_ID = "NOTE_ID"
         private const val NOTE_TITLE = "NOTE_TITLE"
         private const val NOTE_DESCRIPTION = "NOTE_DESCRIPTION"
 
@@ -36,6 +37,7 @@ class NoteFragment : Fragment() {
             val fragment = NoteFragment()
             val arguments = Bundle()
             arguments.apply {
+                putLong(NOTE_ID, note.noteId!!)
                 putString(NOTE_TITLE, note.name)
                 putString(NOTE_DESCRIPTION, note.description)
             }
@@ -54,9 +56,9 @@ class NoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        noteId = arguments?.getLong(NOTE_ID, -1)!!
         title_note_text_view.text = arguments?.getString(NOTE_TITLE, "FAIL")
         description_note_text_view.text = arguments?.getString(NOTE_DESCRIPTION, "DESC")
-
 
         delete_btn.setOnClickListener {
             showAlter()
@@ -77,8 +79,7 @@ class NoteFragment : Fragment() {
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage("Удалить запись?")
         builder.setPositiveButton("Да") { _, _ ->
-            //    viewModel.delete()
-
+            NoteRepository.deleteById(noteId)
             (activity as MainActivity).loadFragment(NotesFragment())
         }
         builder.setNegativeButton("Отмена") { _, _ ->

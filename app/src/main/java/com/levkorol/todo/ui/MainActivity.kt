@@ -3,27 +3,16 @@ package com.levkorol.todo.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.levkorol.todo.NotesApplication
 import com.levkorol.todo.R
-import com.levkorol.todo.data.IFragmentRepository
-import com.levkorol.todo.data.note.NoteRepository
-import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.notes.NotesFragment
 import com.levkorol.todo.ui.schedule.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(),
-    IFragmentRepository {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotesApplication.applicationScope?.registerService(IFragmentRepository::class.java, this)
-
         setContentView(R.layout.activity_main)
 
         loadFragment(NotesFragment())
@@ -49,15 +38,6 @@ class MainActivity : AppCompatActivity(),
 
         }
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        NotesApplication.applicationScope?.unregisterService(IFragmentRepository::class.java, this)
-    }
-
-    override fun switchFragment(fragment: Fragment) {
-        loadFragment(fragment)
     }
 
     fun loadFragment(fragment: Fragment) {

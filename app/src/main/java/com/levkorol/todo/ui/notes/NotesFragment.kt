@@ -75,8 +75,6 @@ class NotesFragment : Fragment() {
         viewModel.getNotes().observe(this, Observer<List<Note>> { notes ->
             adapter.data = notes
         })
-
-
     }
 
     @SuppressLint("UseRequireInsteadOfGet")

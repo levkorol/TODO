@@ -11,12 +11,16 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.NoteFragment
 import android.content.ContextWrapper
 import android.app.Activity
+import androidx.recyclerview.widget.DiffUtil
 
 
 class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
     var data: List<Note> = listOf()
         set(value) {
+            val diffCallback = DiffCallback(field, value)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
+            diffResult.dispatchUpdatesTo(this)
             field = value
             notifyDataSetChanged()
         }
@@ -50,11 +54,10 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         return null
     }
 
-//    fun diffCall(notes: List<Note>) {
-//        val diffCallback = DiffCallback(this.notes, notes)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//
-//    }
+    fun diffCall(notes: List<Note>) {
+
+
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.name_note_text)
