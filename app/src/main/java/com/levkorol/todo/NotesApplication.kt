@@ -6,14 +6,7 @@ import com.levkorol.todo.data.note.NoteDatabase
 import com.levkorol.todo.data.note.NoteRepository
 
 
-import com.totality.IScope
-
 class NotesApplication : Application() {
-
-    companion object{
-        var applicationScope: IScope? = null
-            private set
-    }
 
     private lateinit var database: NoteDatabase
 
@@ -22,5 +15,4 @@ class NotesApplication : Application() {
         database = Room.databaseBuilder(this, NoteDatabase::class.java, "notes").build()
         NoteRepository.initialize(database)
     }
-
 }

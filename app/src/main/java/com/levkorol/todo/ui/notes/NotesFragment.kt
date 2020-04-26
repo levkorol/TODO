@@ -26,7 +26,7 @@ class NotesFragment : Fragment() {
 
     private lateinit var viewModel: NotesViewModel
     private lateinit var adapter: NotesAdapter
-    private lateinit var note: List <Note>
+    private var flagStar: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,20 +45,12 @@ class NotesFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
-//
-//        recyclerView.addOnItemClickListener(object : OnItemClickListener {
-//            override fun onItemClicked(position: Int, view: View) {
-//                (activity as MainActivity).loadFragment(NoteFragment())
-//
-//            }
-//        })
 
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
         }
 
     }
-
 
     override fun onStart() {
         super.onStart()

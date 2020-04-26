@@ -18,6 +18,9 @@ object NoteRepository {
 
     fun getNotes(): LiveData<List<Note>> = noteDao.getAll()
 
+    fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
+
+
     fun addNote(note: Note) {
         GlobalScope.launch(Dispatchers.IO) {
             noteDao.insert(note)

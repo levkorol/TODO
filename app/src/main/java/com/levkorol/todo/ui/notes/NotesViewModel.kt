@@ -11,4 +11,5 @@ class NotesViewModel : ViewModel() {
 
     fun getNotes(): LiveData<List<Note>> = NoteRepository.getNotes()
 
+    fun getNote(): LiveData<Note> = NoteRepository.getNote()
 }

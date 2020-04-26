@@ -11,6 +11,7 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.NoteFragment
 import android.content.ContextWrapper
 import android.app.Activity
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 
 
@@ -37,9 +38,9 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         val item = data[position]
         holder.title.text = item.name
         holder.description.text = item.description
+       // holder.star.visibility = if () View.VISIBLE else View.GONE
         holder.itemView.setOnClickListener  {
                 (getActivity(holder.itemView)  as MainActivity).loadFragment(NoteFragment.newInstance(item))
-
             }
     }
 
@@ -54,35 +55,32 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
         return null
     }
 
-    fun diffCall(notes: List<Note>) {
-
-
-    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.name_note_text)
         val description: TextView = itemView.findViewById(R.id.text_note)
+        val star: ImageView = itemView.findViewById(R.id.star_image)
 
     }
 }
 
-interface OnItemClickListener {
-    fun onItemClicked(position: Int, view: View)
-}
-
-fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
-    this.addOnChildAttachStateChangeListener(object :
-        RecyclerView.OnChildAttachStateChangeListener {
-        override fun onChildViewDetachedFromWindow(view: View) {
-            view.setOnClickListener(null)
-        }
-
-        override fun onChildViewAttachedToWindow(view: View) {
-            view.setOnClickListener {
-                val holder = getChildViewHolder(view)
-                onClickListener.onItemClicked(holder.adapterPosition, view)
-            }
-        }
-    })
-}
+//interface OnItemClickListener {
+//    fun onItemClicked(position: Int, view: View)
+//}
+//
+//fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
+//    this.addOnChildAttachStateChangeListener(object :
+//        RecyclerView.OnChildAttachStateChangeListener {
+//        override fun onChildViewDetachedFromWindow(view: View) {
+//            view.setOnClickListener(null)
+//        }
+//
+//        override fun onChildViewAttachedToWindow(view: View) {
+//            view.setOnClickListener {
+//                val holder = getChildViewHolder(view)
+//                onClickListener.onItemClicked(holder.adapterPosition, view)
+//            }
+//        }
+//    })
+//}
 

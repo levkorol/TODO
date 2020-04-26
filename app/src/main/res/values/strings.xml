@@ -14,4 +14,11 @@
     <string name="vipolnot">Выполнить до: </string>
     <string name="save_edit">Сохранить изменения</string>
     <string name="edit">Редактирование</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="star1">Важность</string>
+    <string name="add_schedul">Добавить в расписание</string>
+    <string name="edit_note">Редактировать</string>
+    <string name="star">Важность</string>
+    <string name="delete_note">Удалить</string>
+    <string name="share">Поделиться</string>
 </resources>

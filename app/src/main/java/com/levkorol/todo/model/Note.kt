@@ -15,8 +15,10 @@ import androidx.room.PrimaryKey
 data class Note(
     @PrimaryKey(autoGenerate = true) var noteId: Long? = null,
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "description") var description: String
-//    @ColumnInfo(name = "star") var star: Boolean
+    @ColumnInfo(name = "description") var description: String,
+    @ColumnInfo(name = "star") var star: Boolean,
+    @ColumnInfo(name = "photo") var photo: String
+
 )
 
 

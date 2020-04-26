@@ -27,8 +27,10 @@ class NoteFragment : Fragment() {
 
     private lateinit var viewModel: NotesViewModel
     private var noteId: Long = -1
+    private var flagStar: Boolean = false
 
     companion object {
+
         private const val NOTE_ID = "NOTE_ID"
         private const val NOTE_TITLE = "NOTE_TITLE"
         private const val NOTE_DESCRIPTION = "NOTE_DESCRIPTION"
@@ -64,8 +66,12 @@ class NoteFragment : Fragment() {
             showAlter()
         }
 
+        back_profile.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         edit_btn.setOnClickListener {
-            (activity as MainActivity).loadFragment(EditNoteFragment())
+            (activity as MainActivity).loadFragment(EditNoteFragment.newInstance(noteId))
         }
     }
 
@@ -88,6 +94,4 @@ class NoteFragment : Fragment() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-
-
 }
