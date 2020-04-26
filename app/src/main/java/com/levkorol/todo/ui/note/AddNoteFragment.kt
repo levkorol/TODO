@@ -94,7 +94,7 @@ class AddNoteFragment : Fragment() {
                 "Что_то пошло не так. Попробуйте еще раз",
                 Toast.LENGTH_SHORT
             ).show()
-    }
+    } 
 
 
     private fun validations(): Boolean {
