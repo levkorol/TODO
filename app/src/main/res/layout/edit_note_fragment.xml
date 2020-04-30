@@ -143,7 +143,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-
+                    android:id="@+id/star_ed"
                     android:layout_width="31dp"
                     android:layout_height="33dp"
                     android:layout_gravity="center"

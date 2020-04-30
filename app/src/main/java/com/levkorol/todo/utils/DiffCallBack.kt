@@ -1,4 +1,4 @@
-package com.levkorol.todo.ui.notes
+package com.levkorol.todo.utils
 
 
 import androidx.recyclerview.widget.DiffUtil

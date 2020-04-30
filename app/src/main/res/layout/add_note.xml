@@ -35,6 +35,10 @@
 
             </FrameLayout>
 
+
+
+
+
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -100,7 +104,9 @@
                     android:id="@+id/add_description_note_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lines="2"
                     android:background="@null" />
+
 
             </ScrollView>
 
@@ -186,6 +192,8 @@
 
             </LinearLayout>
 
+
+
         </LinearLayout>
 
         <Button
@@ -201,5 +209,8 @@
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
+
+
     </LinearLayout>
+
 </layout>

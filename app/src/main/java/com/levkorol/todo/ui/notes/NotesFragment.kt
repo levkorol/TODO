@@ -17,16 +17,15 @@ import com.levkorol.todo.data.IFragmentRepository
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
 import com.levkorol.todo.ui.note.NoteFragment
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 
 class NotesFragment : Fragment() {
-
     private lateinit var viewModel: NotesViewModel
     private lateinit var adapter: NotesAdapter
-    private var flagStar: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +44,9 @@ class NotesFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
-
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
         }
-
     }
 
     override fun onStart() {
@@ -77,10 +74,9 @@ class NotesFragment : Fragment() {
             (activity as MainActivity).loadFragment(AddNoteFragment())
         }
         builder.setNegativeButton("Папку") { _, _ ->
-
+            (activity as MainActivity).loadFragment(AddFolderFragment())
         }
         builder.setNeutralButton("Отменить") { _, _ ->
-
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()

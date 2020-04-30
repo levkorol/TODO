@@ -42,11 +42,21 @@
             android:layout_marginEnd="40dp"
             android:layout_below="@id/name_note_text"/>
 
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/text_note"
+            android:textColor="@color/ultramarin"
+            android:textSize="12sp"
+            />
+
 
         <ImageView
             android:id="@+id/star_image"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/ic_star"
             android:layout_alignParentRight="true"/>
 
