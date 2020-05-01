@@ -40,7 +40,7 @@ class NotesFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
-        adapter = NotesAdapter()
+        adapter = NotesAdapter(activity as MainActivity)
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
@@ -61,8 +61,8 @@ class NotesFragment : Fragment() {
     }
 
     private fun observeNotes() {
-        viewModel.getNotes().observe(this, Observer<List<Note>> { notes ->
-            adapter.data = notes
+        viewModel.getNotes().observe(this, Observer { bases ->
+            adapter.data = bases.sortedByDescending { it.date }
         })
     }
 

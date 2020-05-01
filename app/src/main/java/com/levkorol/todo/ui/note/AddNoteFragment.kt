@@ -21,14 +21,22 @@ import com.levkorol.todo.utils.format
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
 import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.N
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.levkorol.todo.utils.convertBitmapToByteArray
 import com.levkorol.todo.utils.convertToString
+import java.io.File
 import java.io.IOException
 
 
 class AddNoteFragment : Fragment() {
+
     private var flagStar: Boolean = false
     var photoBitmap: Bitmap? = null // > AddNoteViewModel  позже
+    var photoUri: Uri? = null
 
     companion object {
         private const val PICK_IMAGE = 100
@@ -70,6 +78,7 @@ class AddNoteFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             try {
+                // TODO пересохранить себе
                 photoBitmap =
                     MediaStore.Images.Media.getBitmap(activity?.contentResolver, data!!.data)
                 photoView.setImageBitmap(photoBitmap)
@@ -79,9 +88,7 @@ class AddNoteFragment : Fragment() {
         }
 
         if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_INTENT) {
-//            val uri = FileProvider.getUriForFile(requireActivity(),
-//                "", cameraPhotoFile!!)
-//            requireActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            photoView.setImageURI(photoUri)
         }
     }
 
@@ -92,6 +99,8 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun openCamera() {
+        photoUri = getNewPhotoUri()
+        // TODO положить в интент
         startActivityForResult(Intent(ACTION_IMAGE_CAPTURE), CAMERA_INTENT)
     }
 
@@ -123,7 +132,7 @@ class AddNoteFragment : Fragment() {
                 name = add_title_text.text.toString(),
                 description = add_description_note_text.text.toString(),
                 star = star_image_btn.isSelected,
-                photo = imageString,
+                photo = imageString, // TODO photoUri.toString()
                 date = Date().format()
             )
         )
@@ -153,7 +162,6 @@ class AddNoteFragment : Fragment() {
         dialog.show()
     }
 
-
     private fun starClick() {
         if (flagStar) {
             star_image_btn.setImageResource(R.drawable.ic_star_in_add_notes)
@@ -166,6 +174,20 @@ class AddNoteFragment : Fragment() {
             flagStar = true
         }
     }
+
+    private fun getNewPhotoUri(): Uri {
+        val photosDir = File(requireContext().filesDir, "photos")
+        if (!photosDir.exists()) photosDir.mkdir()
+        val photoFile = File(photosDir, UUID.randomUUID().toString())
+        if (SDK_INT < N) {
+            return Uri.fromFile(photoFile)
+        } else {
+            return FileProvider.getUriForFile(requireContext(),
+                requireContext().packageName + ".provider",
+                photoFile)
+        }
+    }
+
 }
 
 

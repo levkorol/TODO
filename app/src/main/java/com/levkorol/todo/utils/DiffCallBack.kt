@@ -14,11 +14,11 @@ class DiffCallback(
     override fun getNewListSize() = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].noteId == newList[newItemPosition].noteId
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].noteId == newList[newItemPosition].noteId
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
                 && oldList[oldItemPosition].name == newList[newItemPosition].name
                 && oldList[oldItemPosition].description == newList[newItemPosition].description
     }

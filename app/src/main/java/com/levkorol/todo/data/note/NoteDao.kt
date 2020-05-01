@@ -16,18 +16,18 @@ interface NoteDao {
     @Update
     fun update(note: Note)
 
-    @Query("delete from note where noteId = :id")
+    @Query("delete from note where id = :id")
     fun deleteById(id: Long)
 
     @Delete
     fun delete(note: Note)
 
-    @Query("SELECT * from note WHERE noteId = :key")
+    @Query("SELECT * from note WHERE id = :key")
     fun get(key: Long): Note?
 
-    @Query("SELECT * FROM note ORDER BY noteId DESC LIMIT 1")
+    @Query("SELECT * FROM note ORDER BY id DESC LIMIT 1")
     fun getToNote(): Note?
 
-    @Query("SELECT * from note WHERE noteId = :key")
+    @Query("SELECT * from note WHERE id = :key")
     fun getNoteId(key: Long): LiveData<Note>
 }

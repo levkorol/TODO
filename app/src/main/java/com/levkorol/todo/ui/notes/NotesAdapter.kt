@@ -12,66 +12,72 @@ import com.levkorol.todo.ui.note.NoteFragment
 import android.content.ContextWrapper
 import android.app.Activity
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
-import com.levkorol.todo.utils.DiffCallback
-import java.util.*
+import com.levkorol.todo.model.Base
 
 
-class NotesAdapter : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(
+    val activity: MainActivity
+) : RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    var data: List<Note> = listOf()
+    var data: List<Base> = listOf() // [ Folder, Note, Folder, Note ]
         set(value) {
-            val diffCallback = DiffCallback(field, value)
-            val diffResult = DiffUtil.calculateDiff(diffCallback)
-            diffResult.dispatchUpdatesTo(this)
+//            val diffCallback = DiffCallback(field, value)
+//            val diffResult = DiffUtil.calculateDiff(diffCallback)
+//            diffResult.dispatchUpdatesTo(this)
             field = value
             notifyDataSetChanged()
         }
 
     override fun getItemCount() = data.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.list_item_note, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun getItemViewType(position: Int): Int {
         val item = data[position]
+        return if (item is Note) NOTE_VIEW_TYPE else FOLDER_VIEW_TYPE
+    }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val view = layoutInflater.inflate(
+            if (viewType == NOTE_VIEW_TYPE) R.layout.list_item_note else R.layout.list_item_folder,
+            parent, false)
+        return NoteViewHolder(view)
+    }
 
-
-        holder.title.text = item.name
-        holder.description.text = item.description
-        holder.date.text = item.date
-        holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
-        holder.itemView.setOnClickListener {
-            (getActivity(holder.itemView) as MainActivity).loadFragment(
-                NoteFragment.newInstance(
-                    item
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val item = data[position]
+        if (item is Note) {
+            holder.title.text = item.name
+            holder.description.text = item.description
+            holder.date.text = item.date
+            holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
+            holder.itemView.setOnClickListener {
+                activity.loadFragment(
+                    NoteFragment.newInstance(
+                        item
+                    )
                 )
-            )
-        }
-    }
-
-    private fun getActivity(view: View): Activity? {
-        var context = view.context
-        while (context is ContextWrapper) {
-            if (context is Activity) {
-                return context
             }
-            context = (context).baseContext
+        } else {
+            // TODO
         }
-        return null
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.name_note_text)
         val description: TextView = itemView.findViewById(R.id.text_note)
         val date: TextView = itemView.findViewById(R.id.date_text)
         val star: ImageView = itemView.findViewById(R.id.star_image)
-
     }
+
+    class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // TODO
+    }
+
+    companion object {
+        private const val NOTE_VIEW_TYPE = 0
+        private const val FOLDER_VIEW_TYPE = 1
+    }
+
 }
 
 

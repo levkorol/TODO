@@ -39,7 +39,7 @@ class NoteFragment : Fragment() {
             val fragment = NoteFragment()
             val arguments = Bundle()
             arguments.apply {
-                putLong(NOTE_ID, note.noteId!!)
+                putLong(NOTE_ID, note.id!!)
                 putString(NOTE_TITLE, note.name)
                 putString(NOTE_DESCRIPTION, note.description)
                 putBoolean(STAR, note.star)

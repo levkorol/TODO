@@ -12,12 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.NoteRepository
 import com.levkorol.todo.model.Note
-import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
-import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
-import kotlinx.android.synthetic.main.fragment_note.*
 
 
 class EditNoteFragment : Fragment() {
@@ -63,8 +60,7 @@ class EditNoteFragment : Fragment() {
         edit_save_note_btn.setOnClickListener {
             Toast.makeText(activity, "Изменения сохранены", Toast.LENGTH_LONG).show()
             saveEditNote()
-            (activity as MainActivity).loadFragment(NoteFragment.newInstance(note!!))
-            //  parentFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
         star_ed.setOnClickListener {
@@ -88,20 +84,22 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveEditNote() {
+        // TODO note?.copy()
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
+        // TODO if (oldNote != newNote)
         NoteRepository.update(note!!)
     }
 
     private fun observeNotes() {
-        viewModel.getNotes().observe(this, Observer<List<Note>> { notes ->
-            note = notes.firstOrNull { n -> n.noteId == noteId }
+        viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
+            note = notes.firstOrNull { n -> n.id == noteId }
             if (note != null) {
                 edit_title_text.text = SpannableStringBuilder(note?.name)
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
                 star_ed.isSelected = note!!.star
-
+                // TODO
             }
         })
     }
