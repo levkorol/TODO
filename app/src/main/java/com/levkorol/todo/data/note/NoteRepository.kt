@@ -72,7 +72,7 @@ object NoteRepository {
         if (folders == null) {
             return
         }
-        var rootFolder = Folder(-1, "Kornevaya papka", "Kornevaya papka opisaniye", 0, 0, 0)
+        val rootFolder = Folder(-1, "Kornevaya papka", "Kornevaya papka opisaniye", 0, 0, 0)
         rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }
         rootFolder.folders = folders!!.filter { it.parentFolderId == -1L }
         for (element in folders!!) {
