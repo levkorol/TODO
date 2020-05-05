@@ -66,6 +66,7 @@ class NotesAdapter(
             item as Folder
             holder as FolderViewHolder
             holder.nameFolder.text = item.nameFolder
+
 //            holder.itemView.setOnClickListener {
 //                activity.loadFragment(
 //                    FolderFragment.newInstance(
@@ -89,7 +90,7 @@ class NotesAdapter(
     }
 
     companion object {
-        private const val NOTE_VIEW_TYPE = 0
+       private const val NOTE_VIEW_TYPE = 0
         private const val FOLDER_VIEW_TYPE = 1
     }
 

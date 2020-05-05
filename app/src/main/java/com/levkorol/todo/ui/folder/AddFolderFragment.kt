@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-
 import com.levkorol.todo.R
-import com.levkorol.todo.ui.notes.NotesViewModel
+import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.model.Folder
+import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.ui.notes.NotesFragment
+import kotlinx.android.synthetic.main.fragment_add_folder.*
 
 class AddFolderFragment : Fragment() {
-    private lateinit var viewModel: FolderViewModel
+ //  private lateinit var viewModel: FolderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,11 +28,50 @@ class AddFolderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        save_folder_btn.setOnClickListener {
+            (activity as MainActivity).loadFragment(NotesFragment())
+            saveFolder()
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel = ViewModelProvider(requireActivity()).get(FolderViewModel::class.java)
+      //  viewModel = ViewModelProvider(requireActivity()).get(FolderViewModel::class.java)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        saveFolderToDatabase()
+    }
+
+    private fun saveFolderToDatabase() {
+        if (validations()) {
+            Toast.makeText(activity, "Папка успешно сохранена", Toast.LENGTH_SHORT).show()
+        } else
+            Toast.makeText(
+                activity,
+                "Вы создали папку",
+                Toast.LENGTH_SHORT
+            ).show()
+    }
+
+    private fun saveFolder() {
+
+        NoteRepository.addFolder(
+            Folder(
+                nameFolder = add_title_text_folder.text.toString(),
+                descriptionFolder = add_description_folder_text.text.toString(),
+                color = 1,
+                parentFolderId = 1,
+                date = 1
+            )
+        )
+
+    }
+
+    private fun validations(): Boolean {
+        return !(add_title_text_folder.text.isNullOrEmpty()
+                && add_description_folder_text.text.isNullOrEmpty()
+                )
+    }
 }

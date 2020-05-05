@@ -44,21 +44,30 @@ object NoteRepository {
 
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
+    fun getFolder(): LiveData<Folder> = folderDao.getFolderId(-1)
+
     fun addNote(note: Note) {
         GlobalScope.launch(Dispatchers.IO) {
             noteDao.insert(note)
         }
     }
 
-    fun delete(note: Note) {
-        GlobalScope.launch(Dispatchers.IO) {
-            noteDao.delete(note)
+    fun addFolder(folder: Folder) {
+        GlobalScope.launch (Dispatchers.IO){
+            folderDao.insert(folder)
         }
     }
+
 
     fun deleteById(id: Long) {
         GlobalScope.launch(Dispatchers.IO) {
             noteDao.deleteById(id)
+        }
+    }
+
+    fun deleteFolderById(id: Long) {
+        GlobalScope.launch (Dispatchers.IO){
+            folderDao.deleteById(id)
         }
     }
 
@@ -68,8 +77,14 @@ object NoteRepository {
         }
     }
 
+    fun update(folder: Folder) {
+        GlobalScope.launch (Dispatchers.IO){
+            folderDao.update(folder)
+        }
+    }
+
     private fun process() {
-        if (folders == null) {
+        if (folders == null || notes == null) {
             return
         }
         val rootFolder = Folder(-1, "Kornevaya papka", "Kornevaya papka opisaniye", 0, 0, 0)

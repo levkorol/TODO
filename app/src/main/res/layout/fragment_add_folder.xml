@@ -61,7 +61,7 @@
             android:text="@string/titile_note" />
 
         <EditText
-            android:id="@+id/add_title_text"
+            android:id="@+id/add_title_text_folder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold" />
@@ -86,7 +86,7 @@
         android:background="@drawable/background_item_note">
 
             <EditText
-                android:id="@+id/add_description_note_text"
+                android:id="@+id/add_description_folder_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
@@ -209,7 +209,7 @@
 
     <Button
 
-        android:id="@+id/save_note_btn"
+        android:id="@+id/save_folder_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

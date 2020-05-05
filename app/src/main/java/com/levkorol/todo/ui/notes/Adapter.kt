@@ -19,7 +19,7 @@ class Adapter(val activity: MainActivity) :
 
     private var mInflator: LayoutInflater? = null
     private val context: Context? = null
- //   private val list: List<Base>? = null
+    private val list: List<Base>? = null
 
     var data: List<Base> = listOf()
         set(value) {
@@ -39,7 +39,7 @@ class Adapter(val activity: MainActivity) :
             holder.date.text = item.date.toString()
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
             holder.itemView.setOnClickListener {
-                activity.loadFragment( NoteFragment.newInstance(item))
+                activity.loadFragment(NoteFragment.newInstance(item))
             }
         } else {
             item as Folder
@@ -59,7 +59,7 @@ class Adapter(val activity: MainActivity) :
     }
 
     init {
-       // this.data = this!!.list
+        this.data = this.list!!
         this.mInflator = LayoutInflater.from(context)
     }
 
@@ -79,6 +79,11 @@ class Adapter(val activity: MainActivity) :
                 false
             )
         )
+//        val layoutInflater = LayoutInflater.from(parent.context)
+//        val view = layoutInflater.inflate(
+//            if (viewType == NotesAdapter.NOTE_VIEW_TYPE) R.layout.list_item_note else R.layout.list_item_folder,
+//            parent, false
+//        )
     }
 
     private inner class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
