@@ -44,6 +44,7 @@ class NotesFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
+
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
         }
@@ -53,6 +54,7 @@ class NotesFragment : Fragment() {
         super.onStart()
         viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
         observeNotes()
+
     }
 
     override fun onResume() {
@@ -62,7 +64,10 @@ class NotesFragment : Fragment() {
 
     private fun observeNotes() {
         viewModel.getNotes().observe(this, Observer { bases ->
+
             adapter.data = bases.sortedByDescending { it.date }
+            adapter.notifyDataSetChanged()
+
         })
     }
 

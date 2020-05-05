@@ -12,7 +12,11 @@ import com.levkorol.todo.ui.note.NoteFragment
 import android.content.ContextWrapper
 import android.app.Activity
 import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
 import com.levkorol.todo.model.Base
+import com.levkorol.todo.model.Folder
+import com.levkorol.todo.ui.folder.FolderFragment
+import com.levkorol.todo.utils.DiffCallback
 
 
 class NotesAdapter(
@@ -39,7 +43,8 @@ class NotesAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(
             if (viewType == NOTE_VIEW_TYPE) R.layout.list_item_note else R.layout.list_item_folder,
-            parent, false)
+            parent, false
+        )
         return NoteViewHolder(view)
     }
 
@@ -48,7 +53,7 @@ class NotesAdapter(
         if (item is Note) {
             holder.title.text = item.name
             holder.description.text = item.description
-            holder.date.text = item.date
+            holder.date.text = item.date.toString()
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
             holder.itemView.setOnClickListener {
                 activity.loadFragment(
@@ -58,7 +63,16 @@ class NotesAdapter(
                 )
             }
         } else {
-            // TODO
+            item as Folder
+            holder as FolderViewHolder
+            holder.nameFolder.text = item.nameFolder
+//            holder.itemView.setOnClickListener {
+//                activity.loadFragment(
+//                    FolderFragment.newInstance(
+//                        item
+//                    )
+//                )
+//            }
         }
     }
 
@@ -70,7 +84,8 @@ class NotesAdapter(
     }
 
     class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // TODO
+        val nameFolder: TextView = itemView.findViewById(R.id.name_folder_text)
+        val color: Unit = itemView.setBackgroundColor(R.id.background_folder_list)
     }
 
     companion object {

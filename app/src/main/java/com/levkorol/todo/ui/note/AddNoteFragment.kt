@@ -133,7 +133,7 @@ class AddNoteFragment : Fragment() {
                 description = add_description_note_text.text.toString(),
                 star = star_image_btn.isSelected,
                 photo = imageString, // TODO photoUri.toString()
-                date = Date().format()
+                date = 1
             )
         )
 

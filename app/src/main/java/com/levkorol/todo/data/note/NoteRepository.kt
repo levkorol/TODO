@@ -1,38 +1,46 @@
 package com.levkorol.todo.data.note
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.levkorol.todo.model.Base
+import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Note
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
 object NoteRepository {
 
     private lateinit var noteDao: NoteDao
+    private lateinit var folderDao: FolderDao
 
-    private var resultNotes: MutableLiveData<List<Base>> = MutableLiveData()
+    private var resultBases: MutableLiveData<List<Base>> = MutableLiveData()
     private var notes: List<Note>? = null
-    // TODO folders
+    private var folders: List<Folder>? = null
+
 
     fun initialize(database: NoteDatabase) {
         noteDao = database.noteDao()
-        // TODO folderDao
+        folderDao = database.folderDao()
 
         noteDao.getAll().observeForever { notes ->
             this.notes = notes
             process()
+            resultBases.value = notes
         }
-        // TODO так же как выше подписаться на getAll() у folders
+
+        folderDao.getAll().observeForever { folders ->
+            this.folders = folders
+            process()
+            resultBases.value = folders
+        }
     }
 
     @Deprecated("use getNotes() instead")
     fun getDeprecatedNotes(): LiveData<List<Note>> = noteDao.getAll()
 
-    fun getNotes(): LiveData<List<Base>> = resultNotes;
+    fun getNotes(): LiveData<List<Base>> = resultBases
 
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
@@ -61,7 +69,19 @@ object NoteRepository {
     }
 
     private fun process() {
-        // TODO напишу текстом
+        if (folders == null) {
+            return
+        }
+        var rootFolder = Folder(-1, "Kornevaya papka", "Kornevaya papka opisaniye", 0, 0, 0)
+        rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }
+        rootFolder.folders = folders!!.filter { it.parentFolderId == -1L }
+        for (element in folders!!) {
+            val childNotes = notes!!.filter { it.parentFolderId == element.id }
+            element.notes = childNotes
+            val childFolders = folders!!.filter { it.parentFolderId == element.id }
+            element.folders = childFolders
+        }
+        folders = folders!!.union(listOf(rootFolder)).toList()
     }
-
 }
+
