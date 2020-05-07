@@ -2,7 +2,6 @@ package com.levkorol.todo.data.note
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Note
 import kotlinx.coroutines.Dispatchers
@@ -15,9 +14,9 @@ object NoteRepository {
     private lateinit var noteDao: NoteDao
     private lateinit var folderDao: FolderDao
 
-    private var resultBases: MutableLiveData<List<Base>> = MutableLiveData()
-    private var notes: List<Note>? = null
-    private var folders: List<Folder>? = null
+    private var resultFolders: MutableLiveData<List<Folder>> = MutableLiveData()
+     var notes: List<Note>? = null
+     var folders: List<Folder>? = null
 
 
     fun initialize(database: NoteDatabase) {
@@ -27,20 +26,20 @@ object NoteRepository {
         noteDao.getAll().observeForever { notes ->
             this.notes = notes
             process()
-            resultBases.value = notes
         }
 
         folderDao.getAll().observeForever { folders ->
             this.folders = folders
             process()
-            resultBases.value = folders
         }
     }
 
     @Deprecated("use getNotes() instead")
     fun getDeprecatedNotes(): LiveData<List<Note>> = noteDao.getAll()
 
-    fun getNotes(): LiveData<List<Base>> = resultBases
+    fun getNotes(): LiveData<List<Note>> = noteDao.getAll()
+
+    fun getFolders(): LiveData<List<Folder>> = resultFolders
 
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
@@ -53,7 +52,7 @@ object NoteRepository {
     }
 
     fun addFolder(folder: Folder) {
-        GlobalScope.launch (Dispatchers.IO){
+        GlobalScope.launch(Dispatchers.IO) {
             folderDao.insert(folder)
         }
     }
@@ -66,7 +65,7 @@ object NoteRepository {
     }
 
     fun deleteFolderById(id: Long) {
-        GlobalScope.launch (Dispatchers.IO){
+        GlobalScope.launch(Dispatchers.IO) {
             folderDao.deleteById(id)
         }
     }
@@ -78,7 +77,7 @@ object NoteRepository {
     }
 
     fun update(folder: Folder) {
-        GlobalScope.launch (Dispatchers.IO){
+        GlobalScope.launch(Dispatchers.IO) {
             folderDao.update(folder)
         }
     }
@@ -87,7 +86,11 @@ object NoteRepository {
         if (folders == null || notes == null) {
             return
         }
-        val rootFolder = Folder(-1, "Kornevaya papka", "Kornevaya papka opisaniye", 0, 0, 0)
+        val rootFolder = Folder(
+            -1, "Kornevaya papka",
+            "Kornevaya papka opisaniye", 0,
+            0, 0
+        )
         rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }
         rootFolder.folders = folders!!.filter { it.parentFolderId == -1L }
         for (element in folders!!) {
@@ -97,6 +100,7 @@ object NoteRepository {
             element.folders = childFolders
         }
         folders = folders!!.union(listOf(rootFolder)).toList()
+        resultFolders.value = folders
     }
 }
 

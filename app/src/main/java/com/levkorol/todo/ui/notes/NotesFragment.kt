@@ -9,23 +9,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.levkorol.todo.NotesApplication
-import com.levkorol.todo.data.IFragmentRepository
 import com.levkorol.todo.R
+import com.levkorol.todo.model.Base
+
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
-import com.levkorol.todo.ui.note.NoteFragment
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 
 class NotesFragment : Fragment() {
     private lateinit var viewModel: NotesViewModel
-    private lateinit var adapter: NotesAdapter
+    private lateinit var adapter: Adapter
+    private var  folderId = -1L
+    private  var notes: List<Note>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +40,9 @@ class NotesFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
-        adapter = NotesAdapter(activity as MainActivity)
+        adapter = Adapter(activity as MainActivity)
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
-
 
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
@@ -63,9 +62,17 @@ class NotesFragment : Fragment() {
     }
 
     private fun observeNotes() {
-        viewModel.getNotes().observe(this, Observer { bases ->
+        viewModel.getFolders().observe(this, Observer { folders ->
+            val currentFolder = folders.firstOrNull { it.id == folderId }
+            val childElements = mutableListOf<Base>()
+            if (currentFolder != null)
+            {
+                childElements.addAll(currentFolder.folders.sortedByDescending { it.date })
+                childElements.addAll(currentFolder.notes.sortedByDescending { it.date })
+            }
 
-            adapter.data = bases.sortedByDescending { it.date }
+            adapter.data = childElements.sortedByDescending { it.date }
+
             adapter.notifyDataSetChanged()
 
         })

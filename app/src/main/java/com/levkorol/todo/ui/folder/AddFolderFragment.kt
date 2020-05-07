@@ -62,7 +62,7 @@ class AddFolderFragment : Fragment() {
                 nameFolder = add_title_text_folder.text.toString(),
                 descriptionFolder = add_description_folder_text.text.toString(),
                 color = 1,
-                parentFolderId = 1,
+                parentFolderId = -1,
                 date = 1
             )
         )

@@ -86,11 +86,11 @@ class NotesAdapter(
 
     class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameFolder: TextView = itemView.findViewById(R.id.name_folder_text)
-        val color: Unit = itemView.setBackgroundColor(R.id.background_folder_list)
+     //   val color: Unit = itemView.setBackgroundColor(R.id.background_folder_list)
     }
 
     companion object {
-       private const val NOTE_VIEW_TYPE = 0
+        private const val NOTE_VIEW_TYPE = 0
         private const val FOLDER_VIEW_TYPE = 1
     }
 
