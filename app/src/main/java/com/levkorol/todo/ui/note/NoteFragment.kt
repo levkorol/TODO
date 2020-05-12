@@ -2,13 +2,20 @@ package com.levkorol.todo.ui.note
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
+import androidx.core.text.parseAsHtml
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.NoteRepository
 import com.levkorol.todo.model.Note
@@ -19,6 +26,8 @@ import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_note.back_profile
 import com.levkorol.todo.utils.convertByteArrayToBitmapView
 import com.levkorol.todo.utils.convertToByteArrayView
+import kotlinx.android.synthetic.main.add_note.*
+import kotlinx.android.synthetic.main.edit_note_fragment.*
 
 
 class NoteFragment : Fragment() {
@@ -26,7 +35,7 @@ class NoteFragment : Fragment() {
     private lateinit var viewModel: NotesViewModel
     private var noteId: Long = -1
     private var flagStar: Boolean = false
-
+    private var note: Note? = null
 
     companion object {
         private const val NOTE_ID = "NOTE_ID"
@@ -39,7 +48,7 @@ class NoteFragment : Fragment() {
             val fragment = NoteFragment()
             val arguments = Bundle()
             arguments.apply {
-                putLong(NOTE_ID, note.id!!)
+                putLong(NOTE_ID, note.id)
                 putString(NOTE_TITLE, note.name)
                 putString(NOTE_DESCRIPTION, note.description)
                 putBoolean(STAR, note.star)
@@ -63,20 +72,20 @@ class NoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         noteId = arguments?.getLong(NOTE_ID, -1)!!
+            //   note =
         title_note_text_view.text = arguments?.getString(NOTE_TITLE, "FAIL")
         description_note_text_view.text = arguments?.getString(NOTE_DESCRIPTION, "DESC")
         star.isSelected = arguments?.getBoolean(STAR, flagStar)!!
-        imageViewNotePhoto.setImageBitmap(
-            convertByteArrayToBitmapView(
-                convertToByteArrayView(
-                    arguments?.getString(PHOTO))))
 
-        if (star.isSelected){
+        val photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
+        imageViewNotePhoto.setImageURI(photoUri)
+
+
+        if (star.isSelected) {
             star.setImageResource(R.drawable.ic_star)
         } else {
             star.setImageResource(R.drawable.ic_star_in_add_notes)
         }
-
 
         delete_btn.setOnClickListener {
             showAlter()
@@ -93,11 +102,29 @@ class NoteFragment : Fragment() {
         share_btn.setOnClickListener {
             shareNote()
         }
+
+        imageViewNotePhoto.visibility = if (imageViewNotePhoto == null) View.GONE else View.VISIBLE
+
+        imageViewNotePhoto.setOnClickListener {
+            if (imageViewNotePhoto != null) (activity as MainActivity).loadFragment(
+                PhotoFragment.newInstance(
+                    note!!
+                )
+            )
+        }
     }
+
+    private fun observeNotes() {
+        viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
+            note = notes.firstOrNull { n -> n.id == noteId }
+        })
+    }
+
 
     override fun onStart() {
         super.onStart()
         viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        observeNotes()
     }
 
     @SuppressLint("UseRequireInsteadOfGet")

@@ -1,5 +1,6 @@
 package com.levkorol.todo
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -16,8 +17,9 @@ class DatePickerFragment : DialogFragment() {
 
     private var mDatePicker: DatePicker? = null
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val date = requireArguments().getSerializable(ARG_DATE) as Date
+        val date = arguments!!.getSerializable(ARG_DATE) as Date
 
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -32,7 +34,7 @@ class DatePickerFragment : DialogFragment() {
 
         return AlertDialog.Builder(activity)
             .setView(v)
-            .setTitle("Выберите дату")
+            .setTitle(R.string.date_picker_title)
             .setPositiveButton(android.R.string.ok) { dialog, which ->
                 val year = mDatePicker!!.year
                 val month = mDatePicker!!.month
@@ -53,10 +55,10 @@ class DatePickerFragment : DialogFragment() {
     }
 
     companion object {
-        val EXTRA_DATE = "com.levkorol.android.criminalintent.date"
+        val EXTRA_DATE = "com.levkorol.android.levkorol.date"
         private val ARG_DATE = "date"
 
-        fun newInstance(date: Date): DatePickerFragment {
+        fun newInstance(date: Long): DatePickerFragment {
             val args = Bundle()
             args.putSerializable(ARG_DATE, date)
 

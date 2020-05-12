@@ -56,7 +56,7 @@ class Adapter(val activity: MainActivity) :
         private const val NOTE_VIEW_TYPE = 0
         private const val FOLDER_VIEW_TYPE = 1
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             NOTE_VIEW_TYPE -> {

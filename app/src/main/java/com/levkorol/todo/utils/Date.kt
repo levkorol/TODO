@@ -35,3 +35,10 @@ enum class TimeUnits {
     HOUR,
     DAY
 }
+
+object Tools {
+    fun dateToString(date: Date): String {
+        val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy , hh:mm")
+        return dateFormat.format(date)
+    }
+}
