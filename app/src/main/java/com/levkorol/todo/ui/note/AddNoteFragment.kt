@@ -39,7 +39,6 @@ import java.io.IOException
 class AddNoteFragment : Fragment() {
 
     private var flagStar: Boolean = false
-    var photoBitmap: Bitmap? = null // > AddNoteViewModel  позже
     var photoUri: Uri? = null
     var note: Note? = null
 
@@ -55,7 +54,7 @@ class AddNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(com.levkorol.todo.R.layout.add_note, container, false)
+        return inflater.inflate(R.layout.add_note, container, false)
     }
 
 
@@ -97,10 +96,7 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun openGallery() {
-       // photoUri = getNewPhotoUri()
-    //    val intent = Intent(Intent.ACTION_GET_CONTENT)
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-      //  intent.putExtra(EXTRA_OUTPUT, photoUri)
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE)
     }
@@ -129,18 +125,11 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun saveNote() {
-//        var imageString: String = ""
-//        if (photoBitmap != null) {
-//            val byteArray = convertBitmapToByteArray(photoBitmap!!)
-//            photoBitmap!!.recycle()
-//            imageString = convertToString(byteArray)
-//        }
         NoteRepository.addNote(
             Note(
                 name = add_title_text.text.toString(),
                 description = add_description_note_text.text.toString(),
                 star = star_image_btn.isSelected,
-                //     photo = imageString, // TODO photoUri.toString()
                 photo = photoUri.toString(),
                 date = 1
             )

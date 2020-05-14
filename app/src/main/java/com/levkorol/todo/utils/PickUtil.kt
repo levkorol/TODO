@@ -2,14 +2,22 @@ package com.levkorol.todo.utils
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Base64
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.FileProvider
+import com.levkorol.todo.ui.note.AddNoteFragment
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
+import java.util.*
 
 fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray {
     val stream = ByteArrayOutputStream()
@@ -36,7 +44,6 @@ fun convertByteArrayToBitmapView(byteArray: ByteArray?): Bitmap? {
         null
     }
 }
-
 
 fun decodeUriToBitmap(mContext: Context, sendUri: Uri): Bitmap? {
     var getBitmap: Bitmap? = null

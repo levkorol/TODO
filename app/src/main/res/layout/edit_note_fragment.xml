@@ -120,7 +120,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/photoView"
+                    android:id="@+id/photoViewEdit"
                     android:layout_width="31dp"
                     android:layout_height="33dp"
                     android:layout_gravity="center"

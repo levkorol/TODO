@@ -104,7 +104,6 @@ class NoteFragment : Fragment() {
         }
 
         imageViewNotePhoto.visibility = if (imageViewNotePhoto == null) View.GONE else View.VISIBLE
-
         imageViewNotePhoto.setOnClickListener {
             if (imageViewNotePhoto != null) (activity as MainActivity).loadFragment(
                 PhotoFragment.newInstance(

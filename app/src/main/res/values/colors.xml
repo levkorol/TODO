@@ -8,5 +8,19 @@
     <color name="strongpink">#f12076</color>
     <color name="lichtpinck">#fffafc</color>
     <color name="palegray">#faf7ff</color>
+    <color name="color_primary">#1C0E42</color>
+    <color name="color_primary_dark">#2A1956</color>
+    <color name="color_primary_light">#473770</color>
+    <color name="color_accent">#FC4C4C</color>
+    <color name="color_accent_night">#2196F3</color>
+    <color name="color_grey">#9CA9BA</color>
+    <color name="color_grey_dark">#675F7F</color>
+    <color name="color_grey_light">#ECECEC</color>
+    <color name="color_indicator">#581F99</color>
+
+    <color name="color_accent_secondary">#BEAC32EE</color>
+    <color name="color_divider_dark">#1F000000</color>
+    <color name="color_divider_light">#1FFFFFFF</color>
+    <color name="color_green">#4FD149</color>
 
 </resources>
