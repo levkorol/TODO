@@ -1,5 +1,6 @@
 package com.levkorol.todo.utils
 
+import com.levkorol.todo.model.Base
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,7 +38,7 @@ enum class TimeUnits {
 }
 
 object Tools {
-    fun dateToString(date: Date): String {
+    fun dateToString(date: Base): String {
         val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy , hh:mm")
         return dateFormat.format(date)
     }

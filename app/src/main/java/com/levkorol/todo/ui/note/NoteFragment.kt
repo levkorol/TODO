@@ -72,7 +72,7 @@ class NoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         noteId = arguments?.getLong(NOTE_ID, -1)!!
-            //   note =
+
         title_note_text_view.text = arguments?.getString(NOTE_TITLE, "FAIL")
         description_note_text_view.text = arguments?.getString(NOTE_DESCRIPTION, "DESC")
         star.isSelected = arguments?.getBoolean(STAR, flagStar)!!
@@ -80,6 +80,7 @@ class NoteFragment : Fragment() {
         val photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
         imageViewNotePhoto.setImageURI(photoUri)
 
+        imageViewNotePhoto.visibility = if (photoUri == null ) View.GONE else View.VISIBLE
 
         if (star.isSelected) {
             star.setImageResource(R.drawable.ic_star)
@@ -103,9 +104,9 @@ class NoteFragment : Fragment() {
             shareNote()
         }
 
-        imageViewNotePhoto.visibility = if (imageViewNotePhoto == null) View.GONE else View.VISIBLE
+
         imageViewNotePhoto.setOnClickListener {
-            if (imageViewNotePhoto != null) (activity as MainActivity).loadFragment(
+            if (photoUri != null) (activity as MainActivity).loadFragment(
                 PhotoFragment.newInstance(
                     note!!
                 )

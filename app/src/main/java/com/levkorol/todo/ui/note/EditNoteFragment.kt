@@ -93,7 +93,7 @@ class EditNoteFragment : Fragment() {
         }
 
         star_ed.setOnClickListener {
-            starClick()
+           updateStar()
         }
 
         photoViewEdit.setOnClickListener {
@@ -118,21 +118,23 @@ class EditNoteFragment : Fragment() {
                 edit_title_text.text = SpannableStringBuilder(note?.name)
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
                 star_ed.isSelected = note!!.star
-                // TODO
+           //  updateStar()
+                if (star_ed.isSelected) {
+                    star_ed.setImageResource(R.drawable.ic_star)
+                } else {
+                    star_ed.setImageResource(R.drawable.ic_star_in_add_notes)
+                }
             }
         })
     }
 
-    private fun starClick() {
-        if (flagStar) {
+    private fun updateStar() {
+        if (star_ed.isSelected) {
             star_ed.setImageResource(R.drawable.ic_star_in_add_notes)
             star_ed.isSelected = false
-            flagStar = false
         } else {
             star_ed.setImageResource(R.drawable.ic_star)
-            //Toast.makeText(activity, "Вы отметили заметку как важная", Toast.LENGTH_LONG).show()
             star_ed.isSelected = true
-            flagStar = true
         }
     }
 

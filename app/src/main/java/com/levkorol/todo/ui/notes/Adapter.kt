@@ -15,6 +15,7 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.FolderFragment
 import com.levkorol.todo.ui.note.NoteFragment
 
+
 class Adapter(val activity: MainActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -42,7 +43,7 @@ class Adapter(val activity: MainActivity) :
             holder as FolderViewHolder
             holder.nameFolder.text = item.nameFolder
             holder.itemView.setOnClickListener {
-                activity.loadFragment(NotesFragment())
+                activity.loadFragment(FolderFragment.newInstance(item))
             }
         }
     }
@@ -72,6 +73,27 @@ class Adapter(val activity: MainActivity) :
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
+//
+//    fun updateData(dataNote: List<Note>) {
+//
+//        val diffCallback = object : DiffUtil.Callback() {
+//            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean =
+//                data[oldPos].id == data[newPos].id
+//
+//            override fun getOldListSize(): Int = data.size
+//
+//            override fun getNewListSize(): Int = data.size
+//
+//            override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean =
+//                data[oldPos].hashCode() == data[newPos].hashCode()
+//        }
+//
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//
+//        data = dataNote
+//        //  notifyDataSetChanged()
+//        diffResult.dispatchUpdatesTo(this)
+//    }
 }
 
 

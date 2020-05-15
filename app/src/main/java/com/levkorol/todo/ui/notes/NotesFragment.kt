@@ -26,6 +26,21 @@ class NotesFragment : Fragment() {
     private lateinit var adapter: Adapter
     private var  folderId = -1L
     private  var notes: List<Note>? = null
+    private var parentFolderId: Long = -1
+
+    companion object {
+        private  const val PARENT_FOLDER = "ParentId"
+
+        fun newInstance(parentFolderId: Long): NotesFragment {
+            val fragment = NotesFragment()
+            val arguments = Bundle()
+            arguments.apply {
+                putLong(PARENT_FOLDER, parentFolderId)
+            }
+            fragment.arguments = arguments
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +51,10 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(arguments != null) {
+            parentFolderId = arguments?.getLong(PARENT_FOLDER, 0)!!
+        }
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         val llm = LinearLayoutManager(view.context)
@@ -83,10 +102,10 @@ class NotesFragment : Fragment() {
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage("Что вы хотите создать?")
         builder.setPositiveButton("Заметку") { _, _ ->
-            (activity as MainActivity).loadFragment(AddNoteFragment())
+            (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(parentFolderId))
         }
         builder.setNegativeButton("Папку") { _, _ ->
-            (activity as MainActivity).loadFragment(AddFolderFragment())
+            (activity as MainActivity).loadFragment(AddFolderFragment.newInstance(parentFolderId))
         }
         builder.setNeutralButton("Отменить") { _, _ ->
         }

@@ -27,10 +27,7 @@ import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.levkorol.todo.DatePickerFragment
 import com.levkorol.todo.R
-import com.levkorol.todo.utils.PictureUtils
-import com.levkorol.todo.utils.convertBitmapToByteArray
-import com.levkorol.todo.utils.convertToString
-import com.levkorol.todo.utils.decodeUriToBitmap
+import com.levkorol.todo.utils.*
 import kotlinx.android.synthetic.main.dialog_data.*
 import java.io.File
 import java.io.IOException
@@ -41,13 +38,24 @@ class AddNoteFragment : Fragment() {
     private var flagStar: Boolean = false
     var photoUri: Uri? = null
     var note: Note? = null
+    private var parentFolderId: Long = 0
 
     companion object {
         private const val PICK_IMAGE = 100
         private const val CAMERA_INTENT = 12
         private val REQUEST_DATE = 0
         private val DIALOG_DATE = "DialogDate"
+        private const val PARENT_FOLDER = "ParentFolder"
 
+        fun newInstance(parentFolderId: Long): AddNoteFragment {
+            val fragment = AddNoteFragment()
+            val arguments = Bundle()
+            arguments.apply {
+                putLong(PARENT_FOLDER, parentFolderId)
+            }
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     override fun onCreateView(
@@ -60,6 +68,9 @@ class AddNoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(arguments != null) {
+            parentFolderId = arguments?.getLong(PARENT_FOLDER, 0)!!
+        }
         initViews()
     }
 
@@ -91,6 +102,10 @@ class AddNoteFragment : Fragment() {
 
         photoView.setOnClickListener {
             showAlterDialog()
+        }
+
+        addSchedule.setOnClickListener {
+
         }
 
     }
@@ -131,7 +146,8 @@ class AddNoteFragment : Fragment() {
                 description = add_description_note_text.text.toString(),
                 star = star_image_btn.isSelected,
                 photo = photoUri.toString(),
-                date = 1
+                date = 1,
+                parentFolderId = parentFolderId
             )
         )
     }
