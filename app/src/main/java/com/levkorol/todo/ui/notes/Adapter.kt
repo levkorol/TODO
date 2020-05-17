@@ -14,6 +14,7 @@ import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.FolderFragment
 import com.levkorol.todo.ui.note.NoteFragment
+import com.levkorol.todo.utils.convertLongToDateString
 
 
 class Adapter(val activity: MainActivity) :
@@ -23,6 +24,8 @@ class Adapter(val activity: MainActivity) :
         set(value) {
             field = value
             notifyDataSetChanged()
+
+
         }
 
     override fun getItemCount() = data.size
@@ -33,7 +36,7 @@ class Adapter(val activity: MainActivity) :
             holder as NoteViewHolder
             holder.title.text = item.name
             holder.description.text = item.description
-            holder.date.text = item.date.toString()
+          //  holder.date.text = item.date.toString()
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
             holder.itemView.setOnClickListener {
                 activity.loadFragment(NoteFragment.newInstance(item))

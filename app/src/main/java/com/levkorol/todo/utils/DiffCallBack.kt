@@ -19,7 +19,7 @@ class DiffCallback(
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].id == newList[newItemPosition].id
-                && oldList[oldItemPosition].name == newList[newItemPosition].name
-                && oldList[oldItemPosition].description == newList[newItemPosition].description
+//                && oldList[oldItemPosition].name == newList[newItemPosition].name
+//                && oldList[oldItemPosition].description == newList[newItemPosition].description
     }
 }

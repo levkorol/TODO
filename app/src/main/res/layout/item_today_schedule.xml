@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title_today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Сделать что-тоoooooo" />
+
+
+    <ImageView
+        android:id="@+id/iv_timer"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_timer"
+        android:layout_alignBottom="@+id/tv_hours_min"
+        android:layout_marginStart="16dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_hours_min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title_today"
+        android:layout_marginStart="4dp"
+        android:text="14.00"
+        android:textSize="17sp"
+        android:textColor="@color/colorAccent"
+        android:layout_toRightOf="@+id/iv_timer"/>
+
+
+    <CheckBox
+        android:id="@+id/cb_done"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="17dp" />
+
+    <View
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line"
+        android:layout_below="@id/tv_hours_min"/>
+</RelativeLayout>

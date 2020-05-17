@@ -18,6 +18,7 @@ import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
+import com.levkorol.todo.utils.convertLongToDateString
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 
@@ -62,6 +63,7 @@ class NotesFragment : Fragment() {
         adapter = Adapter(activity as MainActivity)
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
+
 
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()

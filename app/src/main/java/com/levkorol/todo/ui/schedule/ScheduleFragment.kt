@@ -1,20 +1,19 @@
 package com.levkorol.todo.ui.schedule
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-
-import com.levkorol.todo.R
-import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.notes.NotesFragment
-import com.levkorol.todo.ui.notes.NotesViewModel
+import com.levkorol.todo.ui.folder.AddFolderFragment
+import kotlinx.android.synthetic.main.schedule_fragment.*
+
 
 class ScheduleFragment : Fragment() {
+
+    internal lateinit var viewPagerAdapter: ViewPagerAdapter
 
     companion object {
         fun newInstance() = ScheduleFragment()
@@ -26,11 +25,19 @@ class ScheduleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.schedule_fragment, container, false)
+        return inflater.inflate(com.levkorol.todo.R.layout.schedule_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+
+//        val mViewPager = view.findViewById(R.id.viewPager) as ViewPager
+//        val tableView = view.findViewById(R.id.tabs) as TabLayout
+//        tableView.setupWithViewPager(mViewPager)
+//        mViewPager.adapter = ViewPagerAdapter(childFragmentManager)
+
     }
 
     override fun onStart() {
@@ -47,4 +54,12 @@ class ScheduleFragment : Fragment() {
     private fun observeSchedule() {
 
     }
+
+    private fun initViews() {
+        add_new_schedule.setOnClickListener {
+            (activity as MainActivity).loadFragment(AddScheduleFragment())
+        }
+    }
 }
+
+

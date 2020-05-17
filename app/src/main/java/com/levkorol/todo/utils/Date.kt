@@ -1,5 +1,6 @@
 package com.levkorol.todo.utils
 
+import android.annotation.SuppressLint
 import com.levkorol.todo.model.Base
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +29,11 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 }
 
 
-
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateString(systemTime: Long): String {
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+        .format(systemTime).toString()
+}
 
 enum class TimeUnits {
     SECOND,

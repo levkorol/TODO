@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
+import com.levkorol.todo.data.note.NoteRepository
 import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.AddNoteFragment
 import com.levkorol.todo.ui.notes.Adapter
+import com.levkorol.todo.ui.notes.NotesFragment
 import kotlinx.android.synthetic.main.folder_fragment.*
 import kotlinx.android.synthetic.main.folder_fragment.back_profile
 
@@ -26,7 +28,7 @@ class FolderFragment : Fragment() {
     private lateinit var viewModel: FolderViewModel
     private lateinit var adapter: Adapter
     private var folderId = -1L
-    private var folder: Folder? = null
+    private lateinit var folder: Folder
 
     companion object {
         private const val FOLDER_ID = "FOLDER_ID"
@@ -43,7 +45,6 @@ class FolderFragment : Fragment() {
             fragment.arguments = arguments
             return fragment
         }
-
     }
 
     override fun onCreateView(
@@ -73,6 +74,10 @@ class FolderFragment : Fragment() {
 
         back_profile.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+
+        delete_folder.setOnClickListener {
+            showAlterDelete()
         }
     }
 
@@ -109,6 +114,21 @@ class FolderFragment : Fragment() {
             (activity as MainActivity).loadFragment(AddFolderFragment.newInstance(folderId))
         }
         builder.setNeutralButton("Отменить") { _, _ ->
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    private fun showAlterDelete() {
+        val builder = AlertDialog.Builder(context!!)
+        builder.setMessage("Удалить эту папку?")
+        builder.setPositiveButton("Да") { _, _ ->
+            NoteRepository.deleteFolderById(folderId)
+            parentFragmentManager.popBackStack()
+           // (activity as MainActivity).loadFragment(NotesFragment())
+        }
+        builder.setNegativeButton("Отмена") { _, _ ->
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()

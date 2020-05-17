@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
         loadFragment(NotesFragment())
 
         bottom_nav_view.setOnNavigationItemSelectedListener { menuItem ->

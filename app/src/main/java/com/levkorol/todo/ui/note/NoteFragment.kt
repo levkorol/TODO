@@ -57,6 +57,16 @@ class NoteFragment : Fragment() {
             fragment.arguments = arguments
             return fragment
         }
+
+//        fun instance(noteId: Long) : NoteFragment {
+//            val fragment = NoteFragment()
+//            val arg = Bundle()
+//            arg.apply {
+//                putLong(NOTE_ID, noteId)
+//            }
+//            fragment.arguments = arg
+//            return fragment
+//        }
     }
 
 
@@ -120,7 +130,6 @@ class NoteFragment : Fragment() {
         })
     }
 
-
     override fun onStart() {
         super.onStart()
         viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
@@ -133,7 +142,8 @@ class NoteFragment : Fragment() {
         builder.setMessage("Удалить запись?")
         builder.setPositiveButton("Да") { _, _ ->
             NoteRepository.deleteById(noteId)
-            (activity as MainActivity).loadFragment(NotesFragment())
+            parentFragmentManager.popBackStack()
+           // (activity as MainActivity).loadFragment(NotesFragment())
         }
         builder.setNegativeButton("Отмена") { _, _ ->
 

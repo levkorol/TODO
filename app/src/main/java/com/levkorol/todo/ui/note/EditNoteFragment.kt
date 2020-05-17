@@ -1,5 +1,6 @@
 package com.levkorol.todo.ui.note
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.NoteRepository
 import com.levkorol.todo.model.Note
+import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
 import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
@@ -30,7 +32,6 @@ class EditNoteFragment : Fragment() {
     private var noteId: Long = -1
     private lateinit var viewModel: NotesViewModel
     private var note: Note? = null
-    private var flagStar: Boolean = false
     private var photoUri: Uri? = null
 
     companion object {
@@ -53,7 +54,6 @@ class EditNoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.edit_note_fragment, container, false)
     }
 
@@ -90,10 +90,11 @@ class EditNoteFragment : Fragment() {
             Toast.makeText(activity, "Изменения сохранены", Toast.LENGTH_LONG).show()
             saveEditNote()
             parentFragmentManager.popBackStack()
+            (activity as MainActivity).loadFragment(NoteFragment.newInstance(note!!))
         }
 
         star_ed.setOnClickListener {
-           updateStar()
+            updateStar()
         }
 
         photoViewEdit.setOnClickListener {
@@ -102,13 +103,16 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveEditNote() {
-        // TODO note?.copy()
+       // val oldNote = note?.copy()
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
         note!!.photo = photoUri.toString()
-        // TODO if (oldNote != newNote)
+//        if (oldNote != note) {
+//          showAlterExit()
+//        }
         NoteRepository.update(note!!)
+
     }
 
     private fun observeNotes() {
@@ -117,8 +121,8 @@ class EditNoteFragment : Fragment() {
             if (note != null) {
                 edit_title_text.text = SpannableStringBuilder(note?.name)
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
+                //  photoViewEdit.setImageURI(photoUri) //TODO как передать сохраненную картинку если она есть в режим редактирования
                 star_ed.isSelected = note!!.star
-           //  updateStar()
                 if (star_ed.isSelected) {
                     star_ed.setImageResource(R.drawable.ic_star)
                 } else {
@@ -194,4 +198,21 @@ class EditNoteFragment : Fragment() {
 //        val dialog: AlertDialog = builder.create()
 //        dialog.show()
     }
+//
+//    @SuppressLint("UseRequireInsteadOfGet")
+//    private fun showAlterExit() {
+//        val builder = AlertDialog.Builder(context!!)
+//        builder.setMessage("Сохранить изменения?")
+//        builder.setPositiveButton("Да") { _, _ ->
+//            NoteRepository.update(note!!)
+//            parentFragmentManager.popBackStack()
+//            // (activity as MainActivity).loadFragment(NotesFragment())
+//        }
+//        builder.setNegativeButton("Отмена") { _, _ ->
+//
+//        }
+//        val dialog: AlertDialog = builder.create()
+//        dialog.show()
+//    }
+
 }

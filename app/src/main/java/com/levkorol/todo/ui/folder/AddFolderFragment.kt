@@ -48,8 +48,8 @@ class AddFolderFragment : Fragment() {
          }
 
         save_folder_btn.setOnClickListener {
-            (activity as MainActivity).loadFragment(NotesFragment())
             saveFolder()
+            parentFragmentManager.popBackStack()
         }
     }
 
@@ -82,7 +82,7 @@ class AddFolderFragment : Fragment() {
                 descriptionFolder = add_description_folder_text.text.toString(),
                 color = 1,
                 parentFolderId =  parentFolderId,
-                date = 1
+                date = System.currentTimeMillis()
             )
         )
 
