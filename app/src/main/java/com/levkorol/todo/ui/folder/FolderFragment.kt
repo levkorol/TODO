@@ -29,6 +29,7 @@ class FolderFragment : Fragment() {
     private lateinit var adapter: Adapter
     private var folderId = -1L
     private lateinit var folder: Folder
+    private var title: String = ""
 
     companion object {
         private const val FOLDER_ID = "FOLDER_ID"
@@ -58,6 +59,10 @@ class FolderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         folderId = arguments?.getLong(FOLDER_ID, -1)!!
+
+         title = arguments?.getString(TITLE,"").toString()
+
+
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_folder_fragment)
         val llm = LinearLayoutManager(view.context)
@@ -122,7 +127,7 @@ class FolderFragment : Fragment() {
     @SuppressLint("UseRequireInsteadOfGet")
     private fun showAlterDelete() {
         val builder = AlertDialog.Builder(context!!)
-        builder.setMessage("Удалить эту папку?")
+        builder.setMessage("Удалить папку $title?")
         builder.setPositiveButton("Да") { _, _ ->
             NoteRepository.deleteFolderById(folderId)
             parentFragmentManager.popBackStack()
