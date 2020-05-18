@@ -17,7 +17,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -49,7 +49,12 @@
 
     </com.google.android.material.tabs.TabLayout>
 
+</androidx.viewpager.widget.ViewPager>
 
-    </androidx.viewpager.widget.ViewPager>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_sch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_list_schedule"/>
 
 </LinearLayout>

@@ -4,18 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
-import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.note.NoteFragment
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
-import com.levkorol.todo.model.Base
-import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Schedule
-import java.util.*
 
 
 class ScheduleAdapter(
@@ -37,7 +32,7 @@ class ScheduleAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(
-            R.layout.item_today_schedule,
+            R.layout.item_list_schedule,
             parent, false
         )
         return ScheduleViewHolder(view)
@@ -45,6 +40,10 @@ class ScheduleAdapter(
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val item = dataItems[position]
+        holder.title_schedule.text = item.title
+        holder.date_schedule.text = item.date.toString()
+        holder.checkBox.isSelected = item.checkBoxDone
+        holder.timer.isSelected = item.alarm
 
 
 //            holder.itemView.setOnClickListener {
@@ -77,8 +76,9 @@ class ScheduleAdapter(
     }
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleToday: TextView = itemView.findViewById(R.id.tv_title_today)
-        val date: TextView = itemView.findViewById(R.id.tv_hours_min)
-        val checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
+        var title_schedule: TextView = itemView.findViewById(R.id.tv_title_today)
+        var date_schedule: TextView = itemView.findViewById(R.id.tv_hours_min)
+        var timer: ImageView = itemView.findViewById(R.id.iv_timer)
+        var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
     }
 }

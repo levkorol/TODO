@@ -88,14 +88,14 @@
         android:layout_marginEnd="16dp"
         android:layout_weight="2"
         android:background="@drawable/background_item_note">
- 
+
         <ScrollView
             android:id="@+id/text_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/add_description_note_text"
+                android:id="@+id/add_description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="2"
@@ -107,6 +107,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/add_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/palegray"
@@ -135,6 +136,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/add_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/lichtpinck"
@@ -185,6 +187,7 @@
             android:textStyle="bold" />
 
         <Switch
+            android:id="@+id/switch_"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_margin="12dp" />
@@ -192,7 +195,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/save_note_btn"
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

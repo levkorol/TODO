@@ -11,7 +11,7 @@
     <item android:gravity="bottom" android:start="18dp"  >
         <shape android:shape="rectangle" >
             <size  android:height="1dp" />
-            <solid android:color="@android:color/black"/>
+            <solid android:color="@color/color_divider_light"/>
         </shape>
     </item>
 </layer-list>
