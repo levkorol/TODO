@@ -121,7 +121,7 @@
 
 
             <LinearLayout
-                android:id="@+id/addSchedule"
+                android:id="@+id/addPhoto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -168,18 +168,18 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/addSchedule"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1.1">
+                android:layout_weight="1.1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/add_schedule"
                     android:layout_width="31dp"
                     android:layout_height="33dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_add_calendar"
-                    />
+                    android:src="@drawable/ic_add_calendar" />
 
 
                 <TextView

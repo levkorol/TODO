@@ -4,30 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toUri
-import androidx.core.text.parseAsHtml
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.notes.NotesFragment
 import com.levkorol.todo.ui.notes.NotesViewModel
 import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_note.back_profile
-import com.levkorol.todo.utils.convertByteArrayToBitmapView
-import com.levkorol.todo.utils.convertToByteArrayView
-import kotlinx.android.synthetic.main.add_note.*
-import kotlinx.android.synthetic.main.edit_note_fragment.*
 
 
 class NoteFragment : Fragment() {
@@ -141,7 +131,7 @@ class NoteFragment : Fragment() {
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage("Удалить запись?")
         builder.setPositiveButton("Да") { _, _ ->
-            NoteRepository.deleteById(noteId)
+            MainRepository.deleteById(noteId)
             parentFragmentManager.popBackStack()
            // (activity as MainActivity).loadFragment(NotesFragment())
         }

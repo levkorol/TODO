@@ -1,6 +1,5 @@
 package com.levkorol.todo.ui.note
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -18,11 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
-import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
 import java.io.File
@@ -111,7 +109,7 @@ class EditNoteFragment : Fragment() {
 //        if (oldNote != note) {
 //          showAlterExit()
 //        }
-        NoteRepository.update(note!!)
+        MainRepository.update(note!!)
 
     }
 
@@ -119,9 +117,9 @@ class EditNoteFragment : Fragment() {
         viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
             if (note != null) {
-                edit_title_text.text = SpannableStringBuilder(note?.name)
-                edit_description_note_text.text = SpannableStringBuilder(note?.description)
-                //  photoViewEdit.setImageURI(photoUri) //TODO как передать сохраненную картинку если она есть в режим редактирования
+                edit_title_text.setText(note?.name)
+                edit_description_note_text.text = SpannableStringBuilder(note?.description) // TODO
+                //  photoViewEdit.setImageURI(photoUri) //TODO как передать сохраненную картинку если она есть в режим редактирования = нужон note.photo
                 star_ed.isSelected = note!!.star
                 if (star_ed.isSelected) {
                     star_ed.setImageResource(R.drawable.ic_star)

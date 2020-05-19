@@ -9,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
-import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.notes.NotesFragment
 import kotlinx.android.synthetic.main.add_note.*
 import java.util.*
 import android.net.Uri
@@ -21,6 +19,7 @@ import android.os.Build.VERSION_CODES.N
 import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.provider.MediaStore.EXTRA_OUTPUT
 import androidx.core.content.FileProvider
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
 import java.io.File
 
@@ -33,6 +32,7 @@ class AddNoteFragment : Fragment() {
     private var parentFolderId: Long = 0
 
     companion object {
+        private val TAG = AddNoteFragment::class.java.simpleName
         private const val PICK_IMAGE = 100
         private const val CAMERA_INTENT = 12
         private val REQUEST_DATE = 0
@@ -98,7 +98,9 @@ class AddNoteFragment : Fragment() {
         }
 
         addSchedule.setOnClickListener {
+            val builder = MaterialDatePicker.Builder.datePicker()
 
+            builder.build().show(parentFragmentManager, TAG)
         }
 
     }
@@ -141,7 +143,7 @@ class AddNoteFragment : Fragment() {
             date = System.currentTimeMillis(),
             parentFolderId = parentFolderId
         )
-        NoteRepository.addNote(note)
+        MainRepository.addNote(note)
     }
 
     // @SuppressLint("UseRequireInsteadOfGet")

@@ -7,13 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Folder
-import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.note.AddNoteFragment
-import com.levkorol.todo.ui.notes.NotesFragment
 import kotlinx.android.synthetic.main.fragment_add_folder.*
 
 class AddFolderFragment : Fragment() {
@@ -76,7 +72,7 @@ class AddFolderFragment : Fragment() {
 
     private fun saveFolder() {
 
-        NoteRepository.addFolder(
+        MainRepository.addFolder(
             Folder(
                 nameFolder = add_title_text_folder.text.toString(),
                 descriptionFolder = add_description_folder_text.text.toString(),

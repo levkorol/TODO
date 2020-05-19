@@ -6,12 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
-import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.add_title_text
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
@@ -59,11 +57,11 @@ class AddScheduleFragment : Fragment() {
     private fun saveSchedule() {
         schedule = Schedule(
             title = add_title_text.text.toString(),
-            discription = add_description_text.text.toString(),
+            description = add_description_text.text.toString(),
             date = 1, //TODO как выставить дату из фрагмента календаря
             checkBoxDone = false,
             alarm = false //TODO как выставить время
         )
-        NoteRepository.addSchedule(schedule)
+        MainRepository.addSchedule(schedule)
     }
 }

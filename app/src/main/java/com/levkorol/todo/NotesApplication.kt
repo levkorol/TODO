@@ -3,7 +3,7 @@ package com.levkorol.todo
 import android.app.Application
 import androidx.room.Room
 import com.levkorol.todo.data.note.NoteDatabase
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 
 
 class NotesApplication : Application() {
@@ -13,6 +13,6 @@ class NotesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         database = Room.databaseBuilder(this, NoteDatabase::class.java, "notes").build()
-        NoteRepository.initialize(database)
+        MainRepository.initialize(database)
     }
 }

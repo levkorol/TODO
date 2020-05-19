@@ -11,12 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.levkorol.todo.R
-import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.notes.Adapter
-import com.levkorol.todo.ui.notes.NotesFragment
+import com.levkorol.todo.utils.isToday
 import kotlinx.android.synthetic.main.schedule_fragment.*
 
 
@@ -66,11 +65,14 @@ class ScheduleFragment : Fragment() {
 
 //TODO как сделать вью пейджер и переключение трех фрагментов(Сегодня Неделя Месяц во фрагменте Расписание
 
-//        val mViewPager = view.findViewById(R.id.viewPager) as ViewPager
-//        val tableView = view.findViewById(R.id.tabs) as TabLayout
-//        tableView.setupWithViewPager(mViewPager)
-//        mViewPager.adapter = ViewPagerAdapter(childFragmentManager)
-
+        viewPager.adapter = ViewPagerAdapter(childFragmentManager)
+        tabs.setupWithViewPager(viewPager)
+        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                pagePosition = position
+                updateSchedules()
+            }
+        })
     }
 
     override fun onStart() {
@@ -84,14 +86,28 @@ class ScheduleFragment : Fragment() {
         (activity as MainActivity).updateNavigation(ScheduleFragment())
     }
 
+    private var pagePosition: Int = 0
+    private var schedules: List<Schedule>? = null
 
     private fun observeSchedule() {
         viewModel.getSchedules().observe(this, Observer { schedules ->
-
-            adapter.dataItems =  schedules
-            adapter.notifyDataSetChanged()
-
+            this.schedules = schedules
+            updateSchedules()
         })
+    }
+
+    private fun updateSchedules() {
+        if (schedules == null) return
+        adapter.dataItems =  schedules!!.filter { schedule ->
+//            when (pagePosition) {
+//                0 -> isToday(schedule.date)
+//                1 -> isToday(schedule.date)
+//                2 -> isToday(schedule.date)
+//                else -> true
+//            }
+            true
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun initViews() {
@@ -110,8 +126,8 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = ScheduleFragment()
-            1 -> fragment = WeekFragment()
+//            0 -> fragment = ScheduleFragment()
+            0, 1 -> fragment = WeekFragment()
             2 -> fragment = MonthFragment()
         }
         return fragment!!
@@ -119,13 +135,13 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int = 3
 
-//    override fun getPageTitle(position: Int): CharSequence? {
-//        var title: String? = null
-//        when (position) {
-//            0 -> title = "Сегодня"
-//            1 -> title = "Неделя"
-//            2 -> title = "Месяц"
-//        }
-//        return title!!
-//    }
+    override fun getPageTitle(position: Int): CharSequence? {
+        var title: String? = null
+        when (position) {
+            0 -> title = "Сегодня"
+            1 -> title = "Неделя"
+            2 -> title = "Месяц"
+        }
+        return title!!
+    }
 }

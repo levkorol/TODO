@@ -12,13 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.NoteRepository
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.AddNoteFragment
 import com.levkorol.todo.ui.notes.Adapter
-import com.levkorol.todo.ui.notes.NotesFragment
 import kotlinx.android.synthetic.main.folder_fragment.*
 import kotlinx.android.synthetic.main.folder_fragment.back_profile
 
@@ -129,7 +128,7 @@ class FolderFragment : Fragment() {
         val builder = AlertDialog.Builder(context!!)
         builder.setMessage("Удалить папку $title?")
         builder.setPositiveButton("Да") { _, _ ->
-            NoteRepository.deleteFolderById(folderId)
+            MainRepository.deleteFolderById(folderId)
             parentFragmentManager.popBackStack()
            // (activity as MainActivity).loadFragment(NotesFragment())
         }

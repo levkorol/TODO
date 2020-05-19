@@ -2,8 +2,11 @@ package com.levkorol.todo.utils
 
 import android.annotation.SuppressLint
 import com.levkorol.todo.model.Base
+import java.lang.System.currentTimeMillis
+import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar.*
 
 const val SECOND = 10000L
 const val MINUTE = 60 * SECOND
@@ -47,4 +50,14 @@ object Tools {
         val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy , hh:mm")
         return dateFormat.format(date)
     }
+}
+
+fun isToday(time: Long): Boolean {
+    val calendar = GregorianCalendar()
+    calendar.timeInMillis = time
+    val thenYear = calendar.get(YEAR)
+    val thenMonth = calendar.get(MONTH)
+    val thenDay = calendar.get(DAY_OF_MONTH)
+    calendar.timeInMillis = currentTimeMillis()
+    return thenYear == calendar.get(YEAR) && thenMonth == calendar.get(MONTH) && thenDay == calendar.get(DAY_OF_MONTH)
 }

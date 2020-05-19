@@ -10,7 +10,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-object NoteRepository {
+object MainRepository {
 
     private lateinit var noteDao: NoteDao
     private lateinit var folderDao: FolderDao
