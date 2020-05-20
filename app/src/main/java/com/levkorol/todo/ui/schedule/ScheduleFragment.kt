@@ -25,11 +25,11 @@ class ScheduleFragment : Fragment() {
     private lateinit var schedule: Schedule
     private lateinit var viewModel: ScheduleViewModel
     private lateinit var adapter: ScheduleAdapter
-    private var id : Long = -1
+    private var id: Long = -1
 
     companion object {
         private const val SCHEDULE_ID = "SCHEDULE_ID"
-        fun newInstance(id: Long) : ScheduleFragment {
+        fun newInstance(id: Long): ScheduleFragment {
             val fragment = ScheduleFragment()
             val arguments = Bundle()
             arguments.apply {
@@ -50,7 +50,7 @@ class ScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(arguments != null) {
+        if (arguments != null) {
             id = arguments?.getLong(SCHEDULE_ID, id)!!
         }
 
@@ -98,8 +98,8 @@ class ScheduleFragment : Fragment() {
 
     private fun updateSchedules() {
         if (schedules == null) return
-        adapter.dataItems =  schedules!!.filter { schedule ->
-//            when (pagePosition) {
+        adapter.dataItems = schedules!!.filter { schedule ->
+            //            when (pagePosition) {
 //                0 -> isToday(schedule.date)
 //                1 -> isToday(schedule.date)
 //                2 -> isToday(schedule.date)
@@ -118,16 +118,13 @@ class ScheduleFragment : Fragment() {
 }
 
 
-
-
-
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-//            0 -> fragment = ScheduleFragment()
-            0, 1 -> fragment = WeekFragment()
+            0 -> fragment = TodayFragment()
+            1 -> fragment = WeekFragment()
             2 -> fragment = MonthFragment()
         }
         return fragment!!

@@ -72,15 +72,15 @@ class NotesFragment : Fragment() {
 
         // TODO сохранить поисковую строку в локальную переменную query
         // TODO потом вызываешь updateNotes()
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                TODO("Not yet implemented")
-            }
-        })
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//        })
     }
 
     override fun onStart() {
