@@ -26,6 +26,7 @@ class NoteFragment : Fragment() {
     private var noteId: Long = -1
     private var flagStar: Boolean = false
     private var note: Note? = null
+  //  private lateinit var photoUri: Uri
 
     companion object {
         private const val NOTE_ID = "NOTE_ID"
@@ -77,10 +78,22 @@ class NoteFragment : Fragment() {
         description_note_text_view.text = arguments?.getString(NOTE_DESCRIPTION, "DESC")
         star.isSelected = arguments?.getBoolean(STAR, flagStar)!!
 
+        initViews()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        observeNotes()
+    }
+
+    private fun initViews() {
+
         val photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
         imageViewNotePhoto.setImageURI(photoUri)
 
-        imageViewNotePhoto.visibility = if (photoUri == null ) View.GONE else View.VISIBLE
+        cardView.visibility = if (photoUri != null ) View.VISIBLE else View.GONE // TODO ne rabotaet
 
         if (star.isSelected) {
             star.setImageResource(R.drawable.ic_star)
@@ -104,7 +117,6 @@ class NoteFragment : Fragment() {
             shareNote()
         }
 
-
         imageViewNotePhoto.setOnClickListener {
             if (photoUri != null) (activity as MainActivity).loadFragment(
                 PhotoFragment.newInstance(
@@ -112,18 +124,14 @@ class NoteFragment : Fragment() {
                 )
             )
         }
+
+
     }
 
     private fun observeNotes() {
         viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
-        observeNotes()
     }
 
     @SuppressLint("UseRequireInsteadOfGet")

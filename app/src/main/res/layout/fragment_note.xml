@@ -241,12 +241,14 @@
                 fffff" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
+                android:visibility="gone"
                 app:cardElevation="8dp">
 
                 <ImageView

@@ -15,10 +15,14 @@ import androidx.viewpager.widget.ViewPager
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.utils.isMounth
+import com.levkorol.todo.utils.isSameWeek
 import com.levkorol.todo.utils.isToday
 import kotlinx.android.synthetic.main.schedule_fragment.*
 
 
+
+@Suppress("PLUGIN_WARNING")
 class ScheduleFragment : Fragment() {
 
     internal lateinit var viewPagerAdapter: ViewPagerAdapter
@@ -66,7 +70,7 @@ class ScheduleFragment : Fragment() {
 //TODO как сделать вью пейджер и переключение трех фрагментов(Сегодня Неделя Месяц во фрагменте Расписание
 
         viewPager.adapter = ViewPagerAdapter(childFragmentManager)
-        tabs.setupWithViewPager(viewPager)
+       // tabs.setupWithViewPager(viewPager)  //TODO ошибка но вроде и без этого работает
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 pagePosition = position
@@ -99,12 +103,12 @@ class ScheduleFragment : Fragment() {
     private fun updateSchedules() {
         if (schedules == null) return
         adapter.dataItems = schedules!!.filter { schedule ->
-            //            when (pagePosition) {
-//                0 -> isToday(schedule.date)
-//                1 -> isToday(schedule.date)
-//                2 -> isToday(schedule.date)
-//                else -> true
-//            }
+                        when (pagePosition) {
+                0 -> isToday(schedule.date)
+                1 -> isSameWeek(schedule.date)
+                2 -> isMounth(schedule.date)
+                else -> true
+            }
             true
         }
         adapter.notifyDataSetChanged()

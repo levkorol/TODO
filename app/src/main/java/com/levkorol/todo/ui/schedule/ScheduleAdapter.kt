@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import androidx.recyclerview.widget.DiffUtil
+import com.levkorol.todo.data.note.MainRepository
+import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
+import kotlinx.android.synthetic.main.item_list_schedule.*
 
 
 class ScheduleAdapter(
     val activity: MainActivity
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+
+    private lateinit var schedule: Schedule
 
     var dataItems: List<Schedule> = listOf()
         set(value) {
@@ -45,6 +50,17 @@ class ScheduleAdapter(
         holder.checkBox.isSelected = item.checkBoxDone
         holder.timer.isSelected = item.alarm
 
+//todo чекбокс
+        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            schedule = dataItems[position]
+            if (isChecked) {
+                schedule.checkBoxDone = true
+                MainRepository.updateSchedule(schedule)
+            } else {
+                schedule.checkBoxDone = false
+                MainRepository.updateSchedule(schedule)
+            }
+        }
 
 //            holder.itemView.setOnClickListener {
 //                activity.loadFragment(

@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
@@ -23,6 +24,7 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
+import kotlinx.android.synthetic.main.fragment_note.*
 import java.io.File
 import java.util.*
 
@@ -36,6 +38,7 @@ class EditNoteFragment : Fragment() {
         private const val PICK_IMAGE = 100
         private const val CAMERA_INTENT = 12
         private const val NOTE_ID = "NOTE_ID"
+        private const val PHOTO = "Photo"
 
         fun newInstance(noteId: Long): EditNoteFragment {
             val fragment = EditNoteFragment()
@@ -101,7 +104,7 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveEditNote() {
-       // val oldNote = note?.copy()
+        // val oldNote = note?.copy()
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
@@ -118,8 +121,14 @@ class EditNoteFragment : Fragment() {
             note = notes.firstOrNull { n -> n.id == noteId }
             if (note != null) {
                 edit_title_text.setText(note?.name)
-                edit_description_note_text.text = SpannableStringBuilder(note?.description) // TODO
-                //  photoViewEdit.setImageURI(photoUri) //TODO как передать сохраненную картинку если она есть в режим редактирования = нужон note.photo
+                edit_description_note_text.text = SpannableStringBuilder(note?.description)
+
+                 //TODO  передать сохраненную картинку если она есть в режим редактирования
+                // TODO и если ее не менять и не удалить что бы сохранилась при сохранении редактирования= нужон note.photo
+
+                val photo = Uri.parse(note!!.photo)
+                photoViewEdit.setImageURI(photo)
+
                 star_ed.isSelected = note!!.star
                 if (star_ed.isSelected) {
                     star_ed.setImageResource(R.drawable.ic_star)

@@ -21,6 +21,7 @@ import android.provider.MediaStore.EXTRA_OUTPUT
 import androidx.core.content.FileProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
+import kotlinx.android.synthetic.main.list_item_note.*
 import java.io.File
 
 
@@ -100,6 +101,9 @@ class AddNoteFragment : Fragment() {
         addSchedule.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
 
+            builder.build().addOnPositiveButtonClickListener{
+             // MainRepository.update(note.date)
+            }
             builder.build().show(parentFragmentManager, TAG)
         }
 

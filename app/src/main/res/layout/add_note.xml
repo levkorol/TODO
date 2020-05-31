@@ -199,7 +199,6 @@
         </LinearLayout>
 
         <Button
-
             android:id="@+id/save_note_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,8 +210,6 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
-
-
 
     </LinearLayout>
 

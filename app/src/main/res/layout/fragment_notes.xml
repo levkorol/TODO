@@ -35,14 +35,15 @@
             android:layout_gravity="center"
             android:layout_weight="4">
 
+
+
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@drawable/background_search"
+                android:layout_height="wrap_content"
 
                 android:orientation="horizontal" />
-
         </FrameLayout>
 
         <FrameLayout
@@ -52,7 +53,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/burgerButton"
+                android:id="@+id/filter_btn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="8dp"

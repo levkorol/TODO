@@ -61,7 +61,7 @@ object MainRepository {
         }
     }
 
-    fun updateSchedule(schedule: Schedule) {
+    fun updateSchedule(schedule: Schedule){
         GlobalScope.launch(Dispatchers.IO) {
             scheduleDao.update(schedule)
         }
