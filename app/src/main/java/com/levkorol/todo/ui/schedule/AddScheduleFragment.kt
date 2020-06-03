@@ -1,25 +1,28 @@
 package com.levkorol.todo.ui.schedule
 
-
-import android.content.ContentValues.TAG
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.datepicker.MaterialDatePicker
-
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
-import com.levkorol.todo.ui.note.AddNoteFragment
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.add_title_text
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class AddScheduleFragment : Fragment() {
 
     private lateinit var schedule: Schedule
+    private var date: Long = 1
+    private var time: Long = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,18 +48,40 @@ class AddScheduleFragment : Fragment() {
         }
 
         add_date.setOnClickListener {
-            //TODO как открыть виджет даты и сохранить выбранное значение
             val builder = MaterialDatePicker.Builder.datePicker()
+            val picker: MaterialDatePicker<Long> = builder.build()
+            picker.addOnPositiveButtonClickListener { unixTime ->
+                date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
+                date = unixTime
+//                date = if(date_selected.text != null) {
+//                    unixTime
+//                } else {
+//                    System.currentTimeMillis() //todo в сегодняшнюю дату добавить schedule если дата не выбрана
+//                }
 
-            builder.build().show(parentFragmentManager, TAG)
+            }
+            picker.show(parentFragmentManager, picker.toString())
         }
 
         add_time.setOnClickListener {
-            //TODO как сделать и открыть виджет время и сохранить выбранное значение
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                time_tv.text = SimpleDateFormat("HH:mm").format(cal.time)
+                time = cal.time.time
+            }
+            TimePickerDialog(
+                context,
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
         }
 
         switch_.setOnClickListener {
-            //TODO как вкл оповещение на заданное время
+            //TODO  оповещение на заданное время
         }
     }
 
@@ -64,9 +89,10 @@ class AddScheduleFragment : Fragment() {
         schedule = Schedule(
             title = add_title_text.text.toString(),
             description = add_description_text.text.toString(),
-            date = 1, //TODO как выставить дату из фрагмента календаря
+            date = date,
             checkBoxDone = false,
-            alarm = false //TODO как выставить время
+            time = time,
+            alarm = false //TODO оповещение
         )
         MainRepository.addSchedule(schedule)
     }

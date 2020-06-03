@@ -104,7 +104,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Color folder:"
+            android:text="Цвет папки:"
             android:textColor="@android:color/black"
             android:layout_gravity="center"
             android:textSize="22sp"/>
@@ -174,7 +174,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="@color/strongpink"
+                android:background="@drawable/bg_folder_3"
                 android:drawableStart="@drawable/ic_folde24dp"
                 android:padding="10dp"
                 android:textColor="@android:color/white"
@@ -194,7 +194,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="@color/cardview_dark_background"
+                android:background="@drawable/bg_folder_3"
                 android:drawableStart="@drawable/ic_folde24dp"
                 android:padding="10dp"
                 android:textColor="@android:color/white"

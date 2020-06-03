@@ -10,5 +10,6 @@ data class Schedule(
     var description: String,
     var date: Long,
     var checkBoxDone: Boolean,
+    var time: Long,
     var alarm: Boolean
 )

@@ -1,14 +1,10 @@
 package com.levkorol.todo.ui.notes
 
-import android.app.DownloadManager
-import android.database.Observable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.SearchView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,7 +19,6 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
 import kotlinx.android.synthetic.main.fragment_notes.*
-import java.util.concurrent.TimeUnit
 
 class NotesFragment : Fragment() {
     private lateinit var viewModel: NotesViewModel
@@ -34,6 +29,7 @@ class NotesFragment : Fragment() {
     private var childElements: MutableList<Base>? = null
 
     private  var query : String = ""
+    private  var newText : String = ""
 
     companion object {
         private const val PARENT_FOLDER = "ParentId"
@@ -79,24 +75,39 @@ class NotesFragment : Fragment() {
             filterDialog()
         }
 
-        // TODO сохранить поисковую строку в локальную переменную query
-        // TODO потом вызываешь updateNotes()
+        // TODO сбросить поиск
         searchView.queryHint = "Поиск"
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    handleSearchQuery(query)
+                }
                 updateNotes()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    handleSearchNewText(newText)
+                }
                 updateNotes()
                 return true
             }
         })
 
+//        swipeRefreshLayout.setOnRefreshListener{
+//
+//        }
     }
 
+    private fun handleSearchQuery(text: String) {
+        query = text
+    }
+
+    private fun handleSearchNewText(text: String) {
+        newText = text
+    }
 
     override fun onStart() {
         super.onStart()

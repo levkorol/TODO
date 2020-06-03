@@ -32,11 +32,7 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 }
 
 
-@SuppressLint("SimpleDateFormat")
-fun convertLongToDateString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-        .format(systemTime).toString()
-}
+
 
 enum class TimeUnits {
     SECOND,
@@ -46,9 +42,14 @@ enum class TimeUnits {
 }
 
 object Tools {
-    fun dateToString(date: Base): String {
-        val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy , hh:mm")
+    fun dateToString(date: Long): String {
+        val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy ")
         return dateFormat.format(date)
+    }
+
+    fun convertLongToTimeString(systemTime: Long): String {
+        return SimpleDateFormat("HH:mm")
+            .format(systemTime).toString()
     }
 }
 
