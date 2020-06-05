@@ -28,9 +28,11 @@
                     android:id="@+id/back_profile"
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/btn_back"
-                    android:padding="8dp" />
+                   />
 
             </FrameLayout>
 
@@ -45,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="@string/edit"
-                    android:textSize="17sp"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </FrameLayout>
@@ -57,26 +60,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/titile_note" />
 
             <EditText
                 android:id="@+id/edit_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Название..."
+                android:lines="1"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="@string/discription_note"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -99,7 +101,10 @@
                     android:id="@+id/edit_description_note_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:gravity="top|start"
+                    android:inputType="textPostalAddress|textMultiLine"
+                    android:lines="17" />
 
             </ScrollView>
 
@@ -192,7 +197,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/btn_background"
             android:text="@string/save_edit"
             android:textAllCaps="false"

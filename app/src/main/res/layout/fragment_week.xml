@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="2.5"
-            android:text="Пн."
+            android:text="Пн. 15/04"
             android:textColor="@color/ultramarin"
             android:textSize="17sp"
             android:textStyle="bold" />

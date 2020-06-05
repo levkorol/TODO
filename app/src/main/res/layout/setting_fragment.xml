@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Настройки"
         android:textStyle="bold"
-        android:textSize="19sp"
+        android:textSize="17sp"
         android:textColor="@color/ultramarin"
         android:layout_gravity="center"
        />
@@ -44,6 +44,15 @@
          android:layout_marginTop="10dp"
          android:textSize="16sp"
          android:text="Архив"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:text="Синхронизация"/>
 
     <TextView
         android:layout_width="wrap_content"

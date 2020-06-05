@@ -124,7 +124,7 @@ class EditNoteFragment : Fragment() {
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
 
                  //TODO  передать сохраненную картинку если она есть в режим редактирования
-                // TODO и если ее не менять и не удалить что бы сохранилась при сохранении редактирования= нужон note.photo
+                //todo передать удалось но не пересохранить и как можно еще удалить в режиме редактирования нажав на  textView
 
                 val photo = Uri.parse(note!!.photo)
                 photoViewEdit.setImageURI(photo)

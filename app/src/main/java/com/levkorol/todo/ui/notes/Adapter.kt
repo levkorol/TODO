@@ -35,7 +35,7 @@ class Adapter(val activity: MainActivity) :
             //  holder.date.text = item.date.toString()
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
             holder.itemView.setOnClickListener {
-                activity.loadFragment(NoteFragment.newInstance(item))
+                activity.loadFragment(NoteFragment.newInstance(item)) //todo
             }
         } else {
             item as Folder

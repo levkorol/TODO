@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,28 +19,27 @@
                 android:id="@+id/back_profile"
                 android:layout_width="15dp"
                 android:layout_height="20dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/btn_back"
-                android:padding="8dp" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_back" />
 
         </FrameLayout>
-
-
-
 
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="2.1">
+            android:layout_weight="2.">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:text="Создание папки"
-                android:textSize="17sp"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </FrameLayout>
@@ -52,27 +51,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/titile_note" />
 
         <EditText
             android:id="@+id/add_title_text_folder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold" />
+            android:hint="Название..." />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/discription_note"
-            android:textStyle="bold" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
@@ -85,12 +80,14 @@
         android:layout_weight="1"
         android:background="@drawable/background_item_note">
 
-            <EditText
-                android:id="@+id/add_description_folder_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="2"
-                android:background="@null" />
+        <EditText
+            android:id="@+id/add_description_folder_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|start"
+            android:inputType="textPostalAddress|textMultiLine"
+            android:lines="15" />
 
     </FrameLayout>
 
@@ -98,111 +95,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Цвет папки:"
             android:textColor="@android:color/black"
-            android:layout_gravity="center"
-            android:textSize="22sp"/>
+            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
-                android:orientation="horizontal">
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/radioButton1"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="siniy"
-                  />
+                    android:layout_weight="1"
+                    android:text="Фиолетовый" />
 
                 <RadioButton
                     android:id="@+id/radioButton2"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="krasniy"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   />
+                    android:layout_weight="1"
+                    android:text="Серый" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="zelenuy"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_weight="1"
+                    android:text="Зеленый" />
+
                 <RadioButton
                     android:id="@+id/radioButton4"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="cherniy"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_weight="1"
+                    android:text="Красный" />
             </RadioGroup>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_item_folder"
-                android:drawableStart="@drawable/ic_folde24dp"
-                android:padding="10dp"
-
-                android:textColor="@android:color/white"
-                 />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_folder_3"
-                android:drawableStart="@drawable/ic_folde24dp"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-               />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:drawableStart="@drawable/ic_folde24dp"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-                 />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_folder_3"
-                android:drawableStart="@drawable/ic_folde24dp"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-               />
-
-        </LinearLayout>
-
-
 
 
     </LinearLayout>
@@ -213,13 +160,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/btn_background"
         android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
-
 
 
 </LinearLayout>

@@ -49,7 +49,7 @@ class NoteFragment : Fragment() {
             return fragment
         }
 
-//        fun instance(noteId: Long) : NoteFragment {
+//        fun instance(noteId: Long) : NoteFragment { //todo
 //            val fragment = NoteFragment()
 //            val arg = Bundle()
 //            arg.apply {

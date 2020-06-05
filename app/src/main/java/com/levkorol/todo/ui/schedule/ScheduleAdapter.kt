@@ -1,5 +1,7 @@
 package com.levkorol.todo.ui.schedule
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +13,14 @@ import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import androidx.recyclerview.widget.DiffUtil
 import com.levkorol.todo.data.note.MainRepository
-import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.utils.Tools
-import kotlinx.android.synthetic.main.item_list_schedule.*
-import java.util.*
-import kotlin.time.toDuration
 
 
 class ScheduleAdapter(
     val activity: MainActivity
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-
+   // private val context: Context? = null
     private lateinit var schedule: Schedule
 
     var dataItems: List<Schedule> = listOf()
@@ -52,7 +50,8 @@ class ScheduleAdapter(
         holder.date_schedule.text = Tools.dateToString(item.date)
         holder.time.text = Tools.convertLongToTimeString(item.time)
         holder.checkBox.isChecked = item.checkBoxDone
-        holder.timer.isSelected = item.alarm
+        holder.timer.visibility = if(item.alarm) View.VISIBLE  else View.GONE
+
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             schedule = dataItems[position]
             if (isChecked) {
@@ -63,13 +62,8 @@ class ScheduleAdapter(
                 MainRepository.updateSchedule(schedule)
             }
         }
-//            holder.itemView.setOnClickListener {
-//                activity.loadFragment(
-//                    ....Fragment.newInstance(
-//                        item
-//                    )
-//                )
-//            }
+        //todo longclick?
+        holder.itemView.isLongClickable = true
     }
 
     fun updateData(data: List<Schedule>) {
@@ -98,5 +92,17 @@ class ScheduleAdapter(
         var time: TextView = itemView.findViewById(R.id.tv_hours_min)
         var timer: ImageView = itemView.findViewById(R.id.iv_timer)
         var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
+
+
     }
+
+//    private fun showAlter(text: String) {
+//        val builder = AlertDialog.Builder(context)
+//        builder.setTitle("")
+//        builder.setMessage(text)
+//        builder.setPositiveButton("") { _, _ ->
+//        }
+//        val dialog: AlertDialog = builder.create()
+//        dialog.show()
+//    }
 }

@@ -29,9 +29,11 @@
                     android:id="@+id/back_profile"
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/btn_back"
-                    android:padding="8dp" />
+                    />
 
             </FrameLayout>
 
@@ -50,7 +52,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="@string/add_note"
-                    android:textSize="17sp"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </FrameLayout>
@@ -66,16 +69,13 @@
             android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/titile_note" />
 
             <EditText
                 android:id="@+id/add_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold" />
+                android:hint="Название..."
+                 />
 
             <TextView
                 android:layout_width="match_parent"
@@ -83,6 +83,7 @@
                 android:textSize="17sp"
                 android:gravity="center"
                 android:text="@string/discription_note"
+
                 />
 
         </LinearLayout>

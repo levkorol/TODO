@@ -132,7 +132,7 @@ class NotesFragment : Fragment() {
         })
     }
 
-    //Todo search  не работает
+    //Todo search  как отменить
     private fun updateNotes() {
         adapter.data = childElements!!
             .filter { element ->

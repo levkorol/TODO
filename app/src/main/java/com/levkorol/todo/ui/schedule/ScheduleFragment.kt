@@ -21,8 +21,6 @@ import com.levkorol.todo.utils.isToday
 import kotlinx.android.synthetic.main.schedule_fragment.*
 
 
-
-@Suppress("PLUGIN_WARNING")
 class ScheduleFragment : Fragment() {
 
     internal lateinit var viewPagerAdapter: ViewPagerAdapter
@@ -58,6 +56,8 @@ class ScheduleFragment : Fragment() {
             id = arguments?.getLong(SCHEDULE_ID, id)!!
         }
 
+// todo этот же adapter сейчас временно и в TodayFragment
+
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_sch)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
@@ -67,10 +67,10 @@ class ScheduleFragment : Fragment() {
 
         initViews()
 
-//TODO как сделать вью пейджер и переключение трех фрагментов(Сегодня Неделя Месяц во фрагменте Расписание
+
 
         viewPager.adapter = ViewPagerAdapter(childFragmentManager)
-       // tabs.setupWithViewPager(viewPager)  //TODO ошибка но вроде и без этого работает
+        tabs.setupWithViewPager(viewPager)
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 pagePosition = position
@@ -100,6 +100,7 @@ class ScheduleFragment : Fragment() {
         })
     }
 
+    //todo раскидать списки по фрагментам в зависимости от даты
     private fun updateSchedules() {
         if (schedules == null) return
         adapter.dataItems = schedules!!.filter { schedule ->
@@ -120,7 +121,6 @@ class ScheduleFragment : Fragment() {
         }
     }
 }
-
 
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
