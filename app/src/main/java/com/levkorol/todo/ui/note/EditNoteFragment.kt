@@ -127,6 +127,9 @@ class EditNoteFragment : Fragment() {
                 //todo передать удалось но не пересохранить и как можно еще удалить в режиме редактирования нажав на  textView
 
                 val photo = Uri.parse(note!!.photo)
+                // TODO 1. в идеале: если пользователь поменял фото, то обновляем, иначе НЕ ОБНОВЛЯЕМ ТУТ НИЧЕГО (ФОТО)
+                // TODO 2. можно все значения хранить в одной noteTemp
+                // TODO 3. можно вообще забить на всё и загрузить заметку только один раз и всё
                 photoViewEdit.setImageURI(photo)
 
                 star_ed.isSelected = note!!.star

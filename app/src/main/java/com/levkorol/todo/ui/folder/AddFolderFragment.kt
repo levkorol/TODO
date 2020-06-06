@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Folder
+import com.levkorol.todo.model.Folder.Background.PURPLE
 import kotlinx.android.synthetic.main.fragment_add_folder.*
 
 class AddFolderFragment : Fragment() {
@@ -76,7 +77,7 @@ class AddFolderFragment : Fragment() {
             Folder(
                 nameFolder = add_title_text_folder.text.toString(),
                 descriptionFolder = add_description_folder_text.text.toString(),
-                color = 1,
+                background = PURPLE, // TODO записываем разные в зависимости от чекбокса
                 parentFolderId =  parentFolderId,
                 date = System.currentTimeMillis()
             )

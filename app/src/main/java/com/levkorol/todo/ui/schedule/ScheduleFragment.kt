@@ -1,10 +1,10 @@
 package com.levkorol.todo.ui.schedule
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
@@ -104,13 +104,12 @@ class ScheduleFragment : Fragment() {
     private fun updateSchedules() {
         if (schedules == null) return
         adapter.dataItems = schedules!!.filter { schedule ->
-                        when (pagePosition) {
+            when (pagePosition) {
                 0 -> isToday(schedule.date)
                 1 -> isSameWeek(schedule.date)
                 2 -> isMounth(schedule.date)
                 else -> true
             }
-            true
         }
         adapter.notifyDataSetChanged()
     }

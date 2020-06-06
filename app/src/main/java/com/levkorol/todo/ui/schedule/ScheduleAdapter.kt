@@ -62,8 +62,10 @@ class ScheduleAdapter(
                 MainRepository.updateSchedule(schedule)
             }
         }
-        //todo longclick?
-        holder.itemView.isLongClickable = true
+        // TODO
+        holder.itemView.setOnLongClickListener {
+            true
+        }
     }
 
     fun updateData(data: List<Schedule>) {

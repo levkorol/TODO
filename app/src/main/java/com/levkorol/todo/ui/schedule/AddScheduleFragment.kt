@@ -1,10 +1,12 @@
 package com.levkorol.todo.ui.schedule
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.TimePickerDialog
+import android.app.*
+import android.app.AlarmManager.RTC_WAKEUP
+import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.Settings
@@ -15,6 +17,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
@@ -22,8 +25,11 @@ import com.levkorol.todo.model.Schedule
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.add_title_text
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
+import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar.HOUR_OF_DAY
+import java.util.Calendar.MINUTE
 
 
 class AddScheduleFragment : Fragment() {
@@ -34,11 +40,6 @@ class AddScheduleFragment : Fragment() {
     private var alarmFlag = false
     private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
-
-    companion object {
-        private val NOTIFY_ID = 101
-        private val CHANNEL_ID = "task channel"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,16 +77,16 @@ class AddScheduleFragment : Fragment() {
         add_time.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                cal.set(Calendar.HOUR_OF_DAY, hour)
-                cal.set(Calendar.MINUTE, minute)
+                cal.set(HOUR_OF_DAY, hour)
+                cal.set(MINUTE, minute)
                 time_tv.text = SimpleDateFormat("HH:mm").format(cal.time)
                 time = cal.time.time
             }
             TimePickerDialog(
                 context,
                 timeSetListener,
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
+                cal.get(HOUR_OF_DAY),
+                cal.get(MINUTE),
                 true
             ).show()
         }
@@ -109,32 +110,23 @@ class AddScheduleFragment : Fragment() {
            }
         }
 
-        //todo alarm meneger
+        // TODO это нужно делать при сохранении (при добавлении шедула)
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(context,0,intent,0)
         }
+//        val cal = Calendar.getInstance()
+//        cal.timeInMillis = currentTimeMillis()
+//        cal.set(HOUR_OF_DAY, 14)
+//        cal.set(MINUTE, 42)
         alarmManager?.set(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            time,
+            RTC_WAKEUP,
+            currentTimeMillis() + 60,
             alarmIntent
         )
-        alarmManager?.cancel(alarmIntent)
+//        alarmManager?.cancel(alarmIntent)
 
-
-        //todo сделать оповещения notification
-        val builder = time.let {
-            NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_star)
-                .setContentTitle("Напоминание")
-                .setContentText("dfsd")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setWhen(it)
-        }
-        val notificationManager = NotificationManagerCompat.from(requireContext())
-        builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
     }
-
 
     private fun saveSchedule() {
         schedule = Schedule(

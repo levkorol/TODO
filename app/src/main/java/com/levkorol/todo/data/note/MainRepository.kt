@@ -3,6 +3,7 @@ package com.levkorol.todo.data.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.levkorol.todo.model.Folder
+import com.levkorol.todo.model.Folder.Background.PURPLE
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
 import kotlinx.coroutines.Dispatchers
@@ -122,7 +123,7 @@ object MainRepository {
         }
         val rootFolder = Folder(
             -1, "Kornevaya papka",
-            "Kornevaya papka opisaniye", 0,
+            "Kornevaya papka opisaniye", PURPLE,
             0, 0
         )
         rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }

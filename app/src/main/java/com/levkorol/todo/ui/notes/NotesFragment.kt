@@ -28,8 +28,8 @@ class NotesFragment : Fragment() {
     private var parentFolderId: Long = -1
     private var childElements: MutableList<Base>? = null
 
-    private  var query : String = ""
-    private  var newText : String = ""
+    private var query : String = ""
+    private var newText : String = ""
 
     companion object {
         private const val PARENT_FOLDER = "ParentId"
@@ -80,17 +80,16 @@ class NotesFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    handleSearchQuery(query)
-                }
+                this@NotesFragment.query = query ?: ""
                 updateNotes()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    handleSearchNewText(newText)
-                }
+                // TODO сохранять в query, newText не нужен
+//                if (newText != null) {
+//                    handleSearchNewText(newText)
+//                }
                 updateNotes()
                 return true
             }
@@ -99,10 +98,6 @@ class NotesFragment : Fragment() {
 //        swipeRefreshLayout.setOnRefreshListener{
 //
 //        }
-    }
-
-    private fun handleSearchQuery(text: String) {
-        query = text
     }
 
     private fun handleSearchNewText(text: String) {
@@ -136,13 +131,16 @@ class NotesFragment : Fragment() {
     private fun updateNotes() {
         adapter.data = childElements!!
             .filter { element ->
-                var queryElements: Boolean = false
+                // I фильтруем по поиску
+                var isFiltered: Boolean = false
                 if (element is Folder) {
-                    queryElements = element.nameFolder.indexOf(query) != -1
+                    isFiltered = element.nameFolder.indexOf(query) != -1
                 } else if (element is Note) {
-                    queryElements = element.name.indexOf(query) != -1
+                    isFiltered = element.name.indexOf(query) != -1
                 }
-                queryElements
+                // II фильтруем по фильтру
+                // TODO тут фильтрация по notesFilter
+                isFiltered
             }.sortedByDescending { it.date }
         adapter.notifyDataSetChanged()
     }
@@ -155,7 +153,6 @@ class NotesFragment : Fragment() {
                 when {
                     isFilter -> element is Folder
                     isFilter -> element is Note
-
                     else -> element.date
                 }
                 isFilter
@@ -173,6 +170,8 @@ class NotesFragment : Fragment() {
         builder.setItems(
             pictureDialogItems
         ) { _, which ->
+            // TODO сохранить результат фильтрации в переменную NotesFilter
+            // TODO и потом в updateNotes добавляем фильтрацию по notesFilter
             when (which) {
                 0 -> 0
                 1 -> 1
@@ -196,5 +195,9 @@ class NotesFragment : Fragment() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+    private enum class NotesFilter {
+        ONLY_FOLDER, ONLY_NOTES, IMPORTANT_NOTES, OLD_FOLDER_AND_NOTES
     }
 }
