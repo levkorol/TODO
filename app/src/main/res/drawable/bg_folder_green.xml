@@ -10,8 +10,8 @@
                 android:bottomRightRadius="12dp"/>
 
             <solid android:color="@android:color/darker_gray" />
-            <gradient android:startColor="@color/color_divider_light"
-                android:endColor="@color/color_divider_dark"/>
+            <gradient android:startColor="@color/colorPrimary"
+                android:endColor="@color/colorPrimaryDark"/>
 
         </shape>
     </item>

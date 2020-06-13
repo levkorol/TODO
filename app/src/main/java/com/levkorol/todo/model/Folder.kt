@@ -16,15 +16,18 @@ data class Folder(
     override var date: Long
 ) : Base() {
     @Ignore
-    var folders: List<Folder> = listOf<Folder>()
+    var folders: List<Folder> = listOf()
     @Ignore
-    var notes: List<Note> = listOf<Note>()
+    var notes: List<Note> = listOf()
+
 
     enum class Background(
         val value: Int,
         @DrawableRes val res: Int
     ) {
-        PURPLE(0, R.drawable.background_item_folder)
-        // TODO добавить для отстальных цветов
+        PURPLE(0, R.drawable.background_item_folder),
+        GRAY(1, R.drawable.bg_folder_gray),
+        PINK(2, R.drawable.bg_folder_pink),
+        GREEN(3, R.drawable.bg_folder_green)
     }
 }

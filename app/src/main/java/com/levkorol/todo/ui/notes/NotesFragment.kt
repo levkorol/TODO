@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.notes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,13 +28,11 @@ class NotesFragment : Fragment() {
     private var notes: List<Note>? = null
     private var parentFolderId: Long = -1
     private var childElements: MutableList<Base>? = null
-
-    private var query : String = ""
-    private var newText : String = ""
+    private var query: String = ""
+    private var notesFilter = -1
 
     companion object {
         private const val PARENT_FOLDER = "ParentId"
-
         fun newInstance(parentFolderId: Long): NotesFragment {
             val fragment = NotesFragment()
             val arguments = Bundle()
@@ -66,6 +65,8 @@ class NotesFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
+        // dont_have_notes.visibility = if (adapter.data.isEmpty())View.VISIBLE else View.GONE//todo   настроить висабилити
+        // Log.d("size", "${adapter.data}")
 
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
@@ -75,9 +76,7 @@ class NotesFragment : Fragment() {
             filterDialog()
         }
 
-        // TODO сбросить поиск
         searchView.queryHint = "Поиск"
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 this@NotesFragment.query = query ?: ""
@@ -86,22 +85,11 @@ class NotesFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // TODO сохранять в query, newText не нужен
-//                if (newText != null) {
-//                    handleSearchNewText(newText)
-//                }
+                query = newText ?: ""
                 updateNotes()
                 return true
             }
         })
-
-//        swipeRefreshLayout.setOnRefreshListener{
-//
-//        }
-    }
-
-    private fun handleSearchNewText(text: String) {
-        newText = text
     }
 
     override fun onStart() {
@@ -123,63 +111,58 @@ class NotesFragment : Fragment() {
                 childElements!!.addAll(currentFolder.folders.sortedByDescending { it.date })
                 childElements!!.addAll(currentFolder.notes.sortedByDescending { it.date })
             }
-            updateNotes()
+              updateNotes()
         })
     }
 
-    //Todo search  как отменить
     private fun updateNotes() {
         adapter.data = childElements!!
             .filter { element ->
-                // I фильтруем по поиску
-                var isFiltered: Boolean = false
-                if (element is Folder) {
-                    isFiltered = element.nameFolder.indexOf(query) != -1
-                } else if (element is Note) {
-                    isFiltered = element.name.indexOf(query) != -1
+                var isFiltered = false
+                if(notesFilter < 0) {
+                    if (element is Folder) {
+                        isFiltered = element.nameFolder.indexOf(query) != -1
+                    } else if (element is Note) {
+                        isFiltered = element.name.indexOf(query) != -1
+                    }
+                } else {
+                    if (element is Folder && notesFilter == NotesFilter.ONLY_FOLDER) {
+                        isFiltered = true
+                    }
+                    if (element is Note && notesFilter == NotesFilter.ONLY_NOTES) {
+                        isFiltered = true
+                    }
                 }
-                // II фильтруем по фильтру
-                // TODO тут фильтрация по notesFilter
                 isFiltered
+
             }.sortedByDescending { it.date }
         adapter.notifyDataSetChanged()
     }
-
-    // todo filter как найти по свойсвам и по старой дате добавления
-    private fun filters() {
-        adapter.data = childElements!!
-            .filter { element ->
-                val isFilter: Boolean = false
-                when {
-                    isFilter -> element is Folder
-                    isFilter -> element is Note
-                    else -> element.date
-                }
-                isFilter
-            }
-        adapter.notifyDataSetChanged()
-    }
-
 
     private fun filterDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Показать:")
         val pictureDialogItems =
-            arrayOf("Только папки", "Только заметки",
-                "Важные заметки", "Старые папки и заметки")
+            arrayOf(
+                "Только папки", "Только заметки",
+                "Важные заметки", "Старые папки и заметки"
+            )
         builder.setItems(
             pictureDialogItems
-        ) { _, which ->
-            // TODO сохранить результат фильтрации в переменную NotesFilter
-            // TODO и потом в updateNotes добавляем фильтрацию по notesFilter
-            when (which) {
-                0 -> 0
-                1 -> 1
-                2 -> 2
-                3 -> 3
-            }
+        ) { a, selectionNumber ->
+            notesFilter = selectionNumber
+            updateNotes()
         }
         builder.show()
+    }
+
+    private class NotesFilter {
+        companion object {
+            val ONLY_FOLDER: Int  = 0
+            val ONLY_NOTES = 1
+            val IMPORTANT_NOTES = 2
+            val OLD_FOLDER_AND_NOTES = 3
+        }
     }
 
     private fun showAlterDialog() {
@@ -195,9 +178,5 @@ class NotesFragment : Fragment() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }
-
-    private enum class NotesFilter {
-        ONLY_FOLDER, ONLY_NOTES, IMPORTANT_NOTES, OLD_FOLDER_AND_NOTES
     }
 }

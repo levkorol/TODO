@@ -123,7 +123,7 @@ object MainRepository {
         }
         val rootFolder = Folder(
             -1, "Kornevaya papka",
-            "Kornevaya papka opisaniye", PURPLE,
+            "Kornevaya papka opisaniye", Folder.Background.PINK,
             0, 0
         )
         rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }

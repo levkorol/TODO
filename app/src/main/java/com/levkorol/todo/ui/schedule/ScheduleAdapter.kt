@@ -8,19 +8,22 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import androidx.recyclerview.widget.DiffUtil
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
+import com.levkorol.todo.ui.folder.AddFolderFragment
+import com.levkorol.todo.ui.note.AddNoteFragment
 import com.levkorol.todo.utils.Tools
 
 
 class ScheduleAdapter(
     val activity: MainActivity
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-   // private val context: Context? = null
+    // private val context: Context? = null
     private lateinit var schedule: Schedule
 
     var dataItems: List<Schedule> = listOf()
@@ -34,7 +37,6 @@ class ScheduleAdapter(
 
     override fun getItemCount() = dataItems.size
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(
@@ -47,10 +49,34 @@ class ScheduleAdapter(
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val item = dataItems[position]
         holder.title_schedule.text = item.title
+//        if(item.date == System.currentTimeMillis()){
+//            holder.date_schedule.visibility = View.GONE
+//        } else {
+//
+//        }
+//        if (item.time == System.currentTimeMillis()) {
+//            holder.time.visibility = View.GONE
+//        } else {
+//            holder.time.visibility = View.VISIBLE
+//        }
         holder.date_schedule.text = Tools.dateToString(item.date)
         holder.time.text = Tools.convertLongToTimeString(item.time)
         holder.checkBox.isChecked = item.checkBoxDone
-        holder.timer.visibility = if(item.alarm) View.VISIBLE  else View.GONE
+        holder.timer.visibility = if (item.alarm) View.VISIBLE else View.GONE
+
+        holder.timer.setOnClickListener {
+            schedule = dataItems[position]
+            val builder = androidx.appcompat.app.AlertDialog.Builder(activity)
+            builder.setMessage("Выключить оповещение на ${holder.time.text}?")
+            builder.setPositiveButton("Да") { _, _ ->
+                schedule.alarm = false
+                MainRepository.updateSchedule(schedule)
+            }
+            builder.setNegativeButton("Отмена") { _, _ ->
+            }
+            val dialog: androidx.appcompat.app.AlertDialog = builder.create()
+            dialog.show()
+        }
 
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             schedule = dataItems[position]
@@ -62,8 +88,17 @@ class ScheduleAdapter(
                 MainRepository.updateSchedule(schedule)
             }
         }
-        // TODO
+
         holder.itemView.setOnLongClickListener {
+            val builder = androidx.appcompat.app.AlertDialog.Builder(activity)
+            builder.setMessage("Удалить ${holder.title_schedule.text} из расписания?")
+            builder.setPositiveButton("Да") { _, _ ->
+                MainRepository.deleteSchedule(item.id)
+            }
+            builder.setNegativeButton("Отмена") { _, _ ->
+            }
+            val dialog: androidx.appcompat.app.AlertDialog = builder.create()
+            dialog.show()
             true
         }
     }
@@ -94,17 +129,5 @@ class ScheduleAdapter(
         var time: TextView = itemView.findViewById(R.id.tv_hours_min)
         var timer: ImageView = itemView.findViewById(R.id.iv_timer)
         var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
-
-
     }
-
-//    private fun showAlter(text: String) {
-//        val builder = AlertDialog.Builder(context)
-//        builder.setTitle("")
-//        builder.setMessage(text)
-//        builder.setPositiveButton("") { _, _ ->
-//        }
-//        val dialog: AlertDialog = builder.create()
-//        dialog.show()
-//    }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ru.rambler.libs.swipe_layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:right_swipe_enabled="true">
+
+    <!--CENTER. app:gravity="center" - is default value -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+
+    RIGHT
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gravity="right"
+        app:bring_to_clamp="150dp"
+        app:clamp="self"
+        app:sticky="100dp">
+
+
+    </LinearLayout>
+
+    LEFT
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        app:gravity="left"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
+        app:sticky="none">
+
+    </FrameLayout>
+</ru.rambler.libs.swipe_layout.SwipeLayout>

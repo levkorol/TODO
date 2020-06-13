@@ -29,10 +29,12 @@ class FolderFragment : Fragment() {
     private var folderId = -1L
     private lateinit var folder: Folder
     private var title: String = ""
+    private var disc: String = ""
 
     companion object {
         private const val FOLDER_ID = "FOLDER_ID"
         private const val TITLE = "TITLE"
+        private const val DISC = "DISK"
 
         fun newInstance(folder: Folder) : FolderFragment {
             val fragment = FolderFragment()
@@ -40,6 +42,7 @@ class FolderFragment : Fragment() {
             arguments.apply {
                 putLong(FOLDER_ID, folder.id)
                 putString(TITLE,folder.nameFolder)
+               // putString(DISC, folder.descriptionFolder)
             }
 
             fragment.arguments = arguments
@@ -60,6 +63,8 @@ class FolderFragment : Fragment() {
         folderId = arguments?.getLong(FOLDER_ID, -1)!!
 
          title = arguments?.getString(TITLE,"").toString()
+       //  disc = arguments?.getString(DISC,"").toString()
+
 
 
 
@@ -71,6 +76,8 @@ class FolderFragment : Fragment() {
         recyclerView.adapter = adapter
 
         title_folder.text = arguments?.getString(TITLE, "")
+
+       // discription.text = arguments?.getString(DISC,"")
 
         add_note_or_folder.setOnClickListener {
             showAlterDialog()

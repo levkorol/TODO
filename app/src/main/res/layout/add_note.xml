@@ -54,7 +54,7 @@
                     android:text="@string/add_note"
                     android:textColor="@android:color/background_dark"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                   />
 
             </FrameLayout>
 
@@ -74,6 +74,7 @@
                 android:id="@+id/add_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
                 android:hint="Название..."
                  />
 
@@ -109,6 +110,7 @@
                     android:background="@null"
                     android:gravity="top|start"
                     android:inputType="textPostalAddress|textMultiLine"
+                    android:imeOptions="actionDone"
                     android:lines="19" />
 
 
@@ -201,7 +203,7 @@
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/save_note_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -209,10 +211,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/btn_background"
+            android:textSize="16sp"
             android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+         />
 
     </LinearLayout>
 

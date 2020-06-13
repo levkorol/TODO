@@ -22,5 +22,14 @@
     <color name="color_divider_dark">#1F000000</color>
     <color name="color_divider_light">#1FFFFFFF</color>
     <color name="color_green">#4FD149</color>
+    <color name="colorSelect">#222c3c</color>
+
+    <color name="red">#f2483e</color>
+    <color name="Orange">#ff7847</color>
+    <color name="white">#FFFCFB</color>
+    <color name="coral">#fa6243</color>
+    <color name="kiwi">#99d94b</color>
+    <color name="grass">#53b824</color>
+    <color name="twograss">#53b924</color>
 
 </resources>

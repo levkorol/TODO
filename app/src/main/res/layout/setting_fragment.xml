@@ -36,16 +36,9 @@
         android:textSize="16sp"
         android:layout_marginStart="16dp"/>
 
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:textColor="@android:color/background_dark"
-         android:layout_marginStart="16dp"
-         android:layout_marginTop="10dp"
-         android:textSize="16sp"
-         android:text="Архив"/>
 
     <TextView
+        android:id="@+id/sinhr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/background_dark"
@@ -61,6 +54,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
-        android:text="Связь с разработчиком"/>
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:text="Поставьте нам оценку: google_play.ru"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:autoLink="email"
+        android:linksClickable="true"
+        android:text="Связь с разработчиком: sasiskajik@mail.ru"
+       />
+
+
 
 </LinearLayout>

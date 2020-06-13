@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.notes
 
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,9 @@ class Adapter(val activity: MainActivity) :
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         val item = data[position]
+
         if (item is Note) {
             holder as NoteViewHolder
             holder.title.text = item.name
@@ -41,6 +44,7 @@ class Adapter(val activity: MainActivity) :
             item as Folder
             holder as FolderViewHolder
             holder.nameFolder.text = item.nameFolder
+            holder.itemView.setBackgroundResource(item.background.res)
             holder.itemView.setOnClickListener {
                 activity.loadFragment(FolderFragment.newInstance(item))
             }
@@ -58,6 +62,7 @@ class Adapter(val activity: MainActivity) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             NOTE_VIEW_TYPE -> {
                 val view = LayoutInflater.from(parent.context)
@@ -95,11 +100,8 @@ class Adapter(val activity: MainActivity) :
 //    }
 }
 
-
 class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
     val nameFolder: TextView = itemView.findViewById(R.id.name_folder_text)
-    // val color: Unit = itemView.setBackgroundColor(R.id.background_folder_list)
 }
 
 class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

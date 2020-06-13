@@ -1,4 +1,4 @@
-package com.levkorol.todo.ui.schedule
+package com.levkorol.todo.ui.setting.profile
 
 
 import android.os.Bundle
@@ -9,14 +9,17 @@ import android.view.ViewGroup
 
 import com.levkorol.todo.R
 
-
-class WeekFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_week, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
 }

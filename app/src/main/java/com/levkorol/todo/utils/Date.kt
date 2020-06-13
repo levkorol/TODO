@@ -32,8 +32,6 @@ fun Date.add(value: Int, units: TimeUnits = TimeUnits.SECOND): Date {
 }
 
 
-
-
 enum class TimeUnits {
     SECOND,
     MINUTE,
@@ -43,15 +41,16 @@ enum class TimeUnits {
 
 object Tools {
     fun dateToString(date: Long): String {
-        val dateFormat = SimpleDateFormat("EEEE, dd MMM, yyyy ")
+        val dateFormat = SimpleDateFormat("EEEE, dd MMM yyyy ", Locale.getDefault())
         return dateFormat.format(date)
     }
 
     fun convertLongToTimeString(systemTime: Long): String {
-        return SimpleDateFormat("HH:mm")
+        return SimpleDateFormat("HH:mm", Locale.getDefault())
             .format(systemTime).toString()
     }
 }
+
 
 fun isToday(time: Long): Boolean {
     val calendar = GregorianCalendar()
@@ -68,29 +67,25 @@ fun isToday(time: Long): Boolean {
 fun isSameWeek(time: Long): Boolean {
     val calendar = GregorianCalendar()
     calendar.timeInMillis = time
-    // calendar.firstDayOfWeek TODO поменять первый день недели
+    calendar.firstDayOfWeek = MONDAY
     val thenYear = calendar.get(YEAR)
     val thenMonth = calendar.get(MONTH)
     val thenWeek = calendar.get(WEEK_OF_MONTH)
-    val thenDay = calendar.get(DAY_OF_MONTH)
     calendar.timeInMillis = currentTimeMillis()
 
     return thenYear == calendar.get(YEAR)
             && thenMonth == calendar.get(MONTH)
             && thenWeek == calendar.get(WEEK_OF_YEAR)
-            && thenDay != calendar.get(DAY_OF_MONTH) // ?
 }
+
 
 fun isMounth(time: Long): Boolean {
     val calendar = GregorianCalendar()
     calendar.timeInMillis = time
     val thenYear = calendar.get(YEAR)
     val thenMonth = calendar.get(MONTH)
-    val thenWeek = calendar.get(WEEK_OF_MONTH)
-    val thenDay = calendar.get(DAY_OF_MONTH)
     calendar.timeInMillis = currentTimeMillis()
     return thenYear == calendar.get(YEAR)
             && thenMonth == calendar.get(MONTH)
-            && thenDay != calendar.get(DAY_OF_MONTH) // ?
-            && thenWeek != calendar.get(WEEK_OF_MONTH) // ?
+
 }

@@ -1,18 +1,11 @@
 package com.levkorol.todo.ui.schedule
 
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.utils.isMounth
+import com.levkorol.todo.utils.isSameWeek
+import com.levkorol.todo.utils.isToday
 
 class TodayFragment : Fragment() {
 
@@ -28,6 +24,8 @@ class TodayFragment : Fragment() {
     private lateinit var viewModel: ScheduleViewModel
     private var id: Long = -1
     private var time: Long = -1
+    private var schedules: List<Schedule>? = null
+    private var pagePosition: Int = 0
 
     companion object {
         private const val SCHEDULE_ID = "SCHEDULE_ID"
@@ -68,7 +66,6 @@ class TodayFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
-
     }
 
     override fun onStart() {
@@ -76,15 +73,45 @@ class TodayFragment : Fragment() {
         viewModel =
             ViewModelProvider(requireActivity()).get(ScheduleViewModel::class.java)
         observeSchedule()
+
     }
 
+
     private fun observeSchedule() {
-        viewModel.getSchedules().observe(this, Observer { schedule ->
-            val task = schedule.firstOrNull { s -> s.id == id }
-            task?.checkBoxDone
-            adapter.dataItems = schedule
-            adapter.notifyDataSetChanged()
+        viewModel.getSchedules().observe(this, Observer { schedules ->
+            this.schedules = schedules
+            updateSchedules()
         })
     }
 
+    private fun updateSchedules() {
+        if (schedules == null) return
+        adapter.dataItems = schedules!!.filter { schedule ->
+            when (pagePosition) {
+                0 -> isToday(schedule.date)
+//                1 -> isSameWeek(schedule.date)
+//                2 -> isMounth(schedule.date)
+                else -> true
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+//    private fun updateSchedules() {
+//        if (schedules == null) return
+//        if (isToday(schedule!!.date))
+//            adapter.dataItems = schedules!!
+//        adapter.notifyDataSetChanged()
+//    }
+
+
+//    private fun observeSchedule() {
+//        viewModel.getSchedules().observe(this, Observer { schedule ->
+//            val task = schedule.firstOrNull { s -> s.id == id }
+//            task?.checkBoxDone
+//            adapter.dataItems = schedule
+//            adapter.notifyDataSetChanged()
+//
+//        })
+//    }
 }

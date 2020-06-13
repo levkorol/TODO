@@ -12,6 +12,8 @@ import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesFragment
 import com.levkorol.todo.ui.schedule.ScheduleViewModel
+import com.levkorol.todo.ui.setting.profile.AuthorizationFragment
+import kotlinx.android.synthetic.main.setting_fragment.*
 
 class SettingFragment : Fragment() {
 
@@ -30,6 +32,10 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+       sinhr.setOnClickListener {
+           (activity as MainActivity).loadFragment(AuthorizationFragment())
+       }
     }
 
     override fun onStart() {

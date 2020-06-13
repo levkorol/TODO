@@ -17,8 +17,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-
+        android:layout_height="500dp">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -28,13 +27,9 @@
         app:tabIndicatorColor="@color/strongpink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-
     </com.google.android.material.tabs.TabLayout>
 
-</androidx.viewpager.widget.ViewPager>
-
+    </androidx.viewpager.widget.ViewPager>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_sch"

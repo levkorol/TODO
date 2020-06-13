@@ -64,6 +64,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/dont_have_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пока здесь ничего нет..."
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
 <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
 <!--        android:id="@+id/swipeRefreshLayout"-->
 <!--        android:layout_width="match_parent"-->

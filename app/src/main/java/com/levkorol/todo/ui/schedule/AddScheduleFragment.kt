@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -22,6 +23,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
+import com.levkorol.todo.utils.Tools
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.add_title_text
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
@@ -51,13 +53,16 @@ class AddScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        date = currentTimeMillis()
+        time = currentTimeMillis()
+      //  date_selected.text = Tools.dateToString(date)
     }
 
     private fun initViews() {
         save_btn.setOnClickListener {
-            saveSchedule()
-            //Toast.makeText(activity,"Добавлено в расписание", Toast.LENGTH_LONG).show()
-            parentFragmentManager.popBackStack()
+                saveSchedule()
+                parentFragmentManager.popBackStack()
+                //Toast.makeText(activity,"Добавлено в расписание", Toast.LENGTH_LONG).show()
         }
 
         back_profile.setOnClickListener {
@@ -91,52 +96,59 @@ class AddScheduleFragment : Fragment() {
             ).show()
         }
 
-
         if (alarmFlag) switch_.isChecked = true
-        switch_.setOnClickListener{
-           if (switch_.isChecked ) {
-               val builder = AlertDialog.Builder(requireContext())
-               builder.setMessage("Включить оповещение?")
-               builder.setPositiveButton("Да"){dialog, which ->
-                   if (switch_.isChecked) alarmFlag = true
-               }
-               builder.setNegativeButton("Отмена"){dialog,which ->
-                   switch_.isChecked = false
-               }
-               val dialog: AlertDialog = builder.create()
-               dialog.show()
-           } else {
-               switch_.isChecked
-           }
+        switch_.setOnClickListener {
+            if (switch_.isChecked) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Включить оповещение?")
+                builder.setPositiveButton("Да") { dialog, which ->
+                    if (switch_.isChecked) alarmFlag = true
+                }
+                builder.setNegativeButton("Отмена") { dialog, which ->
+                    switch_.isChecked = false
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            } else {
+                switch_.isChecked
+            }
         }
+    }
 
+    private fun saveSchedule() {
         // TODO это нужно делать при сохранении (при добавлении шедула)
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context,0,intent,0)
+            PendingIntent.getBroadcast(context, 0, intent, 0)
         }
 //        val cal = Calendar.getInstance()
 //        cal.timeInMillis = currentTimeMillis()
 //        cal.set(HOUR_OF_DAY, 14)
 //        cal.set(MINUTE, 42)
-        alarmManager?.set(
-            RTC_WAKEUP,
-            currentTimeMillis() + 60,
-            alarmIntent
-        )
+//        alarmManager?.set(
+//            RTC_WAKEUP,
+//            currentTimeMillis() + 60,
+//            alarmIntent
+//        )
 //        alarmManager?.cancel(alarmIntent)
 
-    }
+        if (alarmFlag) {
+            alarmManager?.set(
+                RTC_WAKEUP,
+                currentTimeMillis() + 60,
+                alarmIntent
+            )
+        }
 
-    private fun saveSchedule() {
-        schedule = Schedule(
-            title = add_title_text.text.toString(),
-            description = add_description_text.text.toString(),
-            date = date,
-            checkBoxDone = false,
-            time = time,
-            alarm = alarmFlag
-        )
-        MainRepository.addSchedule(schedule)
+            schedule = Schedule(
+                title = add_title_text.text.toString(),
+                description = add_description_text.text.toString(),
+                date = date,
+                checkBoxDone = false,
+                time = time,
+                alarm = alarmFlag
+            )
+            MainRepository.addSchedule(schedule)
+
     }
 }

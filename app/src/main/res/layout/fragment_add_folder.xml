@@ -112,7 +112,7 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroupColorFolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
@@ -121,28 +121,29 @@
                 android:orientation="vertical">
 
                 <RadioButton
-                    android:id="@+id/radioButton1"
+                    android:id="@+id/radioButtonPurpur"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Фиолетовый" />
+                    android:text="Фиолетовый"
+                    android:checked="true"/>
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioButtonGrey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Серый" />
+                    android:text="Синий" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radioButtonGreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Зеленый" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/radioButtonRed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

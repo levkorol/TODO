@@ -1,9 +1,11 @@
 package com.levkorol.todo.ui.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -56,7 +58,7 @@ class ScheduleFragment : Fragment() {
             id = arguments?.getLong(SCHEDULE_ID, id)!!
         }
 
-// todo этот же adapter сейчас временно и в TodayFragment
+
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_sch)
         val llm = LinearLayoutManager(view.context)
@@ -66,7 +68,6 @@ class ScheduleFragment : Fragment() {
         recyclerView.adapter = adapter
 
         initViews()
-
 
 
         viewPager.adapter = ViewPagerAdapter(childFragmentManager)
@@ -100,7 +101,6 @@ class ScheduleFragment : Fragment() {
         })
     }
 
-    //todo раскидать списки по фрагментам в зависимости от даты
     private fun updateSchedules() {
         if (schedules == null) return
         adapter.dataItems = schedules!!.filter { schedule ->

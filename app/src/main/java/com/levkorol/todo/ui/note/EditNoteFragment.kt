@@ -1,5 +1,6 @@
 package com.levkorol.todo.ui.note
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -62,12 +63,13 @@ class EditNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         noteId = arguments?.getLong(NOTE_ID, -1)!!
         initViews()
+
+        viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
+        observeNotes()
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
-        observeNotes()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -104,6 +106,7 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveEditNote() {
+        //todo если юзер кликнул назад и были изменения показать диалог сохранить изменения или нет
         // val oldNote = note?.copy()
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
@@ -116,6 +119,7 @@ class EditNoteFragment : Fragment() {
 
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     private fun observeNotes() {
         viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
@@ -123,13 +127,11 @@ class EditNoteFragment : Fragment() {
                 edit_title_text.setText(note?.name)
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
 
-                 //TODO  передать сохраненную картинку если она есть в режим редактирования
-                //todo передать удалось но не пересохранить и как можно еще удалить в режиме редактирования нажав на  textView
-
                 val photo = Uri.parse(note!!.photo)
-                // TODO 1. в идеале: если пользователь поменял фото, то обновляем, иначе НЕ ОБНОВЛЯЕМ ТУТ НИЧЕГО (ФОТО)
-                // TODO 2. можно все значения хранить в одной noteTemp
-                // TODO 3. можно вообще забить на всё и загрузить заметку только один раз и всё
+
+                // TODO 1. если пользователь поменял фото, то обновляем, иначе НЕ ОБНОВЛЯЕМ ТУТ НИЧЕГО (ФОТО)
+                // TODO 2. можно все значения note хранить в одной noteTemp
+                // todo 3 удалить в режиме редактирования нажав на  textView под иконкой
                 photoViewEdit.setImageURI(photo)
 
                 star_ed.isSelected = note!!.star
