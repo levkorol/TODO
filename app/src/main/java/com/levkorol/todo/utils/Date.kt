@@ -45,12 +45,16 @@ object Tools {
         return dateFormat.format(date)
     }
 
+    fun dateToStringtwo(date: Long): String {
+        val dateFormat = SimpleDateFormat(" dd MMM", Locale.getDefault())
+        return dateFormat.format(date)
+    }
+
     fun convertLongToTimeString(systemTime: Long): String {
         return SimpleDateFormat("HH:mm", Locale.getDefault())
             .format(systemTime).toString()
     }
 }
-
 
 fun isToday(time: Long): Boolean {
     val calendar = GregorianCalendar()
@@ -87,5 +91,4 @@ fun isMounth(time: Long): Boolean {
     calendar.timeInMillis = currentTimeMillis()
     return thenYear == calendar.get(YEAR)
             && thenMonth == calendar.get(MONTH)
-
 }

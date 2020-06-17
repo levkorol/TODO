@@ -1,6 +1,9 @@
 package com.levkorol.todo.ui.note
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +20,13 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
+import com.levkorol.todo.ui.schedule.AlarmReceiver
+import com.levkorol.todo.utils.Tools
+import kotlinx.android.synthetic.main.add_note.*
+import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_note.back_profile
+import kotlinx.android.synthetic.main.fragment_note.text_date
 
 
 class NoteFragment : Fragment() {
@@ -26,7 +35,10 @@ class NoteFragment : Fragment() {
     private var noteId: Long = -1
     private var flagStar: Boolean = false
     private var note: Note? = null
-  //  private lateinit var photoUri: Uri
+    private var photoUri: Uri? = null
+    private var alarmFlag = false
+    private var alarmManager: AlarmManager? = null
+    private lateinit var alarmIntent: PendingIntent
 
     companion object {
         private const val NOTE_ID = "NOTE_ID"
@@ -90,10 +102,8 @@ class NoteFragment : Fragment() {
 
     private fun initViews() {
 
-        val photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
+        photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
         imageViewNotePhoto.setImageURI(photoUri)
-
-        cardView.visibility = if (photoUri != null ) View.VISIBLE else View.GONE // TODO ne rabotaet
 
         if (star.isSelected) {
             star.setImageResource(R.drawable.ic_star)
@@ -125,12 +135,67 @@ class NoteFragment : Fragment() {
             )
         }
 
+        if (alarmFlag) swich_note_alarm.isChecked = true
+        swich_note_alarm.setOnClickListener {
+            if (swich_note_alarm.isChecked) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Включить оповещение?")
+                builder.setPositiveButton("Да") { dialog, which ->
+                    if (swich_note_alarm.isChecked) alarmFlag = true
+                    note?.alarm = true
+                    note?.let { it1 -> MainRepository.update(it1) }
+                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                        PendingIntent.getBroadcast(context, 0, intent, 0)
+                    }
+                    if (note?.alarm == true) {
+                        alarmManager?.set(
+                            AlarmManager.RTC_WAKEUP,
+                            System.currentTimeMillis() + 60,
+                            alarmIntent
+                        )
+                    }
+                }
+                builder.setNegativeButton("Отмена") { dialog, which ->
+                    note?.alarm = false
+                    note?.let { it1 -> MainRepository.update(it1) }
+                    swich_note_alarm.isChecked = false
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            } else {
+                swich_note_alarm.isChecked
+            }
+        }
 
+       star.setOnClickListener {
+           if (star.isSelected) {
+               star.setImageResource(R.drawable.ic_star_in_add_notes)
+               star.isSelected = false
+               note?.star = false
+               note?.let { it1 -> MainRepository.update(it1) }
+           } else {
+               star.setImageResource(R.drawable.ic_star)
+               Toast.makeText(activity, "Вы отметили заметку как важная", Toast.LENGTH_LONG).show()
+               note?.star = true
+               star.isSelected = true
+               note?.let { it1 -> MainRepository.update(it1) }
+           }
+        }
     }
 
     private fun observeNotes() {
-        viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
+        viewModel.getNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
+            if (note?.addSchedule == true) {
+                timeSchedule.visibility = View.VISIBLE
+                alarmSchedule.visibility = View.VISIBLE
+                text_date.text =
+                    "${note?.date?.let { Tools.dateToStringtwo(it) }}, ${note?.time?.let { Tools.convertLongToTimeString(it) }}"
+            }
+            if (note?.addPhoto == true) {
+                cardView.visibility = View.VISIBLE //todo ne rab
+            }
         })
     }
 
@@ -141,7 +206,7 @@ class NoteFragment : Fragment() {
         builder.setPositiveButton("Да") { _, _ ->
             MainRepository.deleteById(noteId)
             parentFragmentManager.popBackStack()
-           // (activity as MainActivity).loadFragment(NotesFragment())
+            // (activity as MainActivity).loadFragment(NotesFragment())
         }
         builder.setNegativeButton("Отмена") { _, _ ->
 

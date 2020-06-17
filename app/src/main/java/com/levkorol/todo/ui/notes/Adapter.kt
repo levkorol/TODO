@@ -15,6 +15,7 @@ import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.FolderFragment
 import com.levkorol.todo.ui.note.NoteFragment
+import com.levkorol.todo.utils.Tools
 
 class Adapter(val activity: MainActivity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -35,10 +36,18 @@ class Adapter(val activity: MainActivity) :
             holder as NoteViewHolder
             holder.title.text = item.name
             holder.description.text = item.description
-            //  holder.date.text = item.date.toString()
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
+            if(item.addSchedule) {
+                holder.text_date.visibility = View.VISIBLE
+                holder.text_date.text = item.dateSchedule.toString()
+                holder.text_time.visibility = View.VISIBLE
+                holder.text_time.text = item.time.toString()
+                holder.text_date.text = Tools.dateToStringtwo(item.date)
+                holder.text_time.text = Tools.convertLongToTimeString(item.time) //todo adapter chet stranno obnovlyaet inogda etu cashu
+
+            }
             holder.itemView.setOnClickListener {
-                activity.loadFragment(NoteFragment.newInstance(item)) //todo
+                activity.loadFragment(NoteFragment.newInstance(item)) //todo поменять на айдишник наверное
             }
         } else {
             item as Folder
@@ -77,27 +86,6 @@ class Adapter(val activity: MainActivity) :
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
-//
-//    fun updateData(dataNote: List<Note>) {
-//
-//        val diffCallback = object : DiffUtil.Callback() {
-//            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean =
-//                data[oldPos].id == data[newPos].id
-//
-//            override fun getOldListSize(): Int = data.size
-//
-//            override fun getNewListSize(): Int = data.size
-//
-//            override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean =
-//                data[oldPos].hashCode() == data[newPos].hashCode()
-//        }
-//
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//
-//        data = dataNote
-//        //  notifyDataSetChanged()
-//        diffResult.dispatchUpdatesTo(this)
-//    }
 }
 
 class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -109,6 +97,8 @@ class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val description: TextView = itemView.findViewById(R.id.text_note)
     val date: TextView = itemView.findViewById(R.id.date_text)
     val star: ImageView = itemView.findViewById(R.id.star_image)
+    val text_time: TextView = itemView.findViewById(R.id.text_time)
+    val text_date: TextView = itemView.findViewById(R.id.text_date)
 }
 
 

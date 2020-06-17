@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -59,11 +59,21 @@
 
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/timeSchedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/lichtpinck"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:orientation="horizontal">
 
             <ImageView
@@ -81,11 +91,13 @@
                 android:textColor="@color/colorAccent" />
 
             <TextView
+                android:id="@+id/text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/colorAccent"
                 tools:text="14.00, 02.03.2020" />
+
 
         </LinearLayout>
 
@@ -170,6 +182,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/delete_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -177,7 +190,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/delete_btn"
                     android:layout_width="31dp"
                     android:layout_height="27dp"
                     android:layout_gravity="center"
@@ -198,13 +210,14 @@
 
 
         <LinearLayout
+            android:id="@+id/alarmSchedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/palegray"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:gravity="center"
-            android:orientation="horizontal"
-
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -216,6 +229,7 @@
                 android:textStyle="bold" />
 
             <Switch
+                android:id="@+id/swich_note_alarm"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_margin="16dp" />
@@ -268,4 +282,9 @@
 
     </LinearLayout>
 
-</ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

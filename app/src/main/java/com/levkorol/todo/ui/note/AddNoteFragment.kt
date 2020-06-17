@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.note
 
 import android.app.Activity
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,8 +22,12 @@ import android.provider.MediaStore.EXTRA_OUTPUT
 import androidx.core.content.FileProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
+import com.levkorol.todo.ui.MainActivity
+import kotlinx.android.synthetic.main.add_note.add_title_text
+import kotlinx.android.synthetic.main.add_note.back_profile
+import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import java.io.File
-
+import java.text.SimpleDateFormat
 
 
 class AddNoteFragment : Fragment() {
@@ -31,6 +36,11 @@ class AddNoteFragment : Fragment() {
     var photoUri: Uri? = null
     private lateinit var note: Note
     private var parentFolderId: Long = 0
+    private var dateDateSchedule: Long = System.currentTimeMillis()
+    private var time: Long = System.currentTimeMillis()
+    private var addScheduleFlag = false
+    private var addPhoto = false
+
 
     companion object {
         private val TAG = AddNoteFragment::class.java.simpleName
@@ -72,17 +82,22 @@ class AddNoteFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             photoUri = data!!.data
             photoView.setImageURI(photoUri)
+            addPhoto = true
+            deletePhoto.visibility = View.VISIBLE
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_INTENT) {
             photoView.setImageURI(photoUri)
+            addPhoto = true
+            deletePhoto.visibility = View.VISIBLE
         }
     }
 
     private fun initViews() {
         save_note_btn.setOnClickListener {
             saveNote()
-            //(activity as MainActivity).loadFragment(NoteFragment.newInstance(note))
+
             parentFragmentManager.popBackStack()
+            (activity as MainActivity).loadFragment(NoteFragment.newInstance(note))
         }
 
         back_profile.setOnClickListener {
@@ -100,18 +115,45 @@ class AddNoteFragment : Fragment() {
 
         addSchedule.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
-            builder.build().addOnPositiveButtonClickListener{
-
-//                val timeZoneUTC = TimeZone.getDefault()
-//                val offsetFromUTC = timeZoneUTC.getOffset(Date().time) * -1
-//                val simpleFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
-//                val date = Date(selectedDate + offsetFromUTC)
-//
-//                dataEntry.setText(simpleFormat.format(lDate))
+            val picker: MaterialDatePicker<Long> = builder.build()
+            picker.addOnPositiveButtonClickListener { unixTime ->
+                text_date_time.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
+                dateDateSchedule = unixTime
+                addScheduleFlag = true
+                deleteSchedule.visibility = View.VISIBLE
             }
-            builder.build().show(parentFragmentManager, TAG)
+            picker.show(parentFragmentManager, picker.toString())
+
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                text_date.visibility = View.VISIBLE
+                text_date.text = SimpleDateFormat("HH:mm").format(cal.time)
+                time = cal.time.time
+            }
+            TimePickerDialog(
+                context,
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
         }
 
+        deleteSchedule.setOnClickListener {
+            deleteSchedule.visibility = View.GONE
+            addScheduleFlag = false
+            text_date.visibility = View.GONE
+            text_date_time.text = "Добавить в расписание"
+        }
+
+        deletePhoto.setOnClickListener {
+            photoUri = null
+            addPhoto = false
+            photoView.setImageResource(R.drawable.ic_add_photo)
+            deletePhoto.visibility = View.GONE
+        }
     }
 
     private fun openGallery() {
@@ -150,7 +192,12 @@ class AddNoteFragment : Fragment() {
             star = star_image_btn.isSelected,
             photo = photoUri.toString(),
             date = System.currentTimeMillis(),
-            parentFolderId = parentFolderId
+            parentFolderId = parentFolderId,
+            time = time,
+            dateSchedule = dateDateSchedule,
+            alarm = false,
+            addSchedule = addScheduleFlag,
+            addPhoto = addPhoto
         )
         MainRepository.addNote(note)
     }
@@ -172,16 +219,6 @@ class AddNoteFragment : Fragment() {
         builder.show()
 
 
-//        builder.setNegativeButton("Галлерея") { _, _ ->
-//            openGallery()
-//        }
-//        builder.setPositiveButton("Камера") { _, _ ->
-//            openCamera()
-//        }
-//        builder.setNeutralButton("Отменить") { _, _ ->
-//        }
-//        val dialog: AlertDialog = builder.create()
-//        dialog.show()
     }
 
     private fun starClick() {

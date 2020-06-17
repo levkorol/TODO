@@ -61,7 +61,7 @@
             android:layout_alignParentRight="true"/>
 
         <TextView
-            android:id="@+id/text_not"
+            android:id="@+id/text_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -70,22 +70,26 @@
             android:layout_marginTop="16dp"
             android:textColor="@color/strongpink"
             android:textSize="10sp"
+            android:visibility="gone"
+            tools:visibility="visible"
             tools:text="14.00"
             android:layout_below="@id/star_image"
             android:layout_alignParentRight="true"
             />
 
         <TextView
-            android:id="@+id/text_no"
+            android:id="@+id/text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:maxLines="1"
             android:layout_marginEnd="8dp"
             android:textColor="@color/strongpink"
             android:textSize="10sp"
             tools:text="14.03.2020"
-            android:layout_below="@id/text_not"
+            android:layout_below="@id/text_time"
             android:layout_alignParentRight="true"
             />
 

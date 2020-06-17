@@ -23,14 +23,11 @@ import com.levkorol.todo.utils.Tools
 class ScheduleAdapter(
     val activity: MainActivity
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-    // private val context: Context? = null
+
     private lateinit var schedule: Schedule
 
     var dataItems: List<Schedule> = listOf()
         set(value) {
-//            val diffCallback = DiffCallback(field, value)
-//            val diffResult = DiffUtil.calculateDiff(diffCallback)
-//            diffResult.dispatchUpdatesTo(this)
             field = value
             notifyDataSetChanged()
         }
@@ -49,20 +46,14 @@ class ScheduleAdapter(
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val item = dataItems[position]
         holder.title_schedule.text = item.title
-//        if(item.date == System.currentTimeMillis()){
-//            holder.date_schedule.visibility = View.GONE
-//        } else {
-//
-//        }
-//        if (item.time == System.currentTimeMillis()) {
-//            holder.time.visibility = View.GONE
-//        } else {
-//            holder.time.visibility = View.VISIBLE
-//        }
+
         holder.date_schedule.text = Tools.dateToString(item.date)
         holder.time.text = Tools.convertLongToTimeString(item.time)
         holder.checkBox.isChecked = item.checkBoxDone
-        holder.timer.visibility = if (item.alarm) View.VISIBLE else View.GONE
+        holder.timer.visibility =
+            if (item.alarm && item.date < System.currentTimeMillis()
+                && item.time < System.currentTimeMillis())
+                View.VISIBLE else View.GONE
 
         holder.timer.setOnClickListener {
             schedule = dataItems[position]
@@ -101,26 +92,6 @@ class ScheduleAdapter(
             dialog.show()
             true
         }
-    }
-
-    fun updateData(data: List<Schedule>) {
-        val diffCallback = object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean =
-                dataItems[oldPos].id == data[newPos].id
-
-            override fun getOldListSize(): Int = dataItems.size
-
-            override fun getNewListSize(): Int = data.size
-
-            override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean =
-                dataItems[oldPos].hashCode() == data[newPos].hashCode()
-        }
-
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        dataItems = data
-        //  notifyDataSetChanged()
-        diffResult.dispatchUpdatesTo(this)
     }
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

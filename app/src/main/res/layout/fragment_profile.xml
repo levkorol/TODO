@@ -118,7 +118,7 @@
             />
 
         <TextView
-            android:id="@+id/height"
+            android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -129,7 +129,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/heightiew"
+            android:id="@+id/exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

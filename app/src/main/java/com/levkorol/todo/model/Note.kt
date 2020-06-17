@@ -13,6 +13,11 @@ data class Note(
     @ColumnInfo(name = "star") var star: Boolean,
     @ColumnInfo(name = "photo") var photo: String,
     @ColumnInfo(name = "date") override var date: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "time") var time: Long ,
+    @ColumnInfo(name = "dateSchedule") var dateSchedule: Long ,
+    @ColumnInfo(name = "alarm") var alarm: Boolean ,
+    @ColumnInfo(name = "addSchedule") var addSchedule: Boolean ,
+    @ColumnInfo(name = "addPhoto") var addPhoto: Boolean,
     var parentFolderId: Long = -1
 ) : Base()
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "793928699648",
+    "firebase_url": "https://todoshka-a159b.firebaseio.com",
+    "project_id": "todoshka-a159b",
+    "storage_bucket": "todoshka-a159b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793928699648:android:fdf4fe89d431922b0d6de5",
+        "android_client_info": {
+          "package_name": "com.levkorol.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793928699648-phkov647m7ag5tks2k0p7u8b1f7mtmau.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.levkorol.todo",
+            "certificate_hash": "ef78f25143cf229deb4077c349c33c03b93c6f3d"
+          }
+        },
+        {
+          "client_id": "793928699648-mnpesl6f4719qjfmqk4r6gkdvcin8mq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEpZtvEHhVUwGc-TDYZKq_dCVIe3YnY9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793928699648-mnpesl6f4719qjfmqk4r6gkdvcin8mq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

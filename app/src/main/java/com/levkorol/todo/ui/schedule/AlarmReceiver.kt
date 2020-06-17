@@ -12,10 +12,27 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.observe
 import com.levkorol.todo.R
+import com.levkorol.todo.data.note.MainRepository.schedule
+import com.levkorol.todo.model.Note
+import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.ui.notes.NotesViewModel
+import java.util.Observer
 
 class AlarmReceiver : BroadcastReceiver() {
+//    override fun getLifecycle(): Lifecycle {
+//        observe()
+//        return lifecycle
+//    }
+
+    private lateinit var viewModel: ScheduleViewModel
+    private var schedules: Schedule? = null
+    private var scheduleId : Long = 1
+
     override fun onReceive(context: Context, intent: Intent?) {
         Log.v("TEST", "onReceive: $intent")
 //        (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
@@ -36,7 +53,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_star)
             .setContentTitle("Напоминание")
-            .setContentText("dfsd")
+            .setContentText("${schedules?.description}")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         val notificationManager = NotificationManagerCompat.from(context)
         builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
@@ -57,6 +74,12 @@ class AlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+//    private fun observe() {
+//        viewModel.getSchedules().observe(this, androidx.lifecycle.Observer { schedule ->
+//            schedules = schedule.firstOrNull{ s -> s.id == scheduleId}
+//        })
+//    }
 
     companion object {
         private val NOTIFY_ID = 101

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -124,6 +125,16 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/deletePhotoEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Удалить фото"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:drawableLeft="@drawable/ic_clear"/>
+
                 <ImageView
                     android:id="@+id/photoViewEdit"
                     android:layout_width="31dp"
@@ -170,7 +181,18 @@
                 android:layout_weight="1.1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/deleteScheduleEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Убрать с расп..."
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:drawableLeft="@drawable/ic_clear"/>
+
                 <ImageView
+                    android:id="@+id/addScheduleEdit"
                     android:layout_width="31dp"
                     android:layout_height="33dp"
                     android:layout_gravity="center"

@@ -23,6 +23,7 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
+import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
 import kotlinx.android.synthetic.main.fragment_note.*
@@ -63,13 +64,8 @@ class EditNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         noteId = arguments?.getLong(NOTE_ID, -1)!!
         initViews()
-
         viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
         observeNotes()
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -77,9 +73,13 @@ class EditNoteFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
             photoUri = data!!.data
             photoViewEdit.setImageURI(photoUri)
+            note?.addPhoto = true
+            deletePhotoEdit.visibility = View.VISIBLE
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_INTENT) {
             photoViewEdit.setImageURI(photoUri)
+            note?.addPhoto = true
+            deletePhotoEdit.visibility = View.VISIBLE
         }
     }
 
@@ -103,6 +103,12 @@ class EditNoteFragment : Fragment() {
         photoViewEdit.setOnClickListener {
             showAlterDialog()
         }
+
+        deletePhotoEdit.setOnClickListener {
+            note?.addPhoto = false
+            deletePhotoEdit.visibility = View.GONE
+            photoViewEdit.setImageResource(R.drawable.ic_add_photo)
+        }
     }
 
     private fun saveEditNote() {
@@ -111,7 +117,12 @@ class EditNoteFragment : Fragment() {
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
-        note!!.photo = photoUri.toString()
+         if(note?.addPhoto == true && photoUri != null) {
+            note!!.photo = photoUri.toString()
+            val photo = Uri.parse(note!!.photo)
+            photoViewEdit.setImageURI(photo)
+        }
+
 //        if (oldNote != note) {
 //          showAlterExit()
 //        }
@@ -123,16 +134,17 @@ class EditNoteFragment : Fragment() {
     private fun observeNotes() {
         viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
+
+    //todo при повторном редактировании сохраненное изображение не отображается в режиме редактирования и кнопка удаления фотки
+
+            if(note?.addPhoto == true && note?.photo != null && photoUri != null) {
+                val photo = Uri.parse(note!!.photo)
+                photoViewEdit.setImageURI(photo)
+                deletePhotoEdit.visibility = View.VISIBLE
+            }
             if (note != null) {
                 edit_title_text.setText(note?.name)
                 edit_description_note_text.text = SpannableStringBuilder(note?.description)
-
-                val photo = Uri.parse(note!!.photo)
-
-                // TODO 1. если пользователь поменял фото, то обновляем, иначе НЕ ОБНОВЛЯЕМ ТУТ НИЧЕГО (ФОТО)
-                // TODO 2. можно все значения note хранить в одной noteTemp
-                // todo 3 удалить в режиме редактирования нажав на  textView под иконкой
-                photoViewEdit.setImageURI(photo)
 
                 star_ed.isSelected = note!!.star
                 if (star_ed.isSelected) {
@@ -142,16 +154,6 @@ class EditNoteFragment : Fragment() {
                 }
             }
         })
-    }
-
-    private fun updateStar() {
-        if (star_ed.isSelected) {
-            star_ed.setImageResource(R.drawable.ic_star_in_add_notes)
-            star_ed.isSelected = false
-        } else {
-            star_ed.setImageResource(R.drawable.ic_star)
-            star_ed.isSelected = true
-        }
     }
 
     private fun getNewPhotoUri(): Uri {
@@ -197,18 +199,16 @@ class EditNoteFragment : Fragment() {
             }
         }
         builder.show()
+    }
 
-
-//        builder.setNegativeButton("Галлерея") { _, _ ->
-//            openGallery()
-//        }
-//        builder.setPositiveButton("Камера") { _, _ ->
-//            openCamera()
-//        }
-//        builder.setNeutralButton("Отменить") { _, _ ->
-//        }
-//        val dialog: AlertDialog = builder.create()
-//        dialog.show()
+    private fun updateStar() {
+        if (star_ed.isSelected) {
+            star_ed.setImageResource(R.drawable.ic_star_in_add_notes)
+            star_ed.isSelected = false
+        } else {
+            star_ed.setImageResource(R.drawable.ic_star)
+            star_ed.isSelected = true
+        }
     }
 //
 //    @SuppressLint("UseRequireInsteadOfGet")

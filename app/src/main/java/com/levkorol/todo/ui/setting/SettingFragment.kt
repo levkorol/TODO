@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesFragment
 import com.levkorol.todo.ui.schedule.ScheduleViewModel
 import com.levkorol.todo.ui.setting.profile.AuthorizationFragment
+import com.levkorol.todo.ui.setting.profile.ProfileFragment
 import kotlinx.android.synthetic.main.setting_fragment.*
 
 class SettingFragment : Fragment() {
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     companion object {
         fun newInstance() = SettingFragment()
@@ -33,9 +36,13 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       sinhr.setOnClickListener {
-           (activity as MainActivity).loadFragment(AuthorizationFragment())
-       }
+        sinhr.setOnClickListener {
+            if (auth.currentUser == null) {
+                (activity as MainActivity).loadFragment(AuthorizationFragment())
+            } else {
+                (activity as MainActivity).loadFragment(ProfileFragment())
+            }
+        }
     }
 
     override fun onStart() {

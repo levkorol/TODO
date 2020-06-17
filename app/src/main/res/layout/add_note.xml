@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -133,6 +134,16 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/deletePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Удалить фото"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:drawableLeft="@drawable/ic_clear"/>
+
                 <ImageView
                     android:id="@+id/photoView"
                     android:layout_width="31dp"
@@ -180,6 +191,16 @@
                 android:layout_weight="1.1"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/deleteSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Убрать с расп..."
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:drawableLeft="@drawable/ic_clear"/>
+
                 <ImageView
                     android:id="@+id/add_schedule"
                     android:layout_width="31dp"
@@ -189,11 +210,22 @@
 
 
                 <TextView
+                    android:id="@+id/text_date_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/add_schedul"
                     android:textAlignment="center"
+                    android:textColor="@color/ultramarin"
+                    android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/add_schedul"
+                    android:textAlignment="center"
+                    android:visibility="gone"
                     android:textColor="@color/ultramarin"
                     android:textSize="12sp" />
 
