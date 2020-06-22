@@ -63,7 +63,7 @@ class EditProfileFragment : Fragment() {
                 AlertDialog.Builder(requireContext())
                     .setView(view)
                     .setPositiveButton("Да") { _, _ ->
-                        onPasswordConfim( view.password_input.text.toString())
+                        onPasswordConfim(view.password_input.text.toString())
                     }
                     .setNegativeButton("Отмена") { _, _ -> }
                     .setTitle("Введите пароль для смены емеила")
@@ -75,9 +75,9 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-   private fun onPasswordConfim(password: String) {
+    private fun onPasswordConfim(password: String) {
         Log.d("EditProfileFragment", "password : $password")
-        if(password.isNotEmpty()) {
+        if (password.isNotEmpty()) {
             val credential = EmailAuthProvider.getCredential(mUser.email, password)
             mAuth.currentUser!!.reauthenticate(credential).addOnCompleteListener {
                 if (it.isSuccessful) {

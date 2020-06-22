@@ -77,8 +77,6 @@ class FolderFragment : Fragment() {
 
         title_folder.text = arguments?.getString(TITLE, "")
 
-       // discription.text = arguments?.getString(DISC,"")
-
         add_note_or_folder.setOnClickListener {
             showAlterDialog()
         }

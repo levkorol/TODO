@@ -42,7 +42,6 @@ class AddNoteFragment : Fragment() {
     private var addPhoto = false
     private var noteId: Long = 1
 
-
     companion object {
         private val TAG = AddNoteFragment::class.java.simpleName
         private const val PICK_IMAGE = 100
@@ -97,7 +96,7 @@ class AddNoteFragment : Fragment() {
         save_note_btn.setOnClickListener {
             saveNote()
             parentFragmentManager.popBackStack()
-            (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
+         //   (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
         }
 
         back_profile.setOnClickListener {
@@ -106,7 +105,6 @@ class AddNoteFragment : Fragment() {
 
         star_image_btn.setOnClickListener {
             starClick()
-
         }
 
         photoView.setOnClickListener {

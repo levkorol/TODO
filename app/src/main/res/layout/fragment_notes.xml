@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,10 +18,10 @@
             android:layout_weight="1">
 
             <ImageView
-
                 android:id="@+id/add_notes_or_folder"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_add"
 
@@ -53,12 +53,12 @@
 
             <ImageView
                 android:id="@+id/filter_btn"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:background="?selectableItemBackgroundBorderless"
-                android:padding="8dp"
                 android:src="@drawable/ic_filter" />
         </FrameLayout>
 
@@ -68,30 +68,30 @@
         android:id="@+id/dont_have_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="У вас пока нет записей. \n Добавить?"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/clear_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:drawableStart="@drawable/ic_clear"
-        android:text="Сбросить фильтр"
         android:gravity="center"
+        android:text="Сбросить фильтр"
         android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_gravity="center"/>
+        tools:visibility="visible" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/list_item_folder"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_folder" />
 
 
 </LinearLayout>

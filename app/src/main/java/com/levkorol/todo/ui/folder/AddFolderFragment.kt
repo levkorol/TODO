@@ -48,17 +48,13 @@ class AddFolderFragment : Fragment() {
         }
 
         save_folder_btn.setOnClickListener {
-            saveFolder()
-            parentFragmentManager.popBackStack()
+            if(add_title_text_folder.text.isNotEmpty()) {
+                saveFolder()
+                parentFragmentManager.popBackStack()
+            } else {
+                Toast.makeText(activity, "Введите название папки", Toast.LENGTH_SHORT).show()
+            }
         }
-
-//       radioGroupColorFolder.setOnCheckedChangeListener { radioGroup, i ->  }
-//
-//        if (radioButtonGreen.isChecked) Folder.Background.GREEN
-//        if (radioButtonGrey.isChecked) Folder.Background.GRAY
-//        if (radioButtonPurpur.isChecked) PURPLE
-//        if (radioButtonRed.isChecked) Folder.Background.PINK
-
     }
 
     override fun onStart() {

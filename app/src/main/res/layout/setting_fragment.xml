@@ -13,8 +13,7 @@
         android:textStyle="bold"
         android:textSize="17sp"
         android:textColor="@color/ultramarin"
-        android:layout_gravity="center"
-       />
+        android:layout_gravity="center"/>
 
     <Switch
         android:layout_width="match_parent"

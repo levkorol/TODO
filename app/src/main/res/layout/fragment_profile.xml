@@ -66,6 +66,7 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -102,6 +103,7 @@
 
 
         <TextView
+            android:id="@+id/restore_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"

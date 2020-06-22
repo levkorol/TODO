@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.7">
+            android:layout_weight="0.3">
 
             <ImageView
                 android:id="@+id/back_profile"
@@ -31,35 +31,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="2">
 
             <ImageView
 
                 android:id="@+id/add_note_or_folder"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
                 android:layout_margin="6dp"
                 android:src="@drawable/ic_add"
-
-
-                />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="27dp"
-                android:layout_height="27dp"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:src="@drawable/ic_search_black_24dp"
-
                 />
 
         </FrameLayout>
@@ -69,81 +50,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="0.3">
 
             <ImageView
-
-                android:id="@+id/edit_folder"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:layout_gravity="center"
-                android:layout_margin="6dp"
-                android:src="@drawable/ic_update"
-
-
-                />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
-
-            <ImageView
-
                 android:id="@+id/delete_folder"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:layout_gravity="center"
-                android:layout_margin="6dp"
-                android:src="@drawable/ic_delete"
-
-
-                />
-
-        </FrameLayout>
-
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/filterButton"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="right"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="?selectableItemBackgroundBorderless"
-                android:padding="8dp"
-                android:src="@drawable/ic_filter" />
+                android:src="@drawable/ic_delete" />
         </FrameLayout>
 
     </LinearLayout>
 
-        <TextView
-            android:id="@+id/title_folder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textColor="@android:color/black"
-            tools:text="papka"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/title_folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="papka" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_folder_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_folder"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_folder" />
 
 
 </LinearLayout>
