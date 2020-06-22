@@ -11,13 +11,14 @@
         android:id="@+id/add_new_schedule"
         android:layout_width="33dp"
         android:layout_height="33dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/ic_add"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"

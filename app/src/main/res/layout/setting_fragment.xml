@@ -29,7 +29,7 @@
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Установить пароль на вход в приложение"
+        android:text="Пароль на вход в приложение"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textColor="@android:color/background_dark"

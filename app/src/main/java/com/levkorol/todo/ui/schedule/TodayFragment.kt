@@ -16,6 +16,8 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.utils.isMounth
 import com.levkorol.todo.utils.isSameWeek
 import com.levkorol.todo.utils.isToday
+import kotlinx.android.synthetic.main.fragment_today.*
+import kotlinx.android.synthetic.main.schedule_fragment.*
 
 class TodayFragment : Fragment() {
 
@@ -66,10 +68,14 @@ class TodayFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
+       add.setOnClickListener {
+            (activity as MainActivity).loadFragment(AddScheduleFragment())
+        }
     }
 
     override fun onStart() {
         super.onStart()
+
         viewModel =
             ViewModelProvider(requireActivity()).get(ScheduleViewModel::class.java)
         observeSchedule()
@@ -79,8 +85,12 @@ class TodayFragment : Fragment() {
 
     private fun observeSchedule() {
         viewModel.getSchedules().observe(this, Observer { schedules ->
+
+            if(this.schedules == null && schedules.isEmpty() && schedule?.date == System.currentTimeMillis())
+                no_schedule_today.visibility = View.VISIBLE else View.GONE //todo  перестал работать висибл считает все шедулы за все времена а не за сегодня
             this.schedules = schedules
             updateSchedules()
+
         })
     }
 

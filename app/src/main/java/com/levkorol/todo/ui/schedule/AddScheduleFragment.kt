@@ -116,7 +116,6 @@ class AddScheduleFragment : Fragment() {
     }
 
     private fun saveSchedule() {
-        // TODO это нужно делать при сохранении (при добавлении шедула)
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(context, 0, intent, 0)

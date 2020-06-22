@@ -58,8 +58,6 @@ class ScheduleFragment : Fragment() {
             id = arguments?.getLong(SCHEDULE_ID, id)!!
         }
 
-
-
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_sch)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
@@ -106,8 +104,8 @@ class ScheduleFragment : Fragment() {
         adapter.dataItems = schedules!!.filter { schedule ->
             when (pagePosition) {
                 0 -> isToday(schedule.date)
-                1 -> isSameWeek(schedule.date)
-                2 -> isMounth(schedule.date)
+              //  1 -> isSameWeek(schedule.date)
+                1 -> isMounth(schedule.date)
                 else -> true
             }
         }
@@ -127,20 +125,20 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = TodayFragment()
-            1 -> fragment = WeekFragment()
-            2 -> fragment = MonthFragment()
+         //   1 -> fragment = WeekFragment()
+            1 -> fragment = MonthFragment()
         }
         return fragment!!
     }
 
-    override fun getCount(): Int = 3
+    override fun getCount(): Int = 2
 
     override fun getPageTitle(position: Int): CharSequence? {
         var title: String? = null
         when (position) {
             0 -> title = "Сегодня"
-            1 -> title = "Неделя"
-            2 -> title = "Месяц"
+          //  1 -> title = "Неделя"
+            1 -> title = "Месяц"
         }
         return title!!
     }

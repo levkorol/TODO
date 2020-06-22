@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import java.time.DayOfWeek
+import java.time.Duration
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -74,4 +76,8 @@ fun GradientDrawable.setCornerRadius(
         bottomRight, bottomRight,
         bottomLeft, bottomLeft
     ).toFloatArray()
+}
+
+fun Context.showToast(text: String, duration: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(this, text, duration).show()
 }

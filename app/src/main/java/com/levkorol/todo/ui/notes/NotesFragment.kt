@@ -30,6 +30,7 @@ class NotesFragment : Fragment() {
     private var childElements: MutableList<Base>? = null
     private var query: String = ""
     private var notesFilter = -1
+    private var noteId: Long = -1
 
     companion object {
         private const val PARENT_FOLDER = "ParentId"
@@ -65,8 +66,6 @@ class NotesFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapter
 
-        // dont_have_notes.visibility = if (adapter.data.isEmpty())View.VISIBLE else View.GONE//todo   настроить висабилити
-        // Log.d("size", "${adapter.data}")
 
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
@@ -76,8 +75,16 @@ class NotesFragment : Fragment() {
             filterDialog()
         }
 
+        clear_filter.setOnClickListener {
+            notesFilter = -1
+            updateNotes()
+        }
+
+        // searchView.clearFocus()
+        // searchView.isIconified = false
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 this@NotesFragment.query = query ?: ""
                 updateNotes()
@@ -106,32 +113,52 @@ class NotesFragment : Fragment() {
     private fun observeNotes() {
         viewModel.getFolders().observe(this, Observer { folders ->
             val currentFolder = folders.firstOrNull { it.id == folderId }
+
+            if (childElements == null || childElements!!.size <= 0 || adapter.data.isEmpty()) {
+                dont_have_notes.visibility = View.VISIBLE //todo настроить visibility текста
+            } else {
+                dont_have_notes.visibility = View.GONE
+            }
             childElements = mutableListOf()
             if (currentFolder != null) {
                 childElements!!.addAll(currentFolder.folders.sortedByDescending { it.date })
                 childElements!!.addAll(currentFolder.notes.sortedByDescending { it.date })
             }
-              updateNotes()
+            updateNotes()
         })
     }
 
     private fun updateNotes() {
+        if (notesFilter >= 0) {
+            clear_filter.visibility = View.VISIBLE
+        } else {
+            clear_filter.visibility = View.GONE
+        }
         adapter.data = childElements!!
             .filter { element ->
                 var isFiltered = false
-                if(notesFilter < 0) {
+                if (notesFilter < 0) {
                     if (element is Folder) {
                         isFiltered = element.nameFolder.indexOf(query) != -1
                     } else if (element is Note) {
                         isFiltered = element.name.indexOf(query) != -1
                     }
                 } else {
-                    if (element is Folder && notesFilter == NotesFilter.ONLY_FOLDER) {
+                    if (element is Folder && notesFilter == NotesFilter.ONLY_FOLDER) isFiltered = true
+
+                    if (element is Note && notesFilter == NotesFilter.ONLY_NOTES) isFiltered = true
+
+                    if (element is Note && notesFilter == NotesFilter.IMPORTANT_NOTES && element.star) isFiltered = true
+
+                    if (element is Note && notesFilter == NotesFilter.NOTES_IN_SCHEDULE && element.addSchedule) isFiltered = true
+
+                    if (element is Note && notesFilter == NotesFilter.NOTES_WITH_ALARM && element.alarm) isFiltered = true
+                    //todo  сортировка по старой дате не раб
+                    if (element is Note && notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES ) {
+                      //  adapter.data.sortedDescending(element.date)
                         isFiltered = true
                     }
-                    if (element is Note && notesFilter == NotesFilter.ONLY_NOTES) {
-                        isFiltered = true
-                    }
+
                 }
                 isFiltered
 
@@ -144,8 +171,12 @@ class NotesFragment : Fragment() {
         builder.setTitle("Показать:")
         val pictureDialogItems =
             arrayOf(
-                "Только папки", "Только заметки",
-                "Важные заметки", "Старые папки и заметки"
+                "Только папки",
+                "Только заметки",
+                "Важные заметки",
+                "Старые папки и заметки",
+                "Заметки добавленные в расписание",
+                "Заметки с включенным оповещением"
             )
         builder.setItems(
             pictureDialogItems
@@ -158,10 +189,12 @@ class NotesFragment : Fragment() {
 
     private class NotesFilter {
         companion object {
-            val ONLY_FOLDER: Int  = 0
+            val ONLY_FOLDER: Int = 0
             val ONLY_NOTES = 1
             val IMPORTANT_NOTES = 2
             val OLD_FOLDER_AND_NOTES = 3
+            val NOTES_IN_SCHEDULE = 4
+            val NOTES_WITH_ALARM = 5
         }
     }
 

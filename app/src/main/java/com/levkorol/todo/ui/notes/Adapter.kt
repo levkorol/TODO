@@ -43,11 +43,11 @@ class Adapter(val activity: MainActivity) :
                 holder.text_time.visibility = View.VISIBLE
                 holder.text_time.text = item.time.toString()
                 holder.text_date.text = Tools.dateToStringtwo(item.date)
-                holder.text_time.text = Tools.convertLongToTimeString(item.time) //todo adapter chet stranno obnovlyaet inogda etu cashu
+                holder.text_time.text = Tools.convertLongToTimeString(item.time)
 
             }
             holder.itemView.setOnClickListener {
-                activity.loadFragment(NoteFragment.newInstance(item)) //todo поменять на айдишник наверное
+                activity.loadFragment(NoteFragment.instance(item.id))
             }
         } else {
             item as Folder

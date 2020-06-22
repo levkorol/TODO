@@ -200,11 +200,23 @@
 
 
                 <TextView
+                    android:id="@+id/text_time_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/add_schedul"
                     android:textAlignment="center"
+                    android:textColor="@color/ultramarin"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_date_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/add_schedul"
+                    android:textAlignment="center"
+                    android:visibility="gone"
                     android:textColor="@color/ultramarin"
                     android:textSize="12sp" />
 

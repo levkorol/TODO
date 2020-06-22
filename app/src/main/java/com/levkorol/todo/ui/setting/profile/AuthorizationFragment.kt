@@ -1,6 +1,5 @@
 package com.levkorol.todo.ui.setting.profile
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +10,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.authorization.*
-
-
 
 class AuthorizationFragment : Fragment() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
@@ -35,12 +32,6 @@ class AuthorizationFragment : Fragment() {
         registrBtn.setOnClickListener {
             (activity as MainActivity).loadFragment(RegistrationFragment())
         }
-
-//        auth.addAuthStateListener {
-//            if(it.currentUser != null) {
-//                (activity as MainActivity).loadFragment(ProfileFragment())
-//            }
-//        }
     }
 
     fun logIn() {

@@ -21,13 +21,14 @@
                 android:src="@drawable/arhivpick" />
 
             <TextView
+                android:id="@+id/hello"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="21dp"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Привет, Имя ! \n "
+                android:text="Привет! \n "
                 android:textColor="@color/colorSelect"
                 android:textSize="25sp"
                 android:textStyle="bold" />

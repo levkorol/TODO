@@ -23,6 +23,7 @@ import com.levkorol.todo.ui.notes.NotesViewModel
 import com.levkorol.todo.ui.schedule.AlarmReceiver
 import com.levkorol.todo.utils.Tools
 import kotlinx.android.synthetic.main.add_note.*
+import kotlinx.android.synthetic.main.edit_note_fragment.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_note.back_profile
@@ -33,45 +34,24 @@ class NoteFragment : Fragment() {
 
     private lateinit var viewModel: NotesViewModel
     private var noteId: Long = -1
-    private var flagStar: Boolean = false
     private var note: Note? = null
-    private var photoUri: Uri? = null
+    private lateinit var photoUri: Uri
     private var alarmFlag = false
     private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
 
     companion object {
         private const val NOTE_ID = "NOTE_ID"
-        private const val NOTE_TITLE = "NOTE_TITLE"
-        private const val NOTE_DESCRIPTION = "NOTE_DESCRIPTION"
-        private const val STAR = "STAR"
-        private const val PHOTO = "PHOTO"
-
-        fun newInstance(note: Note): NoteFragment {
+        fun instance(noteId: Long): NoteFragment {
             val fragment = NoteFragment()
-            val arguments = Bundle()
-            arguments.apply {
-                putLong(NOTE_ID, note.id)
-                putString(NOTE_TITLE, note.name)
-                putString(NOTE_DESCRIPTION, note.description)
-                putBoolean(STAR, note.star)
-                putString(PHOTO, note.photo)
+            val arg = Bundle()
+            arg.apply {
+                putLong(NOTE_ID, noteId)
             }
-            fragment.arguments = arguments
+            fragment.arguments = arg
             return fragment
         }
-
-//        fun instance(noteId: Long) : NoteFragment { //todo
-//            val fragment = NoteFragment()
-//            val arg = Bundle()
-//            arg.apply {
-//                putLong(NOTE_ID, noteId)
-//            }
-//            fragment.arguments = arg
-//            return fragment
-//        }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,18 +60,10 @@ class NoteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_note, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         noteId = arguments?.getLong(NOTE_ID, -1)!!
-
-        title_note_text_view.text = arguments?.getString(NOTE_TITLE, "FAIL")
-        description_note_text_view.text = arguments?.getString(NOTE_DESCRIPTION, "DESC")
-        star.isSelected = arguments?.getBoolean(STAR, flagStar)!!
-
         initViews()
-
     }
 
     override fun onStart() {
@@ -101,15 +73,6 @@ class NoteFragment : Fragment() {
     }
 
     private fun initViews() {
-
-        photoUri = Uri.parse(arguments?.getString(PHOTO, "photo"))
-        imageViewNotePhoto.setImageURI(photoUri)
-
-        if (star.isSelected) {
-            star.setImageResource(R.drawable.ic_star)
-        } else {
-            star.setImageResource(R.drawable.ic_star_in_add_notes)
-        }
 
         delete_btn.setOnClickListener {
             showAlter()
@@ -128,7 +91,7 @@ class NoteFragment : Fragment() {
         }
 
         imageViewNotePhoto.setOnClickListener {
-            if (photoUri != null) (activity as MainActivity).loadFragment(
+            if (note?.addPhoto == true) (activity as MainActivity).loadFragment(
                 PhotoFragment.newInstance(
                     note!!
                 )
@@ -168,33 +131,35 @@ class NoteFragment : Fragment() {
             }
         }
 
-       star.setOnClickListener {
-           if (star.isSelected) {
-               star.setImageResource(R.drawable.ic_star_in_add_notes)
-               star.isSelected = false
-               note?.star = false
-               note?.let { it1 -> MainRepository.update(it1) }
-           } else {
-               star.setImageResource(R.drawable.ic_star)
-               Toast.makeText(activity, "Вы отметили заметку как важная", Toast.LENGTH_LONG).show()
-               note?.star = true
-               star.isSelected = true
-               note?.let { it1 -> MainRepository.update(it1) }
-           }
+        star.setOnClickListener {
+            updateStar()
         }
     }
 
     private fun observeNotes() {
         viewModel.getNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
+
+            title_note_text_view.text = note?.name
+            description_note_text_view.text = note?.description
+            if(note?.alarm == true) swich_note_alarm.isChecked = true
+
+            if (note?.star == true) {
+                star.isSelected = true
+                star.setImageResource(R.drawable.ic_star)
+            } else {
+                star.setImageResource(R.drawable.ic_star_in_add_notes)
+                star.isSelected = false
+            }
+            if(note?.addPhoto == true ) {
+                photoUri = Uri.parse(note!!.photo)
+                imageViewNotePhoto.setImageURI(photoUri)
+                cardView.visibility = View.VISIBLE
+            }
             if (note?.addSchedule == true) {
                 timeSchedule.visibility = View.VISIBLE
                 alarmSchedule.visibility = View.VISIBLE
-                text_date.text =
-                    "${note?.date?.let { Tools.dateToStringtwo(it) }}, ${note?.time?.let { Tools.convertLongToTimeString(it) }}"
-            }
-            if (note?.addPhoto == true) {
-                cardView.visibility = View.VISIBLE //todo ne rab
+                text_date.text = "${note?.date?.let { Tools.dateToStringtwo(it) }}, ${note?.time?.let { Tools.convertLongToTimeString(it) }}"
             }
         })
     }
@@ -206,7 +171,6 @@ class NoteFragment : Fragment() {
         builder.setPositiveButton("Да") { _, _ ->
             MainRepository.deleteById(noteId)
             parentFragmentManager.popBackStack()
-            // (activity as MainActivity).loadFragment(NotesFragment())
         }
         builder.setNegativeButton("Отмена") { _, _ ->
 
@@ -224,5 +188,20 @@ class NoteFragment : Fragment() {
         shareIntent.type = "text/plan"
         shareIntent.putExtra(Intent.EXTRA_TEXT, s)
         startActivity(Intent.createChooser(shareIntent, s))
+    }
+
+    private fun updateStar() {
+        if (star.isSelected) {
+            star.setImageResource(R.drawable.ic_star_in_add_notes)
+            star.isSelected = false
+            note?.star = false
+            note?.let { it1 -> MainRepository.update(it1) }
+        } else {
+            star.setImageResource(R.drawable.ic_star)
+            Toast.makeText(activity, "Вы отметили заметку как важная", Toast.LENGTH_LONG).show()
+            note?.star = true
+            star.isSelected = true
+            note?.let { it1 -> MainRepository.update(it1) }
+        }
     }
 }

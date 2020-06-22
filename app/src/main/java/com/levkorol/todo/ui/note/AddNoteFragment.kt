@@ -40,6 +40,7 @@ class AddNoteFragment : Fragment() {
     private var time: Long = System.currentTimeMillis()
     private var addScheduleFlag = false
     private var addPhoto = false
+    private var noteId: Long = 1
 
 
     companion object {
@@ -95,9 +96,8 @@ class AddNoteFragment : Fragment() {
     private fun initViews() {
         save_note_btn.setOnClickListener {
             saveNote()
-
             parentFragmentManager.popBackStack()
-            (activity as MainActivity).loadFragment(NoteFragment.newInstance(note))
+            (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
         }
 
         back_profile.setOnClickListener {
@@ -129,6 +129,7 @@ class AddNoteFragment : Fragment() {
                 cal.set(Calendar.HOUR_OF_DAY, hour)
                 cal.set(Calendar.MINUTE, minute)
                 text_date.visibility = View.VISIBLE
+                addScheduleFlag = true
                 text_date.text = SimpleDateFormat("HH:mm").format(cal.time)
                 time = cal.time.time
             }
@@ -217,8 +218,6 @@ class AddNoteFragment : Fragment() {
             }
         }
         builder.show()
-
-
     }
 
     private fun starClick() {
