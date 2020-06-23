@@ -96,7 +96,7 @@ class AddNoteFragment : Fragment() {
         save_note_btn.setOnClickListener {
             saveNote()
             parentFragmentManager.popBackStack()
-         //   (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
+           (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
         }
 
         back_profile.setOnClickListener {
