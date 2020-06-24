@@ -49,6 +49,7 @@ class ScheduleAdapter(
 
         holder.date_schedule.text = Tools.dateToString(item.date)
         holder.time.text = Tools.convertLongToTimeString(item.time)
+        // TODO убираем старый листенер - setOnCheckedChangeListener null
         holder.checkBox.isChecked = item.checkBoxDone
         holder.timer.visibility =
             if (item.alarm && item.date < System.currentTimeMillis()

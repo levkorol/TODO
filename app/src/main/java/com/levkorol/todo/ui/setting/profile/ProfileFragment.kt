@@ -50,11 +50,14 @@ class ProfileFragment : Fragment() {
         }
 
         save_btn.setOnClickListener {
-            //todo cохраненить записи
+            // TODO получаем все данные которые хотим сохранить из репозитория List<Base>
+            // TODO и сохраняем все в "notes"/"USER-ID" в виде массив
+
         }
 
         restore_btn.setOnClickListener {
-           //todo восстановить записи
+           // TODO получаем из "notes"/"USER-ID" List<Base>
+           // TODO в репозитории (удаляем всё) добавляем то что получили с сервера
         }
 
         mDataBase = FirebaseDatabase.getInstance().reference

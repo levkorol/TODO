@@ -24,16 +24,15 @@ import com.levkorol.todo.ui.notes.NotesViewModel
 import java.util.Observer
 
 class AlarmReceiver : BroadcastReceiver() {
-//    override fun getLifecycle(): Lifecycle {
-//        observe()
-//        return lifecycle
-//    }
 
-    private lateinit var viewModel: ScheduleViewModel
+    // TODO нужно использовать репозиторий
     private var schedules: Schedule? = null
     private var scheduleId : Long = 1
 
     override fun onReceive(context: Context, intent: Intent?) {
+        // TODO в intent придёт Intent из места отправки (у тебя - из NoteFragment)
+        // TODO забрать из intent айдишник который положили
+        // TODO из репозитория отфильтровать нужный шедл
         Log.v("TEST", "onReceive: $intent")
 //        (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
 //            intent!!.getIntExtra("notificationId", 0),

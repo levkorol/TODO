@@ -95,6 +95,7 @@ class AddNoteFragment : Fragment() {
     private fun initViews() {
         save_note_btn.setOnClickListener {
             saveNote()
+            // TODO то что ниже нужно делать после создания и получения айди новой заметки
             parentFragmentManager.popBackStack()
            (activity as MainActivity).loadFragment(NoteFragment.instance(note.id))
         }
@@ -198,7 +199,7 @@ class AddNoteFragment : Fragment() {
             addSchedule = addScheduleFlag,
             addPhoto = addPhoto
         )
-        MainRepository.addNote(note)
+        MainRepository.addNote(note, {}) // TODO в куске кода нужно запустить фрагмент
     }
 
     // @SuppressLint("UseRequireInsteadOfGet")

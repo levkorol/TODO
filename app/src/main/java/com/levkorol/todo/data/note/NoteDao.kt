@@ -11,7 +11,7 @@ interface NoteDao {
     fun getAll(): LiveData<List<Note>>
 
     @Insert
-    fun insert(note: Note)
+    fun insert(note: Note): Long
 
     @Update
     fun update(note: Note)

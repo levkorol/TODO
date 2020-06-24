@@ -76,9 +76,10 @@ object MainRepository {
 
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
-    fun addNote(note: Note) {
+    fun addNote(note: Note, code: (Long) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
-            noteDao.insert(note)
+            val id = noteDao.insert(note)
+            code.invoke(id)
         }
     }
 

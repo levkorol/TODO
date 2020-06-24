@@ -22,15 +22,15 @@ import kotlinx.android.synthetic.main.schedule_fragment.*
 class TodayFragment : Fragment() {
 
     private lateinit var adapter: ScheduleAdapter
-    private var schedule: Schedule? = null
+    private var schedule: Schedule? = null // TODO может это не нужно???
     private lateinit var viewModel: ScheduleViewModel
-    private var id: Long = -1
-    private var time: Long = -1
+    private var id: Long = -1 // TODO
+    private var time: Long = -1 // TODO
     private var schedules: List<Schedule>? = null
-    private var pagePosition: Int = 0
+    private var pagePosition: Int = 0 // TODO
 
     companion object {
-        private const val SCHEDULE_ID = "SCHEDULE_ID"
+        private const val SCHEDULE_ID = "SCHEDULE_ID" // TODO
         private const val TIME = "TIME"
 
         fun newInstance(id: Long): TodayFragment {
@@ -85,9 +85,10 @@ class TodayFragment : Fragment() {
 
     private fun observeSchedule() {
         viewModel.getSchedules().observe(this, Observer { schedules ->
-
-            if(this.schedules == null && schedules.isEmpty() && schedule?.date == System.currentTimeMillis())
-                no_schedule_today.visibility = View.VISIBLE else View.GONE //todo  перестал работать висибл считает все шедулы за все времена а не за сегодня
+            // TODO после заполнения! и условие проверять по отфильтрованным данным
+            // TODO ВНИМАТЕЛЬНО ТУТ УЖЕ ЕСТЬ ПЕРЕМЕННАЯ ГДЕ ХРАНЯТСЯ ОТФИЛЬТРОВАННЫЕ ШЕДУЛЫ
+            if(this.schedules == null && schedules.isEmpty() /*&& schedule?.date == System.currentTimeMillis()*/)
+                no_schedule_today.visibility = View.VISIBLE else View.GONE
             this.schedules = schedules
             updateSchedules()
 
@@ -97,7 +98,7 @@ class TodayFragment : Fragment() {
     private fun updateSchedules() {
         if (schedules == null) return
         adapter.dataItems = schedules!!.filter { schedule ->
-            when (pagePosition) {
+            when (pagePosition) { // TODO pagePosition явно лишний, убрать бы)
                 0 -> isToday(schedule.date)
 //                1 -> isSameWeek(schedule.date)
 //                2 -> isMounth(schedule.date)

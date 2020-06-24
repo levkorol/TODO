@@ -109,6 +109,7 @@ class NoteFragment : Fragment() {
                     note?.let { it1 -> MainRepository.update(it1) }
                     alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                        // TODO положить айдишник
                         PendingIntent.getBroadcast(context, 0, intent, 0)
                     }
                     if (note?.alarm == true) {

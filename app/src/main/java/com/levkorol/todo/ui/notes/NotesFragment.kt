@@ -1,7 +1,6 @@
 package com.levkorol.todo.ui.notes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textview.MaterialTextView
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Folder
@@ -19,6 +20,11 @@ import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
+import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.IMPORTANT_NOTES
+import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_IN_SCHEDULE
+import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_WITH_ALARM
+import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_FOLDER
+import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_NOTES
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 class NotesFragment : Fragment() {
@@ -80,8 +86,6 @@ class NotesFragment : Fragment() {
             updateNotes()
         }
 
-        // searchView.clearFocus()
-        // searchView.isIconified = false
         searchView.queryHint = "Поиск"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -97,6 +101,8 @@ class NotesFragment : Fragment() {
                 return true
             }
         })
+        // TODO просто повесить OnClickListener на весь SearchView
+        // TODO searchView.isIconified = false
     }
 
     override fun onStart() {
@@ -114,8 +120,9 @@ class NotesFragment : Fragment() {
         viewModel.getFolders().observe(this, Observer { folders ->
             val currentFolder = folders.firstOrNull { it.id == folderId }
 
+            // TODO настроить visibility текста - условие нужно проверять после заполнения переменных!
             if (childElements == null || childElements!!.size <= 0 || adapter.data.isEmpty()) {
-                dont_have_notes.visibility = View.VISIBLE //todo настроить visibility текста
+                dont_have_notes.visibility = View.VISIBLE
             } else {
                 dont_have_notes.visibility = View.GONE
             }
@@ -136,38 +143,29 @@ class NotesFragment : Fragment() {
         }
         adapter.data = childElements!!
             .filter { element ->
-                var isFiltered = false
                 if (notesFilter < 0) {
-                    if (element is Folder) {
-                        isFiltered = element.nameFolder.indexOf(query) != -1
-                    } else if (element is Note) {
-                        isFiltered = element.name.indexOf(query) != -1
+                    when (element) {
+                        is Folder -> element.nameFolder.indexOf(query) != -1
+                        is Note -> element.name.indexOf(query) != -1
+                        else -> false
                     }
                 } else {
-                    if (element is Folder && notesFilter == NotesFilter.ONLY_FOLDER) isFiltered = true
-
-                    if (element is Note && notesFilter == NotesFilter.ONLY_NOTES) isFiltered = true
-
-                    if (element is Note && notesFilter == NotesFilter.IMPORTANT_NOTES && element.star) isFiltered = true
-
-                    if (element is Note && notesFilter == NotesFilter.NOTES_IN_SCHEDULE && element.addSchedule) isFiltered = true
-
-                    if (element is Note && notesFilter == NotesFilter.NOTES_WITH_ALARM && element.alarm) isFiltered = true
-                    //todo  сортировка по старой дате не раб
-                    if (element is Note && notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES ) {
-                      //  adapter.data.sortedDescending(element.date)
-                        isFiltered = true
+                    when {
+                        element is Folder && notesFilter == ONLY_FOLDER -> true
+                        element is Note && notesFilter == ONLY_NOTES -> true
+                        element is Note && notesFilter == IMPORTANT_NOTES && element.star -> true
+                        element is Note && notesFilter == NOTES_IN_SCHEDULE && element.addSchedule -> true
+                        element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
+                        else ->false
                     }
-
                 }
-                isFiltered
-
-            }.sortedByDescending { it.date }
+            }.sortedByDescending { it.date } // TODO сортировка по старой дате не раб = использовать для сортировки старой sortedBy
+        // TODO if (element is Note && notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES ) true
         adapter.notifyDataSetChanged()
     }
 
     private fun filterDialog() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Показать:")
         val pictureDialogItems =
             arrayOf(
@@ -189,7 +187,7 @@ class NotesFragment : Fragment() {
 
     private class NotesFilter {
         companion object {
-            val ONLY_FOLDER: Int = 0
+            const val ONLY_FOLDER: Int = 0
             val ONLY_NOTES = 1
             val IMPORTANT_NOTES = 2
             val OLD_FOLDER_AND_NOTES = 3
