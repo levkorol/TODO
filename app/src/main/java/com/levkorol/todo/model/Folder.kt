@@ -10,7 +10,6 @@ import com.levkorol.todo.R
 data class Folder(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var nameFolder: String,
-    var descriptionFolder: String,
     var background: Background,
     var parentFolderId: Long = -1,
     override var date: Long

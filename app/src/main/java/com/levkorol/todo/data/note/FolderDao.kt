@@ -19,7 +19,7 @@ interface FolderDao {
     fun deleteById(id: Long)
 
     @Delete
-    fun delete(folder: Folder)
+    fun delete(folder: List<Folder> )
 
     @Query("SELECT * from folder WHERE id = :key")
     fun get(key: Long): Folder?

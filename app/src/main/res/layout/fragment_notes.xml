@@ -22,15 +22,13 @@
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:src="@drawable/ic_add"
-
-
                 />
 
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/search_frame"
             android:layout_width="0dp"
             android:layout_height="37dp"
             android:layout_gravity="center"
@@ -64,15 +62,46 @@
 
     </LinearLayout>
 
-    <TextView
+
+    <LinearLayout
         android:id="@+id/dont_have_notes"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="У вас пока нет записей. \n Добавить?"
+        android:orientation="vertical"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/lion_office" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Записей пока нет. \n Добавить? "
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:id="@+id/add_nf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_orange"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="   Да, добавить   "
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/clear_filter"

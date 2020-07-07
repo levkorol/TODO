@@ -1,34 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.schedule.ScheduleFragment">
 
-    <ImageView
-        android:id="@+id/add_new_schedule"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_add"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/add_new_schedule"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/ic_add" />
+
+        <TextView
+            android:id="@+id/dateToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_grey"
+            tools:text="gdfhgjdsf" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4">
+
+            <ImageView
+                android:id="@+id/list_all_schedule"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/ic_list_black_24dp" />
+        </FrameLayout>
+
+    </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+     >
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/ultramarin"
-        app:tabIndicatorColor="@color/strongpink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/btn_background"
+            app:tabIndicatorColor="@color/palegray"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="stretch"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/palegray"
+            app:tabSelectedTextColor="@color/ultramarin"/>
 
     </androidx.viewpager.widget.ViewPager>
 
@@ -36,6 +73,6 @@
         android:id="@+id/recycler_view_sch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_list_schedule"/>
+        tools:listitem="@layout/item_list_schedule" />
 
 </LinearLayout>

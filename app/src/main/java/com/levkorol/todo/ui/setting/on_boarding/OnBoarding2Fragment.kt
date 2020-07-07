@@ -1,4 +1,4 @@
-package com.levkorol.todo.ui.setting
+package com.levkorol.todo.ui.setting.on_boarding
 
 
 import android.os.Bundle
@@ -9,18 +9,13 @@ import android.view.ViewGroup
 
 import com.levkorol.todo.R
 
-/**
- * A simple [Fragment] subclass.
- */
-class PinCodeFragment : Fragment() {
+class OnBoarding2Fragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pin_code, container, false)
+        return inflater.inflate(R.layout.fragment_on_boarding2, container, false)
     }
-
-
 }

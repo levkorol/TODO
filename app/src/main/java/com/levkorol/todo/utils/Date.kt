@@ -54,6 +54,15 @@ object Tools {
         return SimpleDateFormat("HH:mm", Locale.getDefault())
             .format(systemTime).toString()
     }
+
+    fun currentTimeToLong(): Long {
+        return System.currentTimeMillis()
+    }
+
+    fun convertDateToLong(date: String): Long {
+        val df = SimpleDateFormat("yyyy.MM.dd HH:mm")
+        return df.parse(date).time
+    }
 }
 
 fun isToday(time: Long): Boolean {

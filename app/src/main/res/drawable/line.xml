@@ -8,7 +8,7 @@
             </solid>
         </shape>
     </item>
-    <item android:gravity="bottom" android:start="18dp"  >
+    <item android:gravity="bottom" android:start="0dp"  >
         <shape android:shape="rectangle" >
             <size  android:height="1dp" />
             <solid android:color="@color/color_divider_dark"/>

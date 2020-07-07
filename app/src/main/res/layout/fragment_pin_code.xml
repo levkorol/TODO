@@ -5,22 +5,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorSelect"
     android:orientation="vertical"
-    tools:context=".ui.setting.PinCodeFragment">
+    tools:context=".ui.setting.pincode.PinCodeFragment">
 
 
-    <ImageView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
 
-     />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="62dp"
         android:text="Введите пин:"
         android:textColor="@android:color/white"
         android:textSize="22sp"
@@ -53,5 +47,9 @@
         android:text="Войти"
         android:textAllCaps="false" />
 
+<!--     <com.andrognito.patternlockview.PatternLockView-->
+<!--        android:id="@+id/pattern_lock_view"-->
+<!--        android:layout_width="280dp"-->
+<!--        android:layout_height="280dp"/>-->
 
 </LinearLayout>

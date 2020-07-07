@@ -20,11 +20,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
+import com.levkorol.todo.utils.Tools
 import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
@@ -38,8 +40,8 @@ class EditNoteFragment : Fragment() {
     private lateinit var viewModel: NotesViewModel
     private var note: Note? = null
     private var photoUri: Uri? = null
-    private var dateDateSchedule: Long = System.currentTimeMillis()
-    private var time: Long = System.currentTimeMillis()
+    private var dateDateSchedule: Long = 1
+    private var time: Long = 1
     private var addScheduleFlag = false
 
     companion object {
@@ -69,6 +71,7 @@ class EditNoteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         noteId = arguments?.getLong(NOTE_ID, -1)!!
+
         initViews()
         viewModel = ViewModelProvider(requireActivity()).get(NotesViewModel::class.java)
         observeNotes()
@@ -117,57 +120,59 @@ class EditNoteFragment : Fragment() {
         }
 
         addScheduleEdit.setOnClickListener {
-//            val builder = MaterialDatePicker.Builder.datePicker()
-//            val picker: MaterialDatePicker<Long> = builder.build()
-//            picker.addOnPositiveButtonClickListener { unixTime ->
-//                text_time_edit.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
-//                dateDateSchedule = unixTime
-//                addScheduleFlag = true
-//                deleteSchedule.visibility = View.VISIBLE
-//            }
-//            picker.show(parentFragmentManager, picker.toString())
-//
-//            val cal = Calendar.getInstance()
-//            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-//                cal.set(Calendar.HOUR_OF_DAY, hour)
-//                cal.set(Calendar.MINUTE, minute)
-//                text_date_edit.visibility = View.VISIBLE
-//                text_date_edit.text = SimpleDateFormat("HH:mm").format(cal.time)
-//                time = cal.time.time
-//            }
-//            TimePickerDialog(
-//                context,
-//                timeSetListener,
-//                cal.get(Calendar.HOUR_OF_DAY),
-//                cal.get(Calendar.MINUTE),
-//                true
-//            ).show()
+            val builder = MaterialDatePicker.Builder.datePicker()
+            val picker: MaterialDatePicker<Long> = builder.build()
+            picker.addOnPositiveButtonClickListener { unixTime ->
+                text_date_edit.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
+                dateDateSchedule = unixTime
+                note!!.addSchedule = true
+                text_time_edit.visibility = View.VISIBLE
+                deleteScheduleEdit.visibility = View.VISIBLE
+            }
+            picker.show(parentFragmentManager, picker.toString())
+
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                text_time_edit.text = SimpleDateFormat("HH:mm").format(cal.time)
+                time = cal.time.time
+            }
+            TimePickerDialog(
+                context,
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
         }
 
         deleteScheduleEdit.setOnClickListener {
-            deleteSchedule.visibility = View.GONE
-            addScheduleFlag = false
-            text_date_edit.visibility = View.GONE
-            text_date_time.text = "Добавить в расписание"
+            deleteScheduleEdit.visibility = View.GONE
+            text_date_edit.text = "Добавить дату"
+            text_time_edit.visibility = View.GONE
+            note!!.addSchedule = false
         }
     }
 
     private fun saveEditNote() {
-        //todo если юзер кликнул назад и были изменения показать диалог сохранить изменения или нет
-        // val oldNote = note?.copy()
+        //        val oldNote = note?.copy()
+//        if (oldNote != note) {
+//          showAlterDialog()
+//        }
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
-         if(note?.addPhoto == true && photoUri != null) {
+        if (note?.addPhoto == true && photoUri != null) {
             note!!.photo = photoUri.toString()
-            val photo = Uri.parse(note!!.photo)
-            photoViewEdit.setImageURI(photo)
         }
-//        if (oldNote != note) {
-//          showAlterExit()
-//        }
+        if (note!!.addSchedule) {
+            if(dateDateSchedule > 1 && time > 1) {
+                note!!.dateSchedule = dateDateSchedule
+                note!!.time = time
+            }
+        }
         MainRepository.update(note!!)
-
     }
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -175,9 +180,7 @@ class EditNoteFragment : Fragment() {
         viewModel.getDeprecatedNotes().observe(this, Observer<List<Note>> { notes ->
             note = notes.firstOrNull { n -> n.id == noteId }
 
-    //todo при повторном редактировании сохраненное изображение не отображается в режиме редактирования и кнопка удаления фотки
-
-            if(note?.addPhoto == true && note?.photo != null && photoUri != null) {
+            if (note?.addPhoto == true) {
                 val photo = Uri.parse(note!!.photo)
                 photoViewEdit.setImageURI(photo)
                 deletePhotoEdit.visibility = View.VISIBLE
@@ -191,6 +194,14 @@ class EditNoteFragment : Fragment() {
                     star_ed.setImageResource(R.drawable.ic_star)
                 } else {
                     star_ed.setImageResource(R.drawable.ic_star_in_add_notes)
+                }
+                if (note!!.addSchedule) {
+                    text_date_edit.text = note?.dateSchedule?.let { Tools.dateToString(it) }
+                    text_time_edit.visibility = View.VISIBLE
+                    text_time_edit.text = note?.time?.let { Tools.convertLongToTimeString(it) }
+                    deleteScheduleEdit.visibility = View.VISIBLE
+                } else {
+                    deleteScheduleEdit.visibility = View.GONE
                 }
             }
         })
@@ -224,9 +235,8 @@ class EditNoteFragment : Fragment() {
         startActivityForResult(intent, CAMERA_INTENT)
     }
 
-    // @SuppressLint("UseRequireInsteadOfGet")
     private fun showAlterDialog() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         //  builder.setMessage("Откуда вы хотите загрузить изображение?")
         builder.setTitle("Откуда вы хотите загрузить изображение?")
         val pictureDialogItems = arrayOf("Галлерея", "Камера")
@@ -250,21 +260,4 @@ class EditNoteFragment : Fragment() {
             star_ed.isSelected = true
         }
     }
-//
-//    @SuppressLint("UseRequireInsteadOfGet")
-//    private fun showAlterExit() {
-//        val builder = AlertDialog.Builder(context!!)
-//        builder.setMessage("Сохранить изменения?")
-//        builder.setPositiveButton("Да") { _, _ ->
-//            NoteRepository.update(note!!)
-//            parentFragmentManager.popBackStack()
-//            // (activity as MainActivity).loadFragment(NotesFragment())
-//        }
-//        builder.setNegativeButton("Отмена") { _, _ ->
-//
-//        }
-//        val dialog: AlertDialog = builder.create()
-//        dialog.show()
-//    }
-
 }

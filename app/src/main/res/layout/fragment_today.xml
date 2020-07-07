@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.schedule.TodayFragment">
 
@@ -11,15 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         tools:visibility="visible"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:src="@drawable/lev_del_net" />
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:src="@drawable/lion_pick" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:textColor="@android:color/background_dark"
             android:gravity="center"
-            android:text="На сегодня дел пока нет.\n Добавить?"/>
+            android:text="На сегодня дел пока нет..."/>
 
         <TextView
             android:id="@+id/add"
@@ -38,7 +38,7 @@
             android:padding="7dp"
             android:background="@drawable/bg_orange"
             android:textStyle="bold"
-            android:text="   Да, добавить   "
+            android:text="   Добавить   "
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
@@ -47,7 +47,19 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_today"
         android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_list_schedule" />
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fabMain"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom|end"-->
+<!--        app:rippleColor="@color/ultramarin"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:background="@color/color_accent"-->
+<!--        android:src="@drawable/ic_add_black_24dp"/>-->
 
 </LinearLayout>

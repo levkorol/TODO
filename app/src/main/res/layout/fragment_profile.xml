@@ -51,34 +51,22 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Сохранено"
+            android:text="Сохраните свои записи"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/weightTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="0 из 50 записей"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
+        <Button
             android:id="@+id/save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="35dp"
             android:background="@drawable/bg_folder_green"
             android:gravity="center"
-            android:padding="8dp"
             android:text="Сохранить"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18sp"
 
             />
 
@@ -87,36 +75,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
-            android:text="Востановлено"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/heightTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="50 из 50"
+            android:text="Восстановите после сохранения"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
 
-        <TextView
+
+        <Button
             android:id="@+id/restore_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="35dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/bg_folder_green"
             android:gravity="center"
-            android:padding="8dp"
-            android:text="Востановить"
+            android:text="Восстановить"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18sp"
+
 
             />
 

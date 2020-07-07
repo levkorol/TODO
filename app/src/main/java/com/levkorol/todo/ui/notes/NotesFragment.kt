@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
+import com.google.android.material.resources.MaterialAttributes
 import com.google.android.material.textview.MaterialTextView
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Base
@@ -73,6 +75,10 @@ class NotesFragment : Fragment() {
         recyclerView.adapter = adapter
 
 
+        add_nf.setOnClickListener {
+            showAlterDialog()
+        }
+
         add_notes_or_folder.setOnClickListener {
             showAlterDialog()
         }
@@ -87,22 +93,21 @@ class NotesFragment : Fragment() {
         }
 
         searchView.queryHint = "Поиск"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                this@NotesFragment.query = query ?: ""
-                updateNotes()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                query = newText ?: ""
-                updateNotes()
-                return true
-            }
-        })
-        // TODO просто повесить OnClickListener на весь SearchView
-        // TODO searchView.isIconified = false
+        search_frame.setOnClickListener {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    this@NotesFragment.query = query ?: ""
+                    updateNotes()
+                    return true
+                }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    query = newText ?: ""
+                    updateNotes()
+                    return true
+                }
+            })
+            searchView.isIconified = false
+        }
     }
 
     override fun onStart() {
@@ -120,18 +125,18 @@ class NotesFragment : Fragment() {
         viewModel.getFolders().observe(this, Observer { folders ->
             val currentFolder = folders.firstOrNull { it.id == folderId }
 
-            // TODO настроить visibility текста - условие нужно проверять после заполнения переменных!
-            if (childElements == null || childElements!!.size <= 0 || adapter.data.isEmpty()) {
-                dont_have_notes.visibility = View.VISIBLE
-            } else {
-                dont_have_notes.visibility = View.GONE
-            }
             childElements = mutableListOf()
             if (currentFolder != null) {
                 childElements!!.addAll(currentFolder.folders.sortedByDescending { it.date })
                 childElements!!.addAll(currentFolder.notes.sortedByDescending { it.date })
             }
             updateNotes()
+
+            if (childElements == null || childElements!!.size <= 0 || adapter.data.isEmpty()) {
+                dont_have_notes.visibility = View.VISIBLE
+            } else {
+                dont_have_notes.visibility = View.GONE
+            }
         })
     }
 
@@ -156,11 +161,13 @@ class NotesFragment : Fragment() {
                         element is Note && notesFilter == IMPORTANT_NOTES && element.star -> true
                         element is Note && notesFilter == NOTES_IN_SCHEDULE && element.addSchedule -> true
                         element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
-                        else ->false
+                        else -> false
                     }
                 }
-            }.sortedByDescending { it.date } // TODO сортировка по старой дате не раб = использовать для сортировки старой sortedBy
-        // TODO if (element is Note && notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES ) true
+            }
+            .sortedByDescending { it.date }
+        if (notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES) adapter.data =
+            childElements!!.sortedBy { it.date }
         adapter.notifyDataSetChanged()
     }
 
@@ -173,7 +180,7 @@ class NotesFragment : Fragment() {
                 "Только заметки",
                 "Важные заметки",
                 "Старые папки и заметки",
-                "Заметки добавленные в расписание",
+                "Заметки с датой и временем",
                 "Заметки с включенным оповещением"
             )
         builder.setItems(
@@ -197,7 +204,7 @@ class NotesFragment : Fragment() {
     }
 
     private fun showAlterDialog() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
         builder.setMessage("Что вы хотите создать?")
         builder.setPositiveButton("Заметку") { _, _ ->
             (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(parentFolderId))

@@ -112,9 +112,15 @@ object MainRepository {
         }
     }
 
-    fun update(folder: Folder) {
+    fun deleteFolders(folder: List<Folder> ) {
         GlobalScope.launch(Dispatchers.IO) {
-            folderDao.update(folder)
+            folderDao.delete(folder)
+        }
+    }
+
+    fun deleteNotes(note:List <Note> ) {
+        GlobalScope.launch(Dispatchers.IO) {
+            noteDao.delete(note)
         }
     }
 
@@ -123,8 +129,8 @@ object MainRepository {
             return
         }
         val rootFolder = Folder(
-            -1, "Kornevaya papka",
-            "Kornevaya papka opisaniye", Folder.Background.PINK,
+            -1, "Kornevaya papka"
+            , Folder.Background.PINK,
             0, 0
         )
         rootFolder.notes = notes!!.filter { it.parentFolderId == -1L }

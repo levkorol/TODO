@@ -16,16 +16,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
+import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.utils.Tools
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
-import kotlinx.android.synthetic.main.fragment_add_schedule.add_title_text
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
@@ -38,10 +36,25 @@ class AddScheduleFragment : Fragment() {
 
     private lateinit var schedule: Schedule
     private var date: Long = 1
+    private var dateAdd: Long = 1
     private var time: Long = 1
     private var alarmFlag = false
     private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
+
+    companion object {
+        private const val DATE = "DATE"
+
+        fun newInstance(date: Long): AddScheduleFragment {
+            val fragment = AddScheduleFragment()
+            val arg = Bundle()
+            arg.apply {
+                putLong(DATE, date)
+            }
+            fragment.arguments = arg
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,15 +67,25 @@ class AddScheduleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         date = currentTimeMillis()
-        time = currentTimeMillis()
-      //  date_selected.text = Tools.dateToString(date)
+
+          date_selected.text = Tools.dateToString(date)
+        if (arguments != null) {
+            dateAdd = arguments?.getLong(DATE, -1)!!
+            date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(dateAdd))
+            date = dateAdd
+        }
     }
 
     private fun initViews() {
         save_btn.setOnClickListener {
+            if (add_description_text.text.isNotEmpty()) {
                 saveSchedule()
+                Toast.makeText(activity, "Добавлено в расписание", Toast.LENGTH_LONG).show()
                 parentFragmentManager.popBackStack()
-                //Toast.makeText(activity,"Добавлено в расписание", Toast.LENGTH_LONG).show()
+
+            } else {
+                Toast.makeText(activity, "Введите описание задачи", Toast.LENGTH_LONG).show()
+            }
         }
 
         back_profile.setOnClickListener {
@@ -86,6 +109,7 @@ class AddScheduleFragment : Fragment() {
                 cal.set(MINUTE, minute)
                 time_tv.text = SimpleDateFormat("HH:mm").format(cal.time)
                 time = cal.time.time
+                clear_time.visibility = View.VISIBLE
             }
             TimePickerDialog(
                 context,
@@ -98,20 +122,19 @@ class AddScheduleFragment : Fragment() {
 
         if (alarmFlag) switch_.isChecked = true
         switch_.setOnClickListener {
-            if (switch_.isChecked) {
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setMessage("Включить оповещение?")
-                builder.setPositiveButton("Да") { dialog, which ->
-                    if (switch_.isChecked) alarmFlag = true
-                }
-                builder.setNegativeButton("Отмена") { dialog, which ->
-                    switch_.isChecked = false
-                }
-                val dialog: AlertDialog = builder.create()
-                dialog.show()
+            if (time == 1.toLong()) {
+                Toast.makeText(activity, "Выставьте время выполнения", Toast.LENGTH_LONG).show()
+                alarmFlag = false
+                switch_.isChecked = false
             } else {
-                switch_.isChecked
+                alarmFlag = true
             }
+        }
+
+        clear_time.setOnClickListener {
+            time = 1
+            time_tv.text = "Назначить время выполнения"
+            clear_time.visibility = View.GONE
         }
     }
 
@@ -120,16 +143,6 @@ class AddScheduleFragment : Fragment() {
         alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
-//        val cal = Calendar.getInstance()
-//        cal.timeInMillis = currentTimeMillis()
-//        cal.set(HOUR_OF_DAY, 14)
-//        cal.set(MINUTE, 42)
-//        alarmManager?.set(
-//            RTC_WAKEUP,
-//            currentTimeMillis() + 60,
-//            alarmIntent
-//        )
-//        alarmManager?.cancel(alarmIntent)
 
         if (alarmFlag) {
             alarmManager?.set(
@@ -139,15 +152,14 @@ class AddScheduleFragment : Fragment() {
             )
         }
 
-            schedule = Schedule(
-                title = add_title_text.text.toString(),
-                description = add_description_text.text.toString(),
-                date = date,
-                checkBoxDone = false,
-                time = time,
-                alarm = alarmFlag
-            )
-            MainRepository.addSchedule(schedule)
+        schedule = Schedule(
+            description = add_description_text.text.toString(),
+            date = date,
+            checkBoxDone = false,
+            time = time,
+            alarm = alarmFlag
+        )
+        MainRepository.addSchedule(schedule)
 
     }
 }

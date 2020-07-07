@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
@@ -101,15 +102,16 @@ class NoteFragment : Fragment() {
         if (alarmFlag) swich_note_alarm.isChecked = true
         swich_note_alarm.setOnClickListener {
             if (swich_note_alarm.isChecked) {
-                val builder = AlertDialog.Builder(requireContext())
+                val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setMessage("Включить оповещение?")
-                builder.setPositiveButton("Да") { dialog, which ->
+                builder.setPositiveButton("Да") { _, _ ->
                     if (swich_note_alarm.isChecked) alarmFlag = true
                     note?.alarm = true
                     note?.let { it1 -> MainRepository.update(it1) }
                     alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                         // TODO положить айдишник
+                        intent.putExtra("ID", noteId)
                         PendingIntent.getBroadcast(context, 0, intent, 0)
                     }
                     if (note?.alarm == true) {
@@ -120,7 +122,7 @@ class NoteFragment : Fragment() {
                         )
                     }
                 }
-                builder.setNegativeButton("Отмена") { dialog, which ->
+                builder.setNegativeButton("Отмена") { _, _ ->
                     note?.alarm = false
                     note?.let { it1 -> MainRepository.update(it1) }
                     swich_note_alarm.isChecked = false
@@ -143,7 +145,7 @@ class NoteFragment : Fragment() {
 
             title_note_text_view.text = note?.name
             description_note_text_view.text = note?.description
-            if(note?.alarm == true) swich_note_alarm.isChecked = true
+            if (note?.alarm == true) swich_note_alarm.isChecked = true
 
             if (note?.star == true) {
                 star.isSelected = true
@@ -152,7 +154,7 @@ class NoteFragment : Fragment() {
                 star.setImageResource(R.drawable.ic_star_in_add_notes)
                 star.isSelected = false
             }
-            if(note?.addPhoto == true ) {
+            if (note?.addPhoto == true) {
                 photoUri = Uri.parse(note!!.photo)
                 imageViewNotePhoto.setImageURI(photoUri)
                 cardView.visibility = View.VISIBLE
@@ -160,14 +162,15 @@ class NoteFragment : Fragment() {
             if (note?.addSchedule == true) {
                 timeSchedule.visibility = View.VISIBLE
                 alarmSchedule.visibility = View.VISIBLE
-                text_date.text = "${note?.date?.let { Tools.dateToStringtwo(it) }}, ${note?.time?.let { Tools.convertLongToTimeString(it) }}"
+                text_date.text = "${note?.dateSchedule?.let { Tools.dateToString(it) }}, "
+                text_time.text = "${note?.time?.let { Tools.convertLongToTimeString(it) }}"
             }
         })
     }
 
     @SuppressLint("UseRequireInsteadOfGet")
     private fun showAlter() {
-        val builder = AlertDialog.Builder(context!!)
+        val builder = MaterialAlertDialogBuilder(context!!)
         builder.setMessage("Удалить запись?")
         builder.setPositiveButton("Да") { _, _ ->
             MainRepository.deleteById(noteId)

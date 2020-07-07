@@ -84,14 +84,15 @@
                 android:src="@drawable/ic_timer" />
 
             <TextView
+                android:id="@+id/text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/vipolnot"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                tools:text="14.00, 02.03.2020" />
 
             <TextView
-                android:id="@+id/text_date"
+                android:id="@+id/text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

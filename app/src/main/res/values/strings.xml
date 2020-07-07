@@ -16,10 +16,40 @@
     <string name="edit">Редактирование</string>
     <string name="add_photo">Добавить фото</string>
     <string name="star1">Важность</string>
-    <string name="add_schedul">Добавить в расписание</string>
+    <string name="add_schedul">Добавить дату</string>
     <string name="edit_note">Редактировать</string>
     <string name="star">Важность</string>
     <string name="delete_note">Удалить</string>
     <string name="share">Поделиться</string>
     <string name="date_picker_title">Выберете дату</string>
+    <string name="one">one</string>
+    <string name="two">two</string>
+    <string name="three">three</string>
+
+    <string name="material_calendar_monday">Пн</string>
+    <string name="material_calendar_tuesday">Вт</string>
+    <string name="material_calendar_wednesday">Ср</string>
+    <string name="material_calendar_thursday">Чт</string>
+    <string name="material_calendar_friday">Пт</string>
+    <string name="material_calendar_saturday">Сб</string>
+    <string name="material_calendar_sunday">Вс</string>
+
+    <array name="material_calendar_months_array">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </array>
+
+    <string name="material_calendar_today_button">Сегодня</string>
+    <string name="material_calendar_positive_button">Хорошо</string>
+    <string name="material_calendar_negative_button">Отмена</string>
 </resources>

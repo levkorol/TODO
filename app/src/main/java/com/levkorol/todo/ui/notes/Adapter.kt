@@ -42,7 +42,7 @@ class Adapter(val activity: MainActivity) :
                 holder.text_date.text = item.dateSchedule.toString()
                 holder.text_time.visibility = View.VISIBLE
                 holder.text_time.text = item.time.toString()
-                holder.text_date.text = Tools.dateToStringtwo(item.date)
+                holder.text_date.text = Tools.dateToString(item.dateSchedule)
                 holder.text_time.text = Tools.convertLongToTimeString(item.time)
 
             }

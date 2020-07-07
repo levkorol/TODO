@@ -12,7 +12,9 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Folder.Background.PURPLE
+import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.fragment_add_folder.*
+import kotlinx.android.synthetic.main.fragment_add_folder.back_profile
 
 class AddFolderFragment : Fragment() {
     //  private lateinit var viewModel: FolderViewModel
@@ -55,6 +57,10 @@ class AddFolderFragment : Fragment() {
                 Toast.makeText(activity, "Введите название папки", Toast.LENGTH_SHORT).show()
             }
         }
+
+        back_profile.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     override fun onStart() {
@@ -69,13 +75,7 @@ class AddFolderFragment : Fragment() {
 
     private fun saveFolderToDatabase() {
         if (validations()) {
-            Toast.makeText(activity, "Папка успешно сохранена", Toast.LENGTH_SHORT).show()
-        } else
-            Toast.makeText(
-                activity,
-                "Вы создали папку",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(activity, "Папка успешно сохранена", Toast.LENGTH_SHORT).show() }
     }
 
     private fun saveFolder() {
@@ -94,7 +94,6 @@ class AddFolderFragment : Fragment() {
         MainRepository.addFolder(
             Folder(
                 nameFolder = add_title_text_folder.text.toString(),
-                descriptionFolder = add_description_folder_text.text.toString(),
                 background = background,
                 parentFolderId = parentFolderId,
                 date = System.currentTimeMillis()
@@ -104,8 +103,6 @@ class AddFolderFragment : Fragment() {
     }
 
     private fun validations(): Boolean {
-        return !(add_title_text_folder.text.isNullOrEmpty()
-                && add_description_folder_text.text.isNullOrEmpty()
-                )
+        return !(add_title_text_folder.text.isNullOrEmpty())
     }
 }

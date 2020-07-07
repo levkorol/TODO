@@ -3,12 +3,16 @@
     package="com.levkorol.todo">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:name=".NotesApplication"
@@ -18,6 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.levkorol.todo.ui.setting.on_boarding.HelperActivity"></activity>
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
@@ -41,9 +46,7 @@
 
         <receiver
             android:name=".ui.schedule.AlarmReceiver"
-            android:exported="false">
-        </receiver>
-
+            android:exported="false"></receiver>
     </application>
 
 </manifest>

@@ -195,7 +195,7 @@
                     android:id="@+id/deleteSchedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Убрать с расп..."
+                    android:text="Убрать дату/вр."
                     android:gravity="center"
                     android:visibility="gone"
                     tools:visibility="visible"
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/add_schedul"
+                    android:text="Уст. дату/время"
                     android:textAlignment="center"
                     android:textColor="@color/ultramarin"
                     android:textSize="12sp" />
@@ -223,7 +223,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/add_schedul"
                     android:textAlignment="center"
                     android:visibility="gone"
                     android:textColor="@color/ultramarin"
@@ -235,7 +234,8 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+        <Button
             android:id="@+id/save_note_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

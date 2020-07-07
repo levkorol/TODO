@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Base
@@ -21,7 +22,6 @@ import com.levkorol.todo.ui.notes.Adapter
 import kotlinx.android.synthetic.main.folder_fragment.*
 import kotlinx.android.synthetic.main.folder_fragment.back_profile
 
-
 class FolderFragment : Fragment() {
 
     private lateinit var viewModel: FolderViewModel
@@ -29,12 +29,10 @@ class FolderFragment : Fragment() {
     private var folderId = -1L
     private lateinit var folder: Folder
     private var title: String = ""
-    private var disc: String = ""
 
     companion object {
         private const val FOLDER_ID = "FOLDER_ID"
         private const val TITLE = "TITLE"
-        private const val DISC = "DISK"
 
         fun newInstance(folder: Folder) : FolderFragment {
             val fragment = FolderFragment()
@@ -42,7 +40,6 @@ class FolderFragment : Fragment() {
             arguments.apply {
                 putLong(FOLDER_ID, folder.id)
                 putString(TITLE,folder.nameFolder)
-               // putString(DISC, folder.descriptionFolder)
             }
 
             fragment.arguments = arguments
@@ -63,9 +60,6 @@ class FolderFragment : Fragment() {
         folderId = arguments?.getLong(FOLDER_ID, -1)!!
 
          title = arguments?.getString(TITLE,"").toString()
-       //  disc = arguments?.getString(DISC,"").toString()
-
-
 
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_folder_fragment)
@@ -114,7 +108,7 @@ class FolderFragment : Fragment() {
 
     @SuppressLint("UseRequireInsteadOfGet")
     private fun showAlterDialog() {
-        val builder = AlertDialog.Builder(context!!)
+        val builder = MaterialAlertDialogBuilder(context!!)
         builder.setMessage("Что вы хотите создать?")
         builder.setPositiveButton("Заметку") { _, _ ->
             (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(folderId))
@@ -130,7 +124,7 @@ class FolderFragment : Fragment() {
 
     @SuppressLint("UseRequireInsteadOfGet")
     private fun showAlterDelete() {
-        val builder = AlertDialog.Builder(context!!)
+        val builder = MaterialAlertDialogBuilder(context!!)
         builder.setMessage("Удалить папку $title?")
         builder.setPositiveButton("Да") { _, _ ->
             MainRepository.deleteFolderById(folderId)

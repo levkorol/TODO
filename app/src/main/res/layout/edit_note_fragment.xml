@@ -185,7 +185,7 @@
                     android:id="@+id/deleteScheduleEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Убрать с расп..."
+                    android:text="Убрать дату/вр."
                     android:gravity="center"
                     android:visibility="gone"
                     tools:visibility="visible"
@@ -198,27 +198,28 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_add_calendar" />
 
+                <TextView
+                    android:id="@+id/text_date_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Уст. дату/время"
+                    android:textAlignment="center"
+                    android:textColor="@color/ultramarin"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/text_time_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/add_schedul"
                     android:textAlignment="center"
                     android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/text_date_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/add_schedul"
-                    android:textAlignment="center"
+                    android:textSize="12sp"
                     android:visibility="gone"
-                    android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
+                    tools:visibility="visible"
+                    />
+
 
             </LinearLayout>
 

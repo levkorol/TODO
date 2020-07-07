@@ -81,7 +81,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
+        <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,10 +91,9 @@
             android:background="@drawable/bg_folder_green"
             android:gravity="center"
             android:text="Войти"
-            android:padding="8dp"
             android:textAllCaps="false"
             android:textColor="#F5E9E9"
-            android:textSize="18sp" />
+            />
 
 
         <TextView
