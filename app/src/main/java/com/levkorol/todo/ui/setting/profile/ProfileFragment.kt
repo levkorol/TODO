@@ -2,7 +2,6 @@ package com.levkorol.todo.ui.setting.profile
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +12,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
-import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.User
 import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -27,7 +22,7 @@ class ProfileFragment : Fragment() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private lateinit var user: User
     private lateinit var mDataBase: DatabaseReference
-    private val folders = MainRepository.getFolders().value
+    private val folders = MainRepository.getResultFolders().value
     private val notes = MainRepository.getNotes().value
     private val schedules = MainRepository.getSchedules().value
 
@@ -58,7 +53,8 @@ class ProfileFragment : Fragment() {
         }
 
         save_btn.setOnClickListener {
-
+            // TODO в корутине!
+            // TODO использовать get*Now()
             val data = mapOf(
                 "folders" to folders,
                 "notes" to notes,
@@ -85,16 +81,16 @@ class ProfileFragment : Fragment() {
             // TODO получаем из "notes"/"USER-ID" List<Base>
             // TODO в репозитории (удаляем всё) добавляем то что получили с сервера
 
-            folders?.let { it1 -> MainRepository.deleteFolders(it1) }
-            notes?.let { it1 -> MainRepository.deleteNotes(it1) }
+            folders?.let { folders -> MainRepository.deleteFolders(folders) } // TODO заменить на deleteAll
+            notes?.let { it1 -> MainRepository.deleteNotes(it1) } // TODO
             mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
-                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter { notes ->
+                    // TODO ??????
                 })
-            folders?.let { it1 ->
-                MainRepository.getFolder().value
-            } //todo или нужно в репоситории создать метод добавляющий лист?
-            notes?.let { it1 -> MainRepository.getNotes().value }
+//            folders?.let { it1 ->
+//                MainRepository.getFolder().value
+//            } //todo или нужно в репоситории создать метод добавляющий лист?
+//            notes?.let { it1 -> MainRepository.getNotes().value }
         }
 
         mDataBase.child("users").child(auth.currentUser!!.uid)

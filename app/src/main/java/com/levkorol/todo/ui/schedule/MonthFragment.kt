@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.schedule
 
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -61,18 +62,19 @@ class MonthFragment : Fragment() {
         }
 
         //todo как окрасть даты или поставить счетчик где есть события(здесь по сути иконки даже можно)
+        // TODO создать массив
 //        val calendar = Calendar.getInstance()
-//        events.add(EventDay(calendar, .R.drawable.ic_delete))
+        // TODO calendar.timeInMillis =
+//        events.add(EventDay(calendar, R.drawable.ic_delete))
 //        events.add(EventDay(calendar, Drawable()))
-//        events.add(EventDay(calendar, .R.drawable.ic_delete,parseColor("#228B22")))
+//        events.add(EventDay(calendar, R.drawable.ic_delete,parseColor("#228B22")))
 //        val calendarViewM = findViewById(R.id.calendarView) as CalendarView
-//
 //        calendarViewM.setEvents(events)
 
         calendarViewM.setOnDayClickListener(object : OnDayClickListener {
             @Override
             override fun onDayClick(eventDay: EventDay) {
-                val clickedDayCalendar = eventDay.calendar
+                val clickedDayCalendar = eventDay.calendar // TODO .timeInMillis
                 val selectedDates = calendarViewM.selectedDates
                 val calendar = Calendar.getInstance()
                 val thenYear = calendar.get(Calendar.YEAR)
@@ -100,12 +102,12 @@ class MonthFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel = ViewModelProvider(requireActivity()).get(ScheduleViewModel::class.java)
-        //  observeSchedule()
+//        observeSchedule()
     }
 
 //    private fun observeSchedule() {
-//        viewModel.getSchedules().observe(this, Observer{ schedules ->
-//            schedule = schedules.firstOrNull { s -> s.id == id }
+//        viewModel.getSchedules().observe(this, Observer { schedules ->
+//
 //        })
 //    }
 }

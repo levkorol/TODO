@@ -100,10 +100,10 @@ class AllScheduleAdapter(
 
         holder.saveTask.setOnClickListener {
             schedule = dataItems[position]
-            holder.title_schedule.text = item.description
+            //holder.title_schedule.text = item.description
             //todo не сохраняется после ввода другого текста в редактировании
             isEditMode = false
-            MainRepository.updateSchedule(schedule)
+            MainRepository.updateSchedule(schedule) // TODO чтобы здесь в schedule был актуальный дескришн!
             notifyDataSetChanged()
         }
 

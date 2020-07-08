@@ -10,6 +10,9 @@ interface NoteDao {
     @Query("SELECT * FROM note")
     fun getAll(): LiveData<List<Note>>
 
+    @Query("SELECT * FROM note")
+    fun getAllNow(): List<Note>
+
     @Insert
     fun insert(note: Note): Long
 
@@ -21,6 +24,9 @@ interface NoteDao {
 
     @Delete
     fun delete(note:List <Note> )
+
+    @Query("delete from note")
+    fun deleteAll()
 
     @Query("SELECT * from note WHERE id = :key")
     fun get(key: Long): Note?

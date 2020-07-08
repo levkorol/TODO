@@ -14,40 +14,42 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AlarmReceiver : BroadcastReceiver() {
-
-    // TODO нужно использовать репозиторий
-    private var valueSchedule = MainRepository.getSchedules().value
-    private var valueNote: Note? = null
-    private var schedules: Schedule? = null
-    private var noteId : Long = -1
-
     override fun onReceive(context: Context, intent: Intent?) {
-        // TODO в intent придёт Intent из места отправки (у тебя - из NoteFragment)
-        // TODO забрать из intent айдишник который положили
-        // TODO из репозитория отфильтровать нужный шедл
-        Log.v("TEST", "onReceive: $intent")
+        GlobalScope.launch(Dispatchers.IO) {
+            //Log.v("TEST", "onReceive: $intent")
+            val noteId = intent?.getLongExtra("ID", 0)!!
+            // TODO помимо айдишнки нужно ещё получить isNote
+            // TODO если isNote то getNotes() иначе getSchedules()
+            val isNote = true
+            val (title, description) = if (isNote) {
+                val note = MainRepository.getNotesNow()?.firstOrNull { note -> note.id == noteId }
+                Pair(note?.name, note?.description)
+            } else {
+                // TODO эта ветка для шедула
+                val note = MainRepository.getNotes().value?.firstOrNull { note -> note.id == noteId }
+                Pair(note?.name, note?.description)
+            }
 
-        noteId = intent?.getLongExtra("ID", 0)!!
-
-        valueNote = MainRepository.getNotes().value?.firstOrNull {note -> note.id == noteId}
-
-
-        createNotificationChannel(context)
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_star)
-            .setContentTitle(valueNote?.name.toString())
-            .setContentText(valueNote?.description.toString())
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        val notificationManager = NotificationManagerCompat.from(context)
-        builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
+            createNotificationChannel(context)
+            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_star)
+                .setContentTitle(title)
+                .setContentText(description)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            val notificationManager = NotificationManagerCompat.from(context)
+            builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
+        }
     }
 
     private fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = valueNote?.name.toString()
-            val descriptionText = valueNote?.description.toString()
+            val name = ""
+            val descriptionText = ""
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
@@ -73,5 +75,9 @@ class AlarmReceiver : BroadcastReceiver() {
     companion object {
         private val NOTIFY_ID = 101
         private val CHANNEL_ID = "task channel"
+
+        fun setAlarm(id: Long, isNote: Boolean, time: Long) {
+            // TODO <-
+        }
     }
 }

@@ -28,6 +28,11 @@ class Adapter(val activity: MainActivity) :
 
     override fun getItemCount() = data.size
 
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        super.onViewRecycled(holder)
+        // TODO
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         val item = data[position]
@@ -39,13 +44,13 @@ class Adapter(val activity: MainActivity) :
             holder.star.visibility = if (item.star) View.VISIBLE else View.GONE
             if(item.addSchedule) {
                 holder.text_date.visibility = View.VISIBLE
-                holder.text_date.text = item.dateSchedule.toString()
+                holder.text_date.text = item.dateSchedule.toString() // TODO
                 holder.text_time.visibility = View.VISIBLE
-                holder.text_time.text = item.time.toString()
-                holder.text_date.text = Tools.dateToString(item.dateSchedule)
-                holder.text_time.text = Tools.convertLongToTimeString(item.time)
+                holder.text_time.text = item.time.toString() // TODO
+                holder.text_date.text = Tools.dateToString(item.dateSchedule) // TODO
+                holder.text_time.text = Tools.convertLongToTimeString(item.time) // TODO
 
-            }
+            } // TODO
             holder.itemView.setOnClickListener {
                 activity.loadFragment(NoteFragment.instance(item.id))
             }

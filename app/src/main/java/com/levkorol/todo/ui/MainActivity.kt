@@ -65,6 +65,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        // TODO открываем нужный фрагмент
+        //if (intent?.hasExtra("IS_NOTE") == true)
+    }
+
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()

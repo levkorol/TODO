@@ -74,6 +74,10 @@ object MainRepository {
 
     fun getNotes(): LiveData<List<Note>> = noteDao.getAll()
 
+    fun getNotesNow(): List<Note> = noteDao.getAllNow()
+
+    //fun getFoldersNow(): LiveData<List<Note>> = folderDao.getAllNow()
+
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
     fun addNote(note: Note, code: (Long) -> Unit) {
@@ -96,7 +100,7 @@ object MainRepository {
     }
 
     // Folders
-    fun getFolders(): LiveData<List<Folder>> = resultFolders
+    fun getResultFolders(): LiveData<List<Folder>> = resultFolders
 
     fun getFolder(): LiveData<Folder> = folderDao.getFolderId(-1)
 

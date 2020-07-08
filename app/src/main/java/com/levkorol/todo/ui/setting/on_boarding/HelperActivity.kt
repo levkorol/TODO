@@ -23,11 +23,12 @@ class HelperActivity : AppCompatActivity() {
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager)
 
         next.setOnClickListener {
+            // TODO setPage + viewPager.currentItem
             for (i in 0..3) {
                 setPage(i + 1)
                 if (i == 3) {
                     val intent =  Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(intent) // TODO finish мб
                 }
             }
         }

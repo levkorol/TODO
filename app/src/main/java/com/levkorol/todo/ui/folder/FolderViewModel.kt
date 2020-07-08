@@ -9,7 +9,7 @@ import com.levkorol.todo.model.Note
 class FolderViewModel : ViewModel() {
     fun getDeprecatedNotes(): LiveData<List<Note>> = MainRepository.getDeprecatedNotes()
 
-    fun getFolders(): LiveData<List<Folder>> = MainRepository.getFolders()
+    fun getFolders(): LiveData<List<Folder>> = MainRepository.getResultFolders()
 
     fun getNote(): LiveData<Note> = MainRepository.getNote()
 

@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_note.back_profile
 import kotlinx.android.synthetic.main.fragment_note.text_date
+import java.util.*
 
 
 class NoteFragment : Fragment() {
@@ -114,6 +115,7 @@ class NoteFragment : Fragment() {
                         intent.putExtra("ID", noteId)
                         PendingIntent.getBroadcast(context, 0, intent, 0)
                     }
+                    GregorianCalendar().timeInMillis
                     if (note?.alarm == true) {
                         alarmManager?.set(
                             AlarmManager.RTC_WAKEUP,
