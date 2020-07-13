@@ -109,10 +109,11 @@ class NoteFragment : Fragment() {
                     if (swich_note_alarm.isChecked) alarmFlag = true
                     note?.alarm = true
                     note?.let { it1 -> MainRepository.update(it1) }
+
                     alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                     alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                        // TODO положить айдишник
                         intent.putExtra("ID", noteId)
+                        intent.putExtra("NOTE", true)
                         PendingIntent.getBroadcast(context, 0, intent, 0)
                     }
                     GregorianCalendar().timeInMillis

@@ -42,7 +42,7 @@ class ScheduleAdapterToday(
         holder.title_schedule.text = item.description
 
         // TODO
-        if(item.time == 1.toLong()) {
+        if(item.time <= 1.toLong()) {
             holder.time.visibility = View.GONE
         } else {
             holder.time.text = Tools.convertLongToTimeString(item.time)

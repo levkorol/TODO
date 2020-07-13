@@ -45,14 +45,14 @@ object MainRepository {
         }
     }
 
-    //Schedule
     fun getSchedules(): LiveData<List<Schedule>> = scheduleDao.getAll()
 
     fun getSchedule(): LiveData<Schedule> = scheduleDao.getId(-1)
 
-    fun addSchedule(schedule: Schedule) {
+    fun addSchedule(schedule: Schedule, code: (Long) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
-            scheduleDao.insert(schedule)
+            val id =  scheduleDao.insert(schedule)
+            code.invoke(id)
         }
     }
 
@@ -68,7 +68,6 @@ object MainRepository {
         }
     }
 
-    //Notes
     @Deprecated("use getNotes() instead")
     fun getDeprecatedNotes(): LiveData<List<Note>> = noteDao.getAll()
 
@@ -76,8 +75,10 @@ object MainRepository {
 
     fun getNotesNow(): List<Note> = noteDao.getAllNow()
 
-    //fun getFoldersNow(): LiveData<List<Note>> = folderDao.getAllNow()
+    fun getAllSchedulesNow(): List<Schedule> = scheduleDao.getAllScheduleNow()
 
+    fun getAllFoldersNow(): List<Folder> = folderDao.getAllFoldersNow()
+    
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
     fun addNote(note: Note, code: (Long) -> Unit) {
@@ -116,15 +117,21 @@ object MainRepository {
         }
     }
 
-    fun deleteFolders(folder: List<Folder> ) {
+    fun deleteAllNotes() {
         GlobalScope.launch(Dispatchers.IO) {
-            folderDao.delete(folder)
+            noteDao.deleteAll()
         }
     }
 
-    fun deleteNotes(note:List <Note> ) {
-        GlobalScope.launch(Dispatchers.IO) {
-            noteDao.delete(note)
+    fun deleteAllFolders() {
+        GlobalScope.launch (Dispatchers.IO){
+            folderDao.deleteAll()
+        }
+    }
+
+    fun deleteAllSchedules() {
+        GlobalScope.launch (Dispatchers.IO){
+            scheduleDao.deleteAll()
         }
     }
 

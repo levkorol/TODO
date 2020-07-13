@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +26,12 @@ import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.utils.Tools
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
+import kotlinx.android.synthetic.main.fragment_note.*
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.HOUR_OF_DAY
 import java.util.Calendar.MINUTE
-
 
 class AddScheduleFragment : Fragment() {
 
@@ -41,6 +42,7 @@ class AddScheduleFragment : Fragment() {
     private var alarmFlag = false
     private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
+    private var scheduleId: Long = 0
 
     companion object {
         private const val DATE = "DATE"
@@ -68,7 +70,7 @@ class AddScheduleFragment : Fragment() {
         initViews()
         date = currentTimeMillis()
 
-          date_selected.text = Tools.dateToString(date)
+        date_selected.text = Tools.dateToString(date)
         if (arguments != null) {
             dateAdd = arguments?.getLong(DATE, -1)!!
             date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(dateAdd))
@@ -123,7 +125,7 @@ class AddScheduleFragment : Fragment() {
         if (alarmFlag) switch_.isChecked = true
         switch_.setOnClickListener {
             if (time == 1.toLong()) {
-                Toast.makeText(activity, "Выставьте время выполнения", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Назначьте время выполнения", Toast.LENGTH_LONG).show()
                 alarmFlag = false
                 switch_.isChecked = false
             } else {
@@ -140,18 +142,6 @@ class AddScheduleFragment : Fragment() {
 
     private fun saveSchedule() {
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 0, intent, 0)
-        }
-
-        if (alarmFlag) {
-            alarmManager?.set(
-                RTC_WAKEUP,
-                currentTimeMillis() + 60,
-                alarmIntent
-            )
-        }
-
         schedule = Schedule(
             description = add_description_text.text.toString(),
             date = date,
@@ -159,7 +149,23 @@ class AddScheduleFragment : Fragment() {
             time = time,
             alarm = alarmFlag
         )
-        MainRepository.addSchedule(schedule)
+        MainRepository.addSchedule(schedule) {id ->  //todo
+            scheduleId = id
 
+            alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                intent.putExtra("SCHEDULE_ID", scheduleId)
+                intent.putExtra("NOTE", false)
+                PendingIntent.getBroadcast(context, 0, intent, 0)
+
+            }
+            Log.d("intent","$scheduleId")
+            if (alarmFlag) {
+                alarmManager?.set(
+                    RTC_WAKEUP,
+                    currentTimeMillis() + 60,
+                    alarmIntent
+                )
+            }
+        }
     }
 }

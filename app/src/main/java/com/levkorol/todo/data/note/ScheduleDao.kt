@@ -3,6 +3,7 @@ package com.levkorol.todo.data.note
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.levkorol.todo.model.Folder
+import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
 
 
@@ -11,8 +12,14 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     fun getAll(): LiveData<List<Schedule>>
 
+    @Query("SELECT * FROM schedule")
+    fun getAllScheduleNow(): List<Schedule>
+
     @Insert
-    fun insert(schedule: Schedule)
+    fun insert(schedule: Schedule): Long
+
+    @Query("delete from schedule")
+    fun deleteAll()
 
     @Update
     fun update(schedule: Schedule)

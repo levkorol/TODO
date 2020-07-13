@@ -17,14 +17,14 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.User
 import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private lateinit var user: User
     private lateinit var mDataBase: DatabaseReference
-    private val folders = MainRepository.getResultFolders().value
-    private val notes = MainRepository.getNotes().value
-    private val schedules = MainRepository.getSchedules().value
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,36 +53,39 @@ class ProfileFragment : Fragment() {
         }
 
         save_btn.setOnClickListener {
-            // TODO в корутине!
-            // TODO использовать get*Now()
-            val data = mapOf(
-                "folders" to folders,
-                "notes" to notes,
-                "schedules" to schedules   //todo schedulы не сохраняются. остальное вроде ок
-            )
-
-            mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
-                .updateChildren(data)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(activity, "Данные сохранены", Toast.LENGTH_SHORT)
-                            .show() //todo почему тоаст не показывается при сохранении
-                    } else {
-                        Toast.makeText(
-                            activity,
-                            "Произошла ошибка. Попробуйте позже",
-                            Toast.LENGTH_SHORT
-                        ).show()
+            GlobalScope.launch(Dispatchers.IO) {
+                val notes = MainRepository.getNotesNow()
+                val schedules = MainRepository.getAllSchedulesNow()
+                val folders = MainRepository.getAllFoldersNow()
+                val data = mapOf(
+                    "folders" to folders,
+                    "notes" to notes,
+                    "schedules" to schedules
+                )
+                mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
+                    .updateChildren(data)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(activity, "Данные сохранены", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                "Произошла ошибка. Попробуйте позже",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
+            }
         }
 
         restore_btn.setOnClickListener {
             // TODO получаем из "notes"/"USER-ID" List<Base>
             // TODO в репозитории (удаляем всё) добавляем то что получили с сервера
+            MainRepository.deleteAllFolders()
+            MainRepository.deleteAllNotes()
+            MainRepository.deleteAllSchedules()  // удаление работает
 
-            folders?.let { folders -> MainRepository.deleteFolders(folders) } // TODO заменить на deleteAll
-            notes?.let { it1 -> MainRepository.deleteNotes(it1) } // TODO
             mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter { notes ->
                     // TODO ??????

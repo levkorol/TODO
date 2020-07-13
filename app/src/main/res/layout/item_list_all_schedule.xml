@@ -106,7 +106,7 @@
         tools:visibility="visible">
 
         <LinearLayout
-
+            android:id="@+id/edit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -121,6 +121,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/date_in_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -132,13 +133,14 @@
         </LinearLayout>
 
         <LinearLayout
-
+            android:id="@+id/edit_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -148,13 +150,14 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/time_in_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@color/palegray"
                 android:gravity="right"
-                android:text="02.02"
+                android:text="Не выставлено"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -174,6 +177,7 @@
                 android:textSize="14sp" />
 
             <Switch
+                android:id="@+id/swich_alarm"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="16dp"

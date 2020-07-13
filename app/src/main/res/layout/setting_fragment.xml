@@ -15,15 +15,16 @@
         android:textColor="@color/ultramarin"
         android:layout_gravity="center"/>
 
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Выключить все оповещения"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16sp"
-        android:textColor="@android:color/background_dark"
-        android:layout_marginStart="16dp"/>
+<!--    <Switch-->
+<!--        android:id="@+id/off_notify"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Выключить все оповещения"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="@android:color/background_dark"-->
+<!--        android:layout_marginStart="16dp"/>-->
 
     <Switch
         android:layout_width="match_parent"

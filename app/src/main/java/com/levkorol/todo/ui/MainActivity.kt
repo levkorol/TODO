@@ -11,11 +11,14 @@ import com.levkorol.todo.ui.schedule.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context
+import com.levkorol.todo.ui.note.NoteFragment
+import com.levkorol.todo.ui.schedule.TodayFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
 
 
 class MainActivity : AppCompatActivity() {
     private val  MY_SETTINGS = "MY_SETTINGS"
+    private val noteId: Long = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +70,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        // TODO открываем нужный фрагмент
-        //if (intent?.hasExtra("IS_NOTE") == true)
+        if (intent?.hasExtra("IS_NOTE") == false) {
+            loadFragment(TodayFragment())
+        } else {
+            loadFragment(NoteFragment.instance(noteId)) //todo
+        }
     }
 
     fun loadFragment(fragment: Fragment) {
