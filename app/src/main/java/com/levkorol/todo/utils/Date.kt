@@ -77,6 +77,27 @@ fun isToday(time: Long): Boolean {
             && thenDay == calendar.get(DAY_OF_MONTH)
 }
 
+
+fun areDatesEqual(date1: Long, date2: Long): Boolean {
+    val calendar1 = GregorianCalendar()
+    calendar1.timeInMillis = date1
+    val calendar2 = GregorianCalendar()
+    calendar2.timeInMillis = date2
+    return calendar1.get(YEAR) == calendar2.get(YEAR)
+            && calendar1.get(MONTH) == calendar2.get(MONTH)
+            && calendar1.get(DAY_OF_MONTH) == calendar2.get(DAY_OF_MONTH)
+}
+
+fun getMillisecondsWithoutCurrentTime(milliseconds: Long): Long {
+    val calendarWithCurrentTime = GregorianCalendar()
+    calendarWithCurrentTime.timeInMillis = milliseconds
+    val calendarWithoutCurrentTime = GregorianCalendar()
+    calendarWithoutCurrentTime.set(YEAR, calendarWithCurrentTime.get(YEAR))
+    calendarWithoutCurrentTime.set(MONTH, calendarWithCurrentTime.get(MONTH))
+    calendarWithoutCurrentTime.set(DAY_OF_MONTH, calendarWithCurrentTime.get(DAY_OF_MONTH))
+    return calendarWithoutCurrentTime.timeInMillis
+}
+
 fun isSameWeek(time: Long): Boolean {
     val calendar = GregorianCalendar()
     calendar.timeInMillis = time

@@ -1,14 +1,17 @@
 package com.levkorol.todo.ui.schedule
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,12 +25,14 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.utils.Tools
+import com.levkorol.todo.utils.areDatesEqual
 import com.levkorol.todo.utils.isMounth
 import com.levkorol.todo.utils.isToday
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.add
 import kotlinx.android.synthetic.main.fragment_today.*
+import kotlinx.android.synthetic.main.item_list_all_schedule.*
 import kotlinx.android.synthetic.main.schedule_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +43,8 @@ class AllScheduleListFragment : Fragment() {
     private lateinit var adapterAllSchedule: AllScheduleAdapter
     private var schedules: List<Schedule>? = null
     private var selectDate: Long = 1
-   // private var dateAdd: Long = 1
+    private var alarmFlag = false
+    private var addTime = false
     private var date: Long = 1
 
     companion object {
@@ -101,25 +107,28 @@ class AllScheduleListFragment : Fragment() {
 
     private fun updateSchedules() {
         if (schedules == null) return
-        adapterAllSchedule.dataItems = schedules!!.sortedByDescending { it.dateCreate }
+
+        if (selectDate > 1) {
+            adapterAllSchedule.dataItems = schedules!!.filter { element ->
+                areDatesEqual(element.date, selectDate)
+            }
+        } else {
+            adapterAllSchedule.dataItems = schedules!!.sortedByDescending { it.dateCreate }
+        }
+
         if (adapterAllSchedule.dataItems.isEmpty()) {
             no_schedule.text = "Задач пока нет..."
         }
-        if(selectDate > 1 ) {
-            adapterAllSchedule.dataItems = schedules!!.filter { element ->
-                element.date == selectDate
-            }
-        } else {
-            adapterAllSchedule.dataItems = schedules!!
-        }
+
         adapterAllSchedule.notifyDataSetChanged()
+
+
     }
 
     private fun initViews() {
         back.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
         filter_date.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
             val picker: MaterialDatePicker<Long> = builder.build()
@@ -143,14 +152,14 @@ class AllScheduleListFragment : Fragment() {
         }
     }
 
+
+    //ADAPTER
     inner class AllScheduleAdapter(
         val activity: MainActivity
     ) : RecyclerView.Adapter<AllScheduleAdapter.ScheduleViewHolder>() {
-
         private lateinit var schedule: Schedule
-        private var isEditMode = false
-        private var date: Long = 1
-        private var time: Long = 1
+        private var alarmManager: AlarmManager? = null
+        private lateinit var alarmIntent: PendingIntent
 
         var dataItems: List<Schedule> = listOf()
             set(value) {
@@ -171,48 +180,186 @@ class AllScheduleListFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
             val item = dataItems[position]
+            var date: Long
+            var time: Long
+
+            holder.clearTime.setOnClickListener {
+                item.addTime = false
+                item.alarm = false
+                holder.timeInEdit.text = "Не выставлено"
+                holder.clearTime.visibility = View.GONE
+                item.time = 0
+                schedule = dataItems[position]
+                schedule.addTime = false
+                MainRepository.updateSchedule(schedule)
+            }
 
             holder.title_schedule.text = item.description
             holder.date_schedule.text = Tools.dateToString(item.date)
-            if (item.time == 1.toLong()) {
-                holder.time.visibility = View.GONE
-            } else {
-                holder.time.text = Tools.convertLongToTimeString(item.time)
-            }
 
-            holder.timer.visibility =
-                if (item.alarm && item.date < System.currentTimeMillis()
-                    && item.time < System.currentTimeMillis()
-                ) View.VISIBLE else View.GONE
+            if (item.time < 5 ) {
+                holder.timeInEdit.text = "Не выставлено"
+            } else {
+                holder.timeInEdit.text = Tools.convertLongToTimeString(item.time)
+                holder.clearTime.visibility = View.VISIBLE
+            }
 
             holder.editTaskBtn.setOnClickListener {
-                holder.editList.visibility = View.VISIBLE
-                holder.editTaskBtn.text = "Режим редактирования"
-                isEditMode = true
-                if (isEditMode) {
-                    with(holder.title_schedule) {
-                        isFocusable = true
-                        isFocusableInTouchMode = true
-                        isLongClickable = true
-                        isCursorVisible = true
-                        holder.title_schedule.isEnabled = true
-                    }
+                holder.saveText.visibility = View.VISIBLE
+                holder.exitEditText.visibility = View.VISIBLE
+                holder.editTaskBtn.text = "Режим редактирования текста:"
+                with(holder.title_schedule) {
+                    isFocusable = true
+                    isFocusableInTouchMode = true
+                    isLongClickable = true
+                    isCursorVisible = true
+                    isEnabled = true
                 }
             }
 
-            holder.exitEdit.setOnClickListener {
+            holder.exitEditText.setOnClickListener {
                 notifyDataSetChanged()
-                holder.editList.visibility = View.GONE
-                holder.editTaskBtn.text = "Редактировать"
-                isEditMode = false
-                if (!isEditMode) {
-                    holder.title_schedule.isFocusable = false
-                    holder.title_schedule.isFocusableInTouchMode = false
-                    holder.title_schedule.isLongClickable = false
-                    holder.title_schedule.isCursorVisible = false
-                    holder.title_schedule.isEnabled = false
+                holder.editTaskBtn.text = "Редактировать текст"
+                holder.saveText.visibility = View.GONE
+                holder.exitEditText.visibility = View.GONE
+                with(holder.title_schedule) {
+                    isFocusable = false
+                    isFocusableInTouchMode = false
+                    isLongClickable = false
+                    isCursorVisible = false
+                    isEnabled = false
                 }
             }
+
+            holder.saveText.setOnClickListener {
+                holder.editTaskBtn.text = "Редактировать текст"
+                holder.saveText.visibility = View.GONE
+                holder.exitEditText.visibility = View.GONE
+                with(holder.title_schedule) {
+                    isFocusable = false
+                    isFocusableInTouchMode = false
+                    isLongClickable = false
+                    isCursorVisible = false
+                    isEnabled = false
+                }
+                schedule = dataItems[position]
+                schedule.description = holder.title_schedule.text.toString()
+                MainRepository.updateSchedule(schedule)
+                notifyDataSetChanged()
+            }
+
+            holder.swich.isChecked = item.alarm
+            holder.swich.setOnClickListener {
+                if(!item.addTime) {
+                    Toast.makeText(activity, "Назначьте время выполнения", Toast.LENGTH_LONG).show()
+                    holder.swich.isChecked = false
+                }
+                if(item.addTime) {
+                    schedule = dataItems[position]
+                    schedule.alarm = true
+                    MainRepository.updateSchedule(schedule)
+                    holder.swich.isChecked = true
+
+                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                        intent.putExtra("SCHEDULE_ID", item.id)
+                        intent.putExtra("NOTE", false)
+                        PendingIntent.getBroadcast(context, 0, intent, 0)
+                    }
+                    if (alarmFlag) {
+                        alarmManager?.set(
+                            AlarmManager.RTC_WAKEUP,
+                            System.currentTimeMillis() + 60,
+                            alarmIntent
+                        )
+                    }
+                } //todo оповещения и свич
+            }
+
+            holder.dateInEdit.text = Tools.dateToString(item.date)
+
+            holder.deleteTask.setOnClickListener {
+                val builder = MaterialAlertDialogBuilder(activity)
+                builder.setMessage("Удалить: ${holder.title_schedule.text} ?")
+                builder.setPositiveButton("Да") { _, _ ->
+                    MainRepository.deleteSchedule(item.id)
+                    //holder.editList.visibility = View.GONE
+                    holder.editTaskBtn.text = "Редактировать текст"
+                    holder.saveText.visibility = View.GONE
+                    holder.exitEditText.visibility = View.GONE
+                    with(holder.title_schedule) {
+                        isFocusable = false
+                        isFocusableInTouchMode = false
+                        isLongClickable = false
+                        isCursorVisible = false
+                        isEnabled = false
+                    }
+                }
+                builder.setNegativeButton("Отмена") { _, _ ->
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            }
+
+
+            holder.changeDate.setOnClickListener {
+                val builder = MaterialDatePicker.Builder.datePicker()
+                val picker: MaterialDatePicker<Long> = builder.build()
+                picker.addOnPositiveButtonClickListener { unixTime ->
+                    holder.dateInEdit.text =
+                        SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
+                    date = unixTime
+                    schedule = dataItems[position]
+                    schedule.date = date
+                    schedule.checkBoxDone = false
+                   MainRepository.updateSchedule(schedule)
+                }
+                picker.show(parentFragmentManager, picker.toString())
+            }
+
+
+            holder.changeTime.setOnClickListener {
+                val cal = Calendar.getInstance()
+                val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, minute)
+                    holder.timeInEdit.text = SimpleDateFormat("HH:mm").format(cal.time)
+                    time = cal.time.time
+                    addTime = true
+                    holder.clearTime.visibility = View.VISIBLE
+                    schedule = dataItems[position]
+                    schedule.time = time
+                    schedule.addTime = true
+                    MainRepository.updateSchedule(schedule)
+                }
+                TimePickerDialog(
+                    context,
+                    timeSetListener,
+                    cal.get(Calendar.HOUR_OF_DAY),
+                    cal.get(Calendar.MINUTE),
+                    true
+                ).show()
+            }
+        }
+
+        inner class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            var date_schedule: TextView = itemView.findViewById(R.id.date)
+            var title_schedule: TextView = itemView.findViewById(R.id.tv_title)
+            var editTaskBtn: TextView = itemView.findViewById(R.id.edit_task)
+            var deleteTask: TextView = itemView.findViewById(R.id.delete_task)
+            var dateInEdit: TextView = itemView.findViewById(R.id.date_in_edit)
+            var timeInEdit: TextView = itemView.findViewById(R.id.time_in_edit)
+            var changeDate: LinearLayout = itemView.findViewById(R.id.edit_date)
+            var changeTime: LinearLayout = itemView.findViewById(R.id.edit_time)
+            var clearTime: TextView = itemView.findViewById(R.id.clear_time_in_edit)
+
+            var saveText: TextView = itemView.findViewById(R.id.save_text)
+            var exitEditText: TextView = itemView.findViewById(R.id.exit_edit_text)
+            var swich: Switch = itemView.findViewById(R.id.swich_alarm)
+        }
+    }
+}
+
 
 //        holder.timer.setOnClickListener {
 //            schedule = dataItems[position]
@@ -227,91 +374,3 @@ class AllScheduleListFragment : Fragment() {
 //            val dialog: AlertDialog = builder.create()
 //            dialog.show()
 //        }
-
-            holder.saveTask.setOnClickListener {
-                holder.editList.visibility = View.GONE
-                holder.editTaskBtn.text = "Редактировать"
-                isEditMode = false
-                if (!isEditMode) {
-                    holder.title_schedule.isFocusable = false
-                    holder.title_schedule.isFocusableInTouchMode = false
-                    holder.title_schedule.isLongClickable = false
-                    holder.title_schedule.isCursorVisible = false
-                    holder.title_schedule.isEnabled = false
-                }
-                schedule = dataItems[position]
-
-                schedule.description = holder.title_schedule.text.toString()
-                schedule.date = date
-                schedule.time = time
-               // schedule.alarm
-                // schedule.dateCreate = System.currentTimeMillis()
-
-                MainRepository.updateSchedule(schedule)
-
-                notifyDataSetChanged()
-            }
-
-            holder.dateInEdit.text = Tools.dateToString(item.date)
-            holder.timeInEdit.text = Tools.convertLongToTimeString(item.time)
-
-
-            holder.deleteTask.setOnClickListener {
-                val builder = MaterialAlertDialogBuilder(activity)
-                builder.setMessage("Удалить: ${holder.title_schedule.text} ?")
-                builder.setPositiveButton("Да") { _, _ ->
-                    MainRepository.deleteSchedule(item.id)
-                }
-                builder.setNegativeButton("Отмена") { _, _ ->
-                }
-                val dialog: AlertDialog = builder.create()
-                dialog.show()
-            }
-
-            holder.changeDate.setOnClickListener {
-                val builder = MaterialDatePicker.Builder.datePicker()
-                val picker: MaterialDatePicker<Long> = builder.build()
-                picker.addOnPositiveButtonClickListener { unixTime ->
-                    holder.dateInEdit.text =
-                        SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
-                    date = unixTime
-                }
-                picker.show(parentFragmentManager, picker.toString())
-            }
-
-            holder.changeTime.setOnClickListener {
-                val cal = Calendar.getInstance()
-                val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                    cal.set(Calendar.HOUR_OF_DAY, hour)
-                    cal.set(Calendar.MINUTE, minute)
-                    holder.timeInEdit.text = SimpleDateFormat("HH:mm").format(cal.time)
-                    time = cal.time.time
-                  //  clear_time_edit.visibility = View.VISIBLE
-                }
-                TimePickerDialog(
-                    context,
-                    timeSetListener,
-                    cal.get(Calendar.HOUR_OF_DAY),
-                    cal.get(Calendar.MINUTE),
-                    true
-                ).show()
-            }
-        }
-
-        inner class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var date_schedule: TextView = itemView.findViewById(R.id.date)
-            var time: TextView = itemView.findViewById(R.id.tv_time)
-            var title_schedule: TextView = itemView.findViewById(R.id.tv_title)
-            var timer: ImageView = itemView.findViewById(R.id.iv_notify)
-            var editTaskBtn: TextView = itemView.findViewById(R.id.edit_task)
-            var editList: LinearLayout = itemView.findViewById(R.id.edit_ll)
-            var exitEdit: TextView = itemView.findViewById(R.id.exit_edit)
-            var deleteTask: TextView = itemView.findViewById(R.id.delete_task)
-            var saveTask: TextView = itemView.findViewById(R.id.save_task)
-            var dateInEdit: TextView = itemView.findViewById(R.id.date_in_edit)
-            var timeInEdit: TextView = itemView.findViewById(R.id.time_in_edit)
-            var changeDate: LinearLayout = itemView.findViewById(R.id.edit_date)
-            var changeTime: LinearLayout = itemView.findViewById(R.id.edit_time)
-        }
-    }
-}

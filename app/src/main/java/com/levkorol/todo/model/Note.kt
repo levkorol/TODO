@@ -19,9 +19,9 @@ data class Note(
     @ColumnInfo(name = "addSchedule") var addSchedule: Boolean ,
     @ColumnInfo(name = "addPhoto") var addPhoto: Boolean,
     var parentFolderId: Long = -1
-) : Base()
-
-
+) : Base() {
+    constructor() : this(0, "", "", false, "", 0, 0, 0, false, false, false, -1)
+}
 
 
 

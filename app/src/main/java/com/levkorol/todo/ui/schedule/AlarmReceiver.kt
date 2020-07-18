@@ -30,9 +30,7 @@ class AlarmReceiver : BroadcastReceiver() {
             val scheduleId = intent.getLongExtra("SCHEDULE_ID", 0)
             val isNote = intent.getBooleanExtra("NOTE", true)
 
-            Log.d("isNote", "$isNote")
-            Log.d("scheduleId", "$scheduleId")
-            Log.d("noteId", "$noteId")
+            Log.d("AlarmReceiver", "onReceiver = isNote = $isNote, scheduleId = $scheduleId, noteId = $noteId")
 
             val (title, description) =
                 if (isNote) {
@@ -42,7 +40,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 } else  {
                     val schedule = MainRepository.getAllSchedulesNow()
                         .firstOrNull { schedule -> schedule.id == scheduleId }
-                    Pair("Выполнить:", schedule?.description)
+                    Pair("Напоминание:", schedule?.description)
                 }
 
             createNotificationChannel(context)
@@ -50,6 +48,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setSmallIcon(R.drawable.ic_star)
                 .setContentTitle(title)
                 .setContentText(description)
+                .setAutoCancel(true)
+                .setStyle( NotificationCompat.BigTextStyle().bigText(description))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))
             val notificationManager = NotificationManagerCompat.from(context)

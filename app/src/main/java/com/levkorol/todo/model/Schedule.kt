@@ -11,5 +11,8 @@ data class Schedule(
     var checkBoxDone: Boolean,
     var time: Long,
     var alarm: Boolean,
+    var addTime: Boolean,
     var dateCreate: Long = System.currentTimeMillis()
-)
+) {
+    constructor() : this(0, "", 0, false, 0, false, false)
+}

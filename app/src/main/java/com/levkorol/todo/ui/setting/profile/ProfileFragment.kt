@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
+import com.levkorol.todo.model.Folder
+import com.levkorol.todo.model.Note
+import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.model.User
 import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -80,26 +83,43 @@ class ProfileFragment : Fragment() {
         }
 
         restore_btn.setOnClickListener {
-            // TODO получаем из "notes"/"USER-ID" List<Base>
-            // TODO в репозитории (удаляем всё) добавляем то что получили с сервера
+
+            vostanovleno.text = "Поздравляем!\n Ваши записи успешно восстановлены! "
+
             MainRepository.deleteAllFolders()
             MainRepository.deleteAllNotes()
-            MainRepository.deleteAllSchedules()  // удаление работает
+            MainRepository.deleteAllSchedules()
 
             mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter { notes ->
-                    // TODO ??????
+
+                    val childNotes = notes.child("notes").children
+                    childNotes.forEach { firebaseNote ->
+                        val realNote = firebaseNote.getValue(Note::class.java)
+                        realNote?.let { note -> MainRepository.addNote(note) {} }
+                    }
+
+                    val childFolders = notes.child("folders").children
+                    childFolders.forEach { firebaseFolder ->
+                        val realFolder = firebaseFolder.getValue(Folder::class.java)
+                        realFolder?.let { folder -> MainRepository.addFolder(folder) }
+                    }
+
+                    val childSchedule = notes.child("schedules").children //WTF?! как у тебя восстанавливалось расписание?
+                    childSchedule.forEach { firebaseSchedules ->
+                        val realSchedule = firebaseSchedules.getValue(Schedule::class.java)
+                        realSchedule?.let { task -> MainRepository.addSchedule(task) {} }
+                    }
                 })
-//            folders?.let { it1 ->
-//                MainRepository.getFolder().value
-//            } //todo или нужно в репоситории создать метод добавляющий лист?
-//            notes?.let { it1 -> MainRepository.getNotes().value }
+
         }
 
         mDataBase.child("users").child(auth.currentUser!!.uid)
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                user = it.getValue(User::class.java)!!
-                hello.text = "Привет, ${user.name} ! :) \n"
+                if(hello != null) {
+                    user = it.getValue(User::class.java)!!
+                    hello.text = "Привет, ${user.name} ! :) \n"
+                }
             })
     }
 

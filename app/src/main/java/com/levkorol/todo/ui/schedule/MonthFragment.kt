@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
+import com.applandeo.materialcalendarview.utils.setCurrentMonthDayColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Schedule
@@ -58,33 +59,28 @@ class MonthFragment : Fragment() {
             schedule?.time = arguments?.getLong(TIME, time)!!
         }
 
-        val events =  arrayListOf<EventDay>()
-
-        val calendar = Calendar.getInstance()
-        // TODO calendar.timeInMillis =
-        calendar.set(2020, 6, 5)
-        calendar.set(2020, 6, 7)
-
-        events.add(EventDay(calendar, R.drawable.ic_com,parseColor("#228B22")))
-        events.add(EventDay(calendar,R.drawable.ic_no ))
-        events.add(EventDay(calendar, R.drawable.ic_repit,parseColor("#228B22")))
-        val calendarViewM = calendarViewM as CalendarView
-        calendarViewM.setEvents(events)
-
-
         calendarViewM.setOnDayClickListener(object : OnDayClickListener {
             @Override
             override fun onDayClick(eventDay: EventDay) {
-                val clickedDayCalendar = eventDay.calendar.timeInMillis + eventDay.calendar.timeZone.rawOffset
+                val clickedDayCalendar =
+                    eventDay.calendar.timeInMillis + eventDay.calendar.timeZone.rawOffset
 
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle("Выбранная дата:")
                 builder.setMessage(Tools.dateToString(clickedDayCalendar))
                 builder.setPositiveButton("Просмотреть") { _, _ ->
-                    (activity as MainActivity).loadFragment(AllScheduleListFragment.newInstance(clickedDayCalendar))
+                    (activity as MainActivity).loadFragment(
+                        AllScheduleListFragment.newInstance(
+                            clickedDayCalendar
+                        )
+                    )
                 }
                 builder.setNegativeButton("Добавить задачу") { _, _ ->
-                    (activity as MainActivity).loadFragment(AddScheduleFragment.newInstance(clickedDayCalendar))
+                    (activity as MainActivity).loadFragment(
+                        AddScheduleFragment.newInstance(
+                            clickedDayCalendar
+                        )
+                    )
                 }
                 val dialog: AlertDialog = builder.create()
                 dialog.show()
@@ -101,6 +97,19 @@ class MonthFragment : Fragment() {
     private fun observeSchedule() {
         viewModel.getSchedules().observe(this, Observer { schedules ->
             this.schedules = schedules
+            val events = arrayListOf<EventDay>()
+            for (i in 0..schedules.size - 1) {
+                val s = schedules!![i]
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = s.date
+                //calendar.set(2020, 6, 7)
+                //calendar.setCurrentMonthDayColors()
+                events.add(EventDay(calendar, R.drawable.ic_com, parseColor("#228B22")))
+                //events.add(EventDay(calendar, R.drawable.ic_no))
+              //  events.add(EventDay(calendar, R.drawable.ic_repit, parseColor("#228B22")))
+            }
+            val calendarViewM = calendarViewM as CalendarView
+            calendarViewM.setEvents(events)
         })
     }
 }

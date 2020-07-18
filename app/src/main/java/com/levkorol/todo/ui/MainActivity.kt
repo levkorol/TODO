@@ -63,14 +63,12 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener false
                 }
             }
-
         }
-
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent?.hasExtra("IS_NOTE") == false) {
+        if (intent?.hasExtra("NOTE") == false) {
             loadFragment(TodayFragment())
         } else {
             loadFragment(NoteFragment.instance(noteId)) //todo

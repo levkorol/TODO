@@ -71,13 +71,14 @@
             />
 
         <TextView
+            android:id="@+id/vostanovleno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
-            android:text="Восстановите после сохранения"
+            android:text="Восстановите после сохранения\n Обратите внимание что текущие записи в приложении полностью заменятся восстановленными."
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
 
 

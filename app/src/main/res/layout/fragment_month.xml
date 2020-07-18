@@ -14,8 +14,11 @@
             android:layout_width="match_parent"
             app:datePicker="true"
             app:highlightedDaysLabelsColor="@color/biu"
+
             app:headerColor="@color/biu"
+
             app:headerLabelColor="@color/white"
+
             app:abbreviationsBarColor="@color/color_grey_dark"
             app:abbreviationsLabelsColor="@color/lichtpinck"
             app:pagesColor="@color/palegray"

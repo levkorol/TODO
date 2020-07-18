@@ -14,6 +14,9 @@ data class Folder(
     var parentFolderId: Long = -1,
     override var date: Long
 ) : Base() {
+
+    constructor() : this(0, "", Background.PINK, 0,0)
+
     @Ignore
     var folders: List<Folder> = listOf()
     @Ignore

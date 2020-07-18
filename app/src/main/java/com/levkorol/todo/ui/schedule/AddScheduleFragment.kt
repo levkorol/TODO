@@ -3,6 +3,7 @@ package com.levkorol.todo.ui.schedule
 import android.app.*
 import android.app.AlarmManager.RTC_WAKEUP
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
+import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
@@ -24,14 +25,14 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.utils.Tools
+import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
 import kotlinx.android.synthetic.main.fragment_note.*
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.Calendar.HOUR_OF_DAY
-import java.util.Calendar.MINUTE
+import java.util.Calendar.*
 
 class AddScheduleFragment : Fragment() {
 
@@ -43,6 +44,7 @@ class AddScheduleFragment : Fragment() {
     private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
     private var scheduleId: Long = 0
+    private var addTime = false
 
     companion object {
         private const val DATE = "DATE"
@@ -106,11 +108,15 @@ class AddScheduleFragment : Fragment() {
 
         add_time.setOnClickListener {
             val cal = Calendar.getInstance()
+            cal.timeInMillis = date
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 cal.set(HOUR_OF_DAY, hour)
                 cal.set(MINUTE, minute)
+                cal.set(SECOND, 0)
+                cal.set(MILLISECOND, 0)
                 time_tv.text = SimpleDateFormat("HH:mm").format(cal.time)
                 time = cal.time.time
+                addTime = true
                 clear_time.visibility = View.VISIBLE
             }
             TimePickerDialog(
@@ -135,6 +141,7 @@ class AddScheduleFragment : Fragment() {
 
         clear_time.setOnClickListener {
             time = 1
+            addTime = false
             time_tv.text = "Назначить время выполнения"
             clear_time.visibility = View.GONE
         }
@@ -142,12 +149,14 @@ class AddScheduleFragment : Fragment() {
 
     private fun saveSchedule() {
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         schedule = Schedule(
             description = add_description_text.text.toString(),
             date = date,
             checkBoxDone = false,
             time = time,
-            alarm = alarmFlag
+            alarm = alarmFlag,
+            addTime = addTime
         )
         MainRepository.addSchedule(schedule) {id ->  //todo
             scheduleId = id
@@ -155,16 +164,20 @@ class AddScheduleFragment : Fragment() {
             alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra("SCHEDULE_ID", scheduleId)
                 intent.putExtra("NOTE", false)
-                PendingIntent.getBroadcast(context, 0, intent, 0)
+                Log.v("AddScheduleFragment","saveScheduleExtras${intent.extras}")
 
+                PendingIntent.getBroadcast(context, 0, intent, FLAG_CANCEL_CURRENT)
             }
-            Log.d("intent","$scheduleId")
+
             if (alarmFlag) {
+                val needTime = date + time - getMillisecondsWithoutCurrentTime(time)
                 alarmManager?.set(
                     RTC_WAKEUP,
-                    currentTimeMillis() + 60,
+                    needTime,
+                   // currentTimeMillis() + 60,
                     alarmIntent
                 )
+                Log.v("AddScheduleFragment","need $needTime ,date = $date, time = $time")
             }
         }
     }

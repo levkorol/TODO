@@ -78,7 +78,7 @@ object MainRepository {
     fun getAllSchedulesNow(): List<Schedule> = scheduleDao.getAllScheduleNow()
 
     fun getAllFoldersNow(): List<Folder> = folderDao.getAllFoldersNow()
-    
+
     fun getNote(): LiveData<Note> = noteDao.getNoteId(-1)
 
     fun addNote(note: Note, code: (Long) -> Unit) {

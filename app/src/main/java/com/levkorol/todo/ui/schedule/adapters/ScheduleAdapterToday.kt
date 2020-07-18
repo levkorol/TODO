@@ -41,21 +41,24 @@ class ScheduleAdapterToday(
 
         holder.title_schedule.text = item.description
 
-        // TODO
-        if(item.time <= 1.toLong()) {
+        if(!item.addTime) {
             holder.time.visibility = View.GONE
+           // holder.timer.visibility = View.GONE
         } else {
+            holder.time.visibility = View.VISIBLE
             holder.time.text = Tools.convertLongToTimeString(item.time)
         }
+        if(item.alarm ) {
+            holder.timer.visibility = View.VISIBLE
+          //  holder.time.visibility = View.VISIBLE
+        } else {
+            holder.timer.visibility = View.GONE
+           // holder.time.visibility = View.GONE
+        }
+
 
         holder.checkBox.setOnCheckedChangeListener (null)
         holder.checkBox.isChecked = item.checkBoxDone
-
-        holder.timer.visibility =
-            if (item.alarm && item.date < System.currentTimeMillis()
-                && item.time < System.currentTimeMillis())
-                View.VISIBLE else View.GONE
-
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             schedule = dataItems[position]
             if (isChecked) {

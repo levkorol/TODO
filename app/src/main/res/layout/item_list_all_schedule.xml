@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="Monday, 12 July, 2020"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
@@ -19,40 +19,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="4dp"
-            android:text="14.00"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:id="@+id/iv_notify"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="-10dp"
-            android:src="@drawable/ic_no" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!--        <CheckBox-->
-        <!--            android:id="@+id/cb_done"-->
-        <!--            android:layout_width="30dp"-->
-        <!--            android:layout_height="30dp"-->
-        <!--            android:layout_marginTop="4dp"-->
-        <!--            android:layout_marginStart="8dp" />-->
 
         <EditText
             android:id="@+id/tv_title"
@@ -61,9 +29,9 @@
             android:layout_marginStart="16dp"
             android:enabled="false"
             android:focusable="false"
+            android:layout_marginTop="4dp"
             android:focusableInTouchMode="false"
             android:background="@android:color/white"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:textColor="@android:color/black"
@@ -75,40 +43,65 @@
 
 
     <LinearLayout
-        android:layout_marginTop="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/palegray"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/edit_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/palegray"
-            android:drawableStart="@drawable/ic_edit"
-            android:layout_marginStart="14dp"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="Редактировать"
-            android:textColor="@color/ultramarin"
-            android:textSize="13sp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/edit_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/palegray"
         android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+
+       >
+
+        <LinearLayout
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/edit_task"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Редактировать текст"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/exit_edit_text"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Выйти"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/save_text"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textStyle="bold"
+                android:text="Сохранить"
+                android:gravity="end"
+                android:textSize="15sp" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/edit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -118,7 +111,7 @@
                 android:layout_weight="1"
                 android:background="@color/palegray"
                 android:text="Перенести на другой день"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/date_in_edit"
@@ -127,7 +120,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:background="@color/palegray"
-                android:gravity="right"
+                android:textColor="@android:color/black"
+                android:gravity="end"
                 android:text="02.02.2020"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -136,7 +130,7 @@
             android:id="@+id/edit_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -144,28 +138,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:background="@color/palegray"
                 android:text="Время выполнения"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/clear_time_in_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_weight="1.1"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:gravity="end"
+                android:layout_marginStart="8dp"
+                android:drawableEnd="@drawable/ic_acc"
+                android:text="Сбросить "
+                 />
 
             <TextView
                 android:id="@+id/time_in_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
+                android:layout_weight="0.2"
+                android:layout_marginEnd="22dp"
                 android:background="@color/palegray"
-                android:gravity="right"
-                android:text="Не выставлено"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:layout_gravity="center"
+                android:text="19.00"
                 android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,14 +183,15 @@
                 android:layout_weight="1"
                 android:background="@color/palegray"
                 android:text="Оповещение"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <Switch
                 android:id="@+id/swich_alarm"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="16dp"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
+                android:gravity="end"
                 android:background="@color/palegray"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -191,47 +201,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:textSize="15sp"
+            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
-            android:text="Удалить задачу" />
+            android:text="Удалить запись" />
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/exit_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="@color/palegray"
-                android:textStyle="bold"
-                android:text="Выйти с режима редактирования"
-                android:layout_marginBottom="10dp"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/save_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="@color/palegray"
-                android:layout_marginBottom="10dp"
-                android:gravity="right"
-                android:text="Сохранить"
-                android:textStyle="bold"
-                android:textSize="14sp" />
-        </LinearLayout>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/line" />
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/line_for_all_tasks" />
 </LinearLayout>
