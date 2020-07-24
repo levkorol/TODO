@@ -51,13 +51,8 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // TODO полночь
-        // TODO получаем задачи
-        // TODO проходимся по ним
-        // TODO если время задачи меньше текущего и она не выполнена
-        // TODO то тогда время задачи поменять день на текущий
-        // TODO сохранить!
+        // TODO полночь,получаем задачи,проходимся по ним,
+        //  если время задачи меньше текущего и она не выполнена,то тогда время задачи поменять день на текущий,сохранить!
 
         //todo swich переноски таска на след день
         if (todayFlag) sw_schedule_up.isChecked = true

@@ -4,6 +4,7 @@ import android.app.*
 import android.app.AlarmManager.RTC_WAKEUP
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.app.PendingIntent.FLAG_CANCEL_CURRENT
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
@@ -18,17 +19,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
+import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.utils.Tools
 import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
 import kotlinx.android.synthetic.main.fragment_note.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.util.*
@@ -108,7 +115,7 @@ class AddScheduleFragment : Fragment() {
 
         add_time.setOnClickListener {
             val cal = Calendar.getInstance()
-            cal.timeInMillis = date
+            cal.timeInMillis = 0 //todo
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 cal.set(HOUR_OF_DAY, hour)
                 cal.set(MINUTE, minute)
@@ -164,20 +171,19 @@ class AddScheduleFragment : Fragment() {
             alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra("SCHEDULE_ID", scheduleId)
                 intent.putExtra("NOTE", false)
-                Log.v("AddScheduleFragment","saveScheduleExtras${intent.extras}")
+                Log.i("AddScheduleFragment","saveScheduleExtras${intent.extras}")
 
                 PendingIntent.getBroadcast(context, 0, intent, FLAG_CANCEL_CURRENT)
             }
 
             if (alarmFlag) {
-                val needTime = date + time - getMillisecondsWithoutCurrentTime(time)
+                val needTime = date + time //- getMillisecondsWithoutCurrentTime(time)
                 alarmManager?.set(
                     RTC_WAKEUP,
                     needTime,
-                   // currentTimeMillis() + 60,
                     alarmIntent
                 )
-                Log.v("AddScheduleFragment","need $needTime ,date = $date, time = $time")
+                Log.i("AddScheduleFragment","need $needTime ,date = $date, time = $time")
             }
         }
     }

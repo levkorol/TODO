@@ -11,6 +11,7 @@ import com.levkorol.todo.ui.schedule.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context
+import android.util.Log
 import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.ui.schedule.TodayFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
@@ -68,11 +69,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent?.hasExtra("NOTE") == false) {
-            loadFragment(TodayFragment())
+        if (intent?.hasExtra("IS_NOTE") == true) {
+            intent.getLongExtra("ID",noteId)
+            loadFragment(NoteFragment.instance(noteId))
         } else {
-            loadFragment(NoteFragment.instance(noteId)) //todo
+            intent?.getBooleanExtra("IS_NOTE",false)
+            loadFragment(TodayFragment())  //todo
         }
+        Log.d("MainActivity", "intent $intent")
     }
 
     fun loadFragment(fragment: Fragment) {

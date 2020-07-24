@@ -3,6 +3,8 @@ package com.levkorol.todo.ui.schedule
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_CANCEL_CURRENT
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
@@ -30,28 +32,44 @@ class AlarmReceiver : BroadcastReceiver() {
             val scheduleId = intent.getLongExtra("SCHEDULE_ID", 0)
             val isNote = intent.getBooleanExtra("NOTE", true)
 
-            Log.d("AlarmReceiver", "onReceiver = isNote = $isNote, scheduleId = $scheduleId, noteId = $noteId")
+            Log.d(
+                "AlarmReceiver",
+                "onReceiver = isNote = $isNote, scheduleId = $scheduleId, noteId = $noteId"
+            )
 
             val (title, description) =
                 if (isNote) {
                     val note =
                         MainRepository.getNotesNow().firstOrNull { note -> note.id == noteId }
                     Pair(note?.name, note?.description)
-                } else  {
+                } else {
                     val schedule = MainRepository.getAllSchedulesNow()
                         .firstOrNull { schedule -> schedule.id == scheduleId }
                     Pair("Напоминание:", schedule?.description)
                 }
 
+            val resultIntent = if (isNote) {
+                intent.putExtra("IS_NOTE", true)
+                intent.putExtra("ID", noteId)
+                Intent(context, MainActivity::class.java)
+            } else {
+                intent.putExtra("IS_NOTE", false)
+                Intent(context, MainActivity::class.java)
+            }
+            val int = Intent(context, MainActivity::class.java)
             createNotificationChannel(context)
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_star)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setAutoCancel(true)
-                .setStyle( NotificationCompat.BigTextStyle().bigText(description))
+                .setStyle(NotificationCompat.BigTextStyle().bigText(description))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))
+                .setContentIntent(
+                    PendingIntent.getActivity(
+                        context, 0, resultIntent, FLAG_UPDATE_CURRENT
+                    )
+                )
             val notificationManager = NotificationManagerCompat.from(context)
             builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
         }
@@ -71,20 +89,6 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    //        (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).notify(
-//            intent!!.getIntExtra("notificationId", 0),
-//            Notification.Builder(context).apply {
-//                setSmallIcon(R.drawable.ic_star)
-//                setContentTitle(intent.getStringExtra("title"))
-//                setContentText(intent.getCharSequenceExtra("text"))
-//                setWhen(System.currentTimeMillis())
-//                setTicker(intent.getCharSequenceExtra("ticker"))
-//                setPriority(Notification.PRIORITY_DEFAULT)
-//                setAutoCancel(true)
-//                setDefaults(Notification.DEFAULT_SOUND)
-//                setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))
-//            }.build()
-//        )
     companion object {
         private val NOTIFY_ID = 101
         private val CHANNEL_ID = "task channel"
