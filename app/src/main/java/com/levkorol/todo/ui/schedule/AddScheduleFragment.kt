@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
@@ -30,6 +31,7 @@ import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.utils.Tools
 import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime
+import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime2
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.back_profile
 import kotlinx.android.synthetic.main.fragment_note.*
@@ -46,9 +48,11 @@ class AddScheduleFragment : Fragment() {
     private lateinit var schedule: Schedule
     private var date: Long = 1
     private var dateAdd: Long = 1
-    private var time: Long = 1
+    //private var time: Long = 1
+    private var hours: Int = -1
+    private var minutes: Int = -1
     private var alarmFlag = false
-    private var alarmManager: AlarmManager? = null
+    private var alarmManager: AlarmManager? = null //todo
     private lateinit var alarmIntent: PendingIntent
     private var scheduleId: Long = 0
     private var addTime = false
@@ -115,14 +119,16 @@ class AddScheduleFragment : Fragment() {
 
         add_time.setOnClickListener {
             val cal = Calendar.getInstance()
-            cal.timeInMillis = 0 //todo
+           // cal.timeInMillis = 0
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 cal.set(HOUR_OF_DAY, hour)
                 cal.set(MINUTE, minute)
                 cal.set(SECOND, 0)
                 cal.set(MILLISECOND, 0)
                 time_tv.text = SimpleDateFormat("HH:mm").format(cal.time)
-                time = cal.time.time
+                hours = hour
+                minutes = minute
+                //time = cal.time.time
                 addTime = true
                 clear_time.visibility = View.VISIBLE
             }
@@ -137,7 +143,7 @@ class AddScheduleFragment : Fragment() {
 
         if (alarmFlag) switch_.isChecked = true
         switch_.setOnClickListener {
-            if (time == 1.toLong()) {
+            if (hours == -1 || minutes == -1) {
                 Toast.makeText(activity, "Назначьте время выполнения", Toast.LENGTH_LONG).show()
                 alarmFlag = false
                 switch_.isChecked = false
@@ -147,7 +153,7 @@ class AddScheduleFragment : Fragment() {
         }
 
         clear_time.setOnClickListener {
-            time = 1
+            //time = 1
             addTime = false
             time_tv.text = "Назначить время выполнения"
             clear_time.visibility = View.GONE
@@ -161,7 +167,8 @@ class AddScheduleFragment : Fragment() {
             description = add_description_text.text.toString(),
             date = date,
             checkBoxDone = false,
-            time = time,
+            hours = hours,
+            minutes = minutes,
             alarm = alarmFlag,
             addTime = addTime
         )
@@ -177,13 +184,18 @@ class AddScheduleFragment : Fragment() {
             }
 
             if (alarmFlag) {
-                val needTime = date + time //- getMillisecondsWithoutCurrentTime(time)
+                val needTime = getMillisecondsWithoutCurrentTime2(date, hours, minutes)
                 alarmManager?.set(
                     RTC_WAKEUP,
                     needTime,
                     alarmIntent
                 )
-                Log.i("AddScheduleFragment","need $needTime ,date = $date, time = $time")
+//                alarmManager?.set(
+//                    AlarmManager.ELAPSED_REALTIME,
+//                    needTime,
+//                    alarmIntent
+//                )
+                Log.i("AddScheduleFragment","need $needTime ,date = $date, time = ")
             }
         }
     }

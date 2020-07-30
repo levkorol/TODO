@@ -1,19 +1,15 @@
 package com.levkorol.todo.model
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class Schedule(
+data class Target(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var description: String,
     var date: Long,
-    var checkBoxDone: Boolean,
+    var targetDone: Boolean,
+    var days: Int,
     var hours: Int,
     var minutes: Int,
-    var alarm: Boolean,
-    var addTime: Boolean,
     var dateCreate: Long = System.currentTimeMillis()
-) {
-    constructor() : this(0, "", 0, false, 0,0, false, false)
-}
+)
+

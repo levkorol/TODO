@@ -15,15 +15,19 @@ import android.util.Log
 import com.levkorol.todo.ui.note.NoteFragment
 import com.levkorol.todo.ui.schedule.TodayFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
+import com.levkorol.todo.ui.target.TargetFragment
+import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime
 
 
 class MainActivity : AppCompatActivity() {
-    private val  MY_SETTINGS = "MY_SETTINGS"
-    private val noteId: Long = 1
+    private val MY_SETTINGS = "MY_SETTINGS"
+    private var noteId: Long = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.i("MainActivity", "Date ${getMillisecondsWithoutCurrentTime(1595967790000)}")
 
         val sp = getSharedPreferences(
             MY_SETTINGS,
@@ -34,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         if (!hasVisited) {
 
-           // loadFragment(OnBoardingFragment())
-            val intent =  Intent(this, HelperActivity::class.java)
+            // loadFragment(OnBoardingFragment())
+            val intent = Intent(this, HelperActivity::class.java)
             startActivity(intent)
 
             val e = sp.edit()
@@ -56,6 +60,10 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(ScheduleFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
+                R.id.item_target -> {
+                    loadFragment(TargetFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
                 R.id.item_setting -> {
                     loadFragment(SettingFragment())
                     return@setOnNavigationItemSelectedListener true
@@ -65,18 +73,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent?.hasExtra("IS_NOTE") == true) {
-            intent.getLongExtra("ID",noteId)
+        if (intent?.hasExtra("IS_NOTE") == true) { //todo
+            noteId = intent.getLongExtra("ID", noteId)
             loadFragment(NoteFragment.instance(noteId))
+
         } else {
-            intent?.getBooleanExtra("IS_NOTE",false)
-            loadFragment(TodayFragment())  //todo
+            intent?.getBooleanExtra("IS_NOTE", false)
+            loadFragment(ScheduleFragment())
         }
-        Log.d("MainActivity", "intent $intent")
+        Log.i("MainActivity", "id ${noteId}")
+        Log.i("MainActivity", "intent ${intent?.extras}")
     }
 
     fun loadFragment(fragment: Fragment) {

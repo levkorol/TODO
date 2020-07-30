@@ -63,7 +63,7 @@ class TodayFragment : Fragment() {
         if (schedules == null) return
         adapterToday.dataItems = schedules!!.filter { schedule ->
             isToday(schedule.date)
-        }.sortedWith(compareBy({it.checkBoxDone}, {it.time}))
+        }.sortedWith(compareBy({it.checkBoxDone}, {it.hours}))
         if(adapterToday.dataItems.isEmpty() ) {
             no_schedule_today.visibility = View.VISIBLE
         } else {

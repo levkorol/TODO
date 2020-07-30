@@ -188,7 +188,7 @@ class AllScheduleListFragment : Fragment() {
                 item.alarm = false
                 holder.timeInEdit.text = "Не выставлено"
                 holder.clearTime.visibility = View.GONE
-                item.time = 0
+                item.addTime = false
                 schedule = dataItems[position]
                 schedule.addTime = false
                 MainRepository.updateSchedule(schedule)
@@ -197,17 +197,17 @@ class AllScheduleListFragment : Fragment() {
             holder.title_schedule.text = item.description
             holder.date_schedule.text = Tools.dateToString(item.date)
 
-            if (item.time < 5 ) {
+            if (!item.addTime ) {
                 holder.timeInEdit.text = "Не выставлено"
             } else {
-                holder.timeInEdit.text = Tools.convertLongToTimeString(item.time)
+                holder.timeInEdit.text = Tools.convertLongToTimeString(item.hours, item.minutes)
                 holder.clearTime.visibility = View.VISIBLE
             }
 
             holder.editTaskBtn.setOnClickListener {
                 holder.saveText.visibility = View.VISIBLE
                 holder.exitEditText.visibility = View.VISIBLE
-                holder.editTaskBtn.text = "Режим редактирования текста:"
+                holder.editTaskBtn.text = "Редактирование текста:"
                 with(holder.title_schedule) {
                     isFocusable = true
                     isFocusableInTouchMode = true
@@ -219,7 +219,7 @@ class AllScheduleListFragment : Fragment() {
 
             holder.exitEditText.setOnClickListener {
                 notifyDataSetChanged()
-                holder.editTaskBtn.text = "Редактировать текст"
+                holder.editTaskBtn.text = "Изменить текст"
                 holder.saveText.visibility = View.GONE
                 holder.exitEditText.visibility = View.GONE
                 with(holder.title_schedule) {
@@ -232,7 +232,7 @@ class AllScheduleListFragment : Fragment() {
             }
 
             holder.saveText.setOnClickListener {
-                holder.editTaskBtn.text = "Редактировать текст"
+                holder.editTaskBtn.text = "Изменить текст"
                 holder.saveText.visibility = View.GONE
                 holder.exitEditText.visibility = View.GONE
                 with(holder.title_schedule) {
@@ -284,7 +284,7 @@ class AllScheduleListFragment : Fragment() {
                 builder.setPositiveButton("Да") { _, _ ->
                     MainRepository.deleteSchedule(item.id)
                     //holder.editList.visibility = View.GONE
-                    holder.editTaskBtn.text = "Редактировать текст"
+                    holder.editTaskBtn.text = "Изменить текст"
                     holder.saveText.visibility = View.GONE
                     holder.exitEditText.visibility = View.GONE
                     with(holder.title_schedule) {
@@ -328,7 +328,8 @@ class AllScheduleListFragment : Fragment() {
                     addTime = true
                     holder.clearTime.visibility = View.VISIBLE
                     schedule = dataItems[position]
-                    schedule.time = time
+                    schedule.hours = hour
+                    schedule.minutes = minute
                     schedule.addTime = true
                     MainRepository.updateSchedule(schedule)
                 }

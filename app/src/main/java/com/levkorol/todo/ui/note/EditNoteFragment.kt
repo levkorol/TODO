@@ -198,7 +198,7 @@ class EditNoteFragment : Fragment() {
                 if (note!!.addSchedule) {
                     text_date_edit.text = note?.dateSchedule?.let { Tools.dateToString(it) }
                     text_time_edit.visibility = View.VISIBLE
-                    text_time_edit.text = note?.time?.let { Tools.convertLongToTimeString(it) }
+                  //  text_time_edit.text = note?.time?.let { Tools.convertLongToTimeString(it) } //todo
                     deleteScheduleEdit.visibility = View.VISIBLE
                 } else {
                     deleteScheduleEdit.visibility = View.GONE

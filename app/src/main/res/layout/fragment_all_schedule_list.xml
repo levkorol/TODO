@@ -29,43 +29,37 @@
 
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1.5">
-
-            <TextView
-                android:id="@+id/no_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:text="Задачи за все время"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp" />
-        </FrameLayout>
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1">
+            android:layout_marginEnd="32dp"
+            android:layout_weight="2">
 
             <TextView
                 android:id="@+id/filter_date"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:background="@color/palegray"
+                android:layout_gravity="center"
                 android:drawableStart="@drawable/ic_search_black_24dp"
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="Поиск по дате"
+                android:textStyle="bold"
                 android:textSize="14sp" />
         </FrameLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:visibility="gone"
+        android:text="Задачи за все время"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/search_ll"

@@ -56,7 +56,7 @@ class MonthFragment : Fragment() {
 
         if (arguments != null) {
             id = arguments?.getLong(SCHEDULE_ID, id)!!
-            schedule?.time = arguments?.getLong(TIME, time)!!
+            //schedule?.time = arguments?.getLong(TIME, time)!!
         }
 
         calendarViewM.setOnDayClickListener(object : OnDayClickListener {

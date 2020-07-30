@@ -44,7 +44,7 @@ class Adapter(val activity: MainActivity) :
                 holder.text_date.visibility = View.VISIBLE
                 holder.text_time.visibility = View.VISIBLE
                 holder.text_date.text = Tools.dateToString(item.dateSchedule)
-                holder.text_time.text = Tools.convertLongToTimeString(item.time)
+              //  holder.text_time.text = Tools.convertLongToTimeString(item.time) //todo
             } else {
                 holder.text_date.visibility = View.GONE
                 holder.text_time.visibility = View.GONE

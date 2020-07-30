@@ -3,6 +3,7 @@ package com.levkorol.todo.ui.note
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_CANCEL_CURRENT
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -114,7 +115,9 @@ class NoteFragment : Fragment() {
                     alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                         intent.putExtra("ID", noteId)
                         intent.putExtra("NOTE", true)
-                        PendingIntent.getBroadcast(context, 0, intent, 0)
+                        PendingIntent.getBroadcast(context, 0, intent,
+                            FLAG_CANCEL_CURRENT
+                        )
                     }
                     GregorianCalendar().timeInMillis
                     if (note?.alarm == true) {
@@ -166,7 +169,7 @@ class NoteFragment : Fragment() {
                 timeSchedule.visibility = View.VISIBLE
                 alarmSchedule.visibility = View.VISIBLE
                 text_date.text = "${note?.dateSchedule?.let { Tools.dateToString(it) }}, "
-                text_time.text = "${note?.time?.let { Tools.convertLongToTimeString(it) }}"
+                //text_time.text = "${note?.time?.let { Tools.convertLongToTimeString(it) }}" //todo
             }
         })
     }

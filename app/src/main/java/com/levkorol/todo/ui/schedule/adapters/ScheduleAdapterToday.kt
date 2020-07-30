@@ -43,10 +43,11 @@ class ScheduleAdapterToday(
 
         if(!item.addTime) {
             holder.time.visibility = View.GONE
+            //holder.min.visibility = View.GONE
            // holder.timer.visibility = View.GONE
         } else {
             holder.time.visibility = View.VISIBLE
-            holder.time.text = Tools.convertLongToTimeString(item.time)
+            holder.time.text = Tools.convertLongToTimeString(item.hours, item.minutes)
         }
         if(item.alarm ) {
             holder.timer.visibility = View.VISIBLE
@@ -86,6 +87,7 @@ class ScheduleAdapterToday(
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title_schedule: TextView = itemView.findViewById(R.id.tv_title_today)
         var time: TextView = itemView.findViewById(R.id.tv_hours_min)
+      //  var min: TextView = itemView.findViewById(R.id.tv_min)
         var timer: ImageView = itemView.findViewById(R.id.iv_timer)
         var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
     }

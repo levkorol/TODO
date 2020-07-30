@@ -45,24 +45,13 @@ object Tools {
         return dateFormat.format(date)
     }
 
-    fun dateToStringtwo(date: Long): String {
-        val dateFormat = SimpleDateFormat(" dd MMM", Locale.getDefault())
-        return dateFormat.format(date)
+
+    fun convertLongToTimeString(hours: Int, minutes: Int): String {
+        return " $hours:$minutes"
+//        SimpleDateFormat("HH:mm", Locale.getDefault())
+//            .format(sum).toString()
     }
 
-    fun convertLongToTimeString(systemTime: Long): String {
-        return SimpleDateFormat("HH:mm", Locale.getDefault())
-            .format(systemTime).toString()
-    }
-
-    fun currentTimeToLong(): Long {
-        return System.currentTimeMillis()
-    }
-
-    fun convertDateToLong(date: String): Long {
-        val df = SimpleDateFormat("yyyy.MM.dd HH:mm")
-        return df.parse(date).time
-    }
 }
 
 fun isToday(time: Long): Boolean {
@@ -97,6 +86,20 @@ fun getMillisecondsWithoutCurrentTime(milliseconds: Long): Long {
     calendarWithoutCurrentTime.set(DAY_OF_MONTH, calendarWithCurrentTime.get(DAY_OF_MONTH))
     return calendarWithoutCurrentTime.timeInMillis
 }
+
+
+fun getMillisecondsWithoutCurrentTime2(milliseconds: Long, hours: Int, minutes: Int): Long {
+    val calendarWithCurrentTime = GregorianCalendar()
+    calendarWithCurrentTime.timeInMillis = milliseconds
+    val calendarWithoutCurrentTime = GregorianCalendar()
+    calendarWithoutCurrentTime.set(YEAR, calendarWithCurrentTime.get(YEAR))
+    calendarWithoutCurrentTime.set(MONTH, calendarWithCurrentTime.get(MONTH))
+    calendarWithoutCurrentTime.set(DAY_OF_MONTH, calendarWithCurrentTime.get(DAY_OF_MONTH))
+    calendarWithoutCurrentTime.set(HOUR_OF_DAY, hours)
+    calendarWithoutCurrentTime.set(Calendar.MINUTE, minutes)
+    return calendarWithoutCurrentTime.timeInMillis
+}
+
 
 fun isSameWeek(time: Long): Boolean {
     val calendar = GregorianCalendar()
