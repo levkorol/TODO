@@ -112,6 +112,7 @@ class ProfileFragment : Fragment() {
                     }
                 })
 
+            // TODO пока всё что пришло из файербейса - без уведомлений!
         }
 
         mDataBase.child("users").child(auth.currentUser!!.uid)

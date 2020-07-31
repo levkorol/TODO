@@ -1,9 +1,6 @@
 package com.levkorol.todo.utils
 
-import android.annotation.SuppressLint
-import com.levkorol.todo.model.Base
 import java.lang.System.currentTimeMillis
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Calendar.*
@@ -12,6 +9,7 @@ const val SECOND = 10000L
 const val MINUTE = 60 * SECOND
 const val HOUR = 60 * MINUTE
 const val DAY = 24 * HOUR
+const val DEFAULT_DATE = -1L
 
 fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
     val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
@@ -88,16 +86,17 @@ fun getMillisecondsWithoutCurrentTime(milliseconds: Long): Long {
 }
 
 
-fun getMillisecondsWithoutCurrentTime2(milliseconds: Long, hours: Int, minutes: Int): Long {
-    val calendarWithCurrentTime = GregorianCalendar()
-    calendarWithCurrentTime.timeInMillis = milliseconds
-    val calendarWithoutCurrentTime = GregorianCalendar()
-    calendarWithoutCurrentTime.set(YEAR, calendarWithCurrentTime.get(YEAR))
-    calendarWithoutCurrentTime.set(MONTH, calendarWithCurrentTime.get(MONTH))
-    calendarWithoutCurrentTime.set(DAY_OF_MONTH, calendarWithCurrentTime.get(DAY_OF_MONTH))
-    calendarWithoutCurrentTime.set(HOUR_OF_DAY, hours)
-    calendarWithoutCurrentTime.set(Calendar.MINUTE, minutes)
-    return calendarWithoutCurrentTime.timeInMillis
+fun mergeDateHoursMinutes(date: Long, hours: Int, minutes: Int): Long {
+    val dateCalendar = GregorianCalendar()
+    dateCalendar.timeInMillis = date
+    val resultCalendar = GregorianCalendar()
+    resultCalendar.set(YEAR, dateCalendar.get(YEAR))
+    resultCalendar.set(MONTH, dateCalendar.get(MONTH))
+    resultCalendar.set(DAY_OF_MONTH, dateCalendar.get(DAY_OF_MONTH))
+    resultCalendar.set(HOUR_OF_DAY, hours)
+    resultCalendar.set(Calendar.MINUTE, minutes)
+    // TODO
+    return resultCalendar.timeInMillis
 }
 
 

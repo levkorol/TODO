@@ -47,8 +47,8 @@ class AlarmReceiver : BroadcastReceiver() {
                         .firstOrNull { schedule -> schedule.id == scheduleId }
                     Pair("Напоминание:", schedule?.description)
                 }
-
-            val resultIntent = if (isNote) {
+            // TODO
+            val resultIntent = if (true) {
                 intent.putExtra("IS_NOTE", true)
                 intent.putExtra("ID", noteId)
                 Intent(context, MainActivity::class.java)
@@ -56,7 +56,6 @@ class AlarmReceiver : BroadcastReceiver() {
                 intent.putExtra("IS_NOTE", false)
                 Intent(context, MainActivity::class.java)
             }
-            val int = Intent(context, MainActivity::class.java)
             createNotificationChannel(context)
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_star)
@@ -71,6 +70,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     )
                 )
             val notificationManager = NotificationManagerCompat.from(context)
+            // TODO не юзать постоянно один и тот же NOTIFY_ID
             builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
         }
     }
@@ -92,9 +92,5 @@ class AlarmReceiver : BroadcastReceiver() {
     companion object {
         private val NOTIFY_ID = 101
         private val CHANNEL_ID = "task channel"
-
-        fun setAlarm(id: Long, isNote: Boolean, time: Long) {
-            //
-        }
     }
 }

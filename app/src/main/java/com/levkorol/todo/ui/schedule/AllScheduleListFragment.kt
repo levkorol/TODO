@@ -24,10 +24,7 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.utils.Tools
-import com.levkorol.todo.utils.areDatesEqual
-import com.levkorol.todo.utils.isMounth
-import com.levkorol.todo.utils.isToday
+import com.levkorol.todo.utils.*
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.add
@@ -42,10 +39,9 @@ class AllScheduleListFragment : Fragment() {
     private lateinit var viewModel: ScheduleViewModel
     private lateinit var adapterAllSchedule: AllScheduleAdapter
     private var schedules: List<Schedule>? = null
-    private var selectDate: Long = 1
+    private var selectDate: Long = DEFAULT_DATE
     private var alarmFlag = false
     private var addTime = false
-    private var date: Long = 1
 
     companion object {
         private const val DATE = "DATE"
@@ -78,12 +74,13 @@ class AllScheduleListFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapterAllSchedule
 
+        // TODO смотреть на selectDate
         if (arguments != null) {
-            selectDate = arguments?.getLong(DATE, -1)!!
-            selected_date.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(selectDate))
-            search_ll.visibility = View.VISIBLE
-            updateSchedules()
+            selectDate = arguments?.getLong(DATE, DEFAULT_DATE)!!
         }
+//        selected_date.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(selectDate))
+//        search_ll.visibility = View.VISIBLE
+//        updateSchedules()
         initViews()
     }
 
