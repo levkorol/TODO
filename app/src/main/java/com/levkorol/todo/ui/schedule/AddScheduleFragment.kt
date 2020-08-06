@@ -30,11 +30,10 @@ class AddScheduleFragment : Fragment() {
     private lateinit var schedule: Schedule
     private var date: Long = 1
     private var dateAdd: Long = 1
-    //private var time: Long = 1
     private var hours: Int = -1
     private var minutes: Int = -1
     private var alarmFlag = false
-    private var alarmManager: AlarmManager? = null //todo
+    private var alarmManager: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
     private var scheduleId: Long = 0
     private var addTime = false
@@ -161,7 +160,6 @@ class AddScheduleFragment : Fragment() {
                 intent.putExtra("SCHEDULE_ID", scheduleId)
                 intent.putExtra("NOTE", false)
                 Log.i("AddScheduleFragment","saveScheduleExtras${intent.extras}")
-                // TODO
                 PendingIntent.getBroadcast(context, 0, intent, FLAG_CANCEL_CURRENT)
             }
 
@@ -172,11 +170,6 @@ class AddScheduleFragment : Fragment() {
                     needTime,
                     alarmIntent
                 )
-//                alarmManager?.set(
-//                    AlarmManager.ELAPSED_REALTIME,
-//                    needTime,
-//                    alarmIntent
-//                )
                 Log.i("AddScheduleFragment","need $needTime ,date = $date, time = ")
             }
         }

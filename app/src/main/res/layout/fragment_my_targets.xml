@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.target.viewpagertargets.MyTargetsFragment">
+
+
+    <TextView
+        android:id="@+id/no_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="целей пока нет  вы ничтожество"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_targets"
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_target_list" />
+
+</FrameLayout>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/back_click"
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_back" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2.">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:text="Создай свою цель"
+                android:textColor="@android:color/background_dark"
+                android:textSize="16sp"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/name_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Название..."
+            android:imeOptions="actionDone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/discription_note"
+            android:textSize="17sp"
+
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="0.3"
+        android:background="@drawable/background_item_note">
+
+        <EditText
+            android:id="@+id/disc_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|start"
+            android:hint="Название..."
+            android:textColor="@android:color/background_dark"
+            android:inputType="textPostalAddress|textMultiLine"
+            android:lines="15" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Цвет карточки:"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radioGroupColorFolder"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_below="@+id/textView"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioButtonPurpur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Фиолетовый"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Синий" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Зеленый" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonRed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Красный" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+
+        android:id="@+id/save_target_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

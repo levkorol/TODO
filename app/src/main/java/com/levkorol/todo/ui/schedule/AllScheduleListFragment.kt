@@ -6,7 +6,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +24,8 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.utils.*
-import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.*
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.add
-import kotlinx.android.synthetic.main.fragment_today.*
-import kotlinx.android.synthetic.main.item_list_all_schedule.*
-import kotlinx.android.synthetic.main.schedule_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,13 +69,15 @@ class AllScheduleListFragment : Fragment() {
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapterAllSchedule
 
-        // TODO смотреть на selectDate
         if (arguments != null) {
             selectDate = arguments?.getLong(DATE, DEFAULT_DATE)!!
         }
-//        selected_date.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(selectDate))
-//        search_ll.visibility = View.VISIBLE
-//        updateSchedules()
+        if (selectDate > DEFAULT_DATE) {
+            selected_date.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(selectDate))
+            search_ll.visibility = View.VISIBLE
+            updateSchedules()
+        }
+
         initViews()
     }
 
@@ -123,9 +120,9 @@ class AllScheduleListFragment : Fragment() {
     }
 
     private fun initViews() {
-        back.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+//        back.setOnClickListener {
+//            parentFragmentManager.popBackStack()
+//        }
         filter_date.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
             val picker: MaterialDatePicker<Long> = builder.build()
@@ -194,10 +191,10 @@ class AllScheduleListFragment : Fragment() {
             holder.title_schedule.text = item.description
             holder.date_schedule.text = Tools.dateToString(item.date)
 
-            if (!item.addTime ) {
+            if (!item.addTime) {
                 holder.timeInEdit.text = "Не выставлено"
             } else {
-                holder.timeInEdit.text = Tools.convertLongToTimeString(item.hours, item.minutes)
+                holder.timeInEdit.text = Tools.convertLongHoursAndMinutesToString(item.hours, item.minutes)
                 holder.clearTime.visibility = View.VISIBLE
             }
 
@@ -247,11 +244,14 @@ class AllScheduleListFragment : Fragment() {
 
             holder.swich.isChecked = item.alarm
             holder.swich.setOnClickListener {
-                if(!item.addTime) {
+                if (!item.addTime) {
                     Toast.makeText(activity, "Назначьте время выполнения", Toast.LENGTH_LONG).show()
                     holder.swich.isChecked = false
-                }
-                if(item.addTime) {
+                } else {
+                    holder.swich.isChecked = true
+                }//todo
+
+                if (item.addTime) {
                     schedule = dataItems[position]
                     schedule.alarm = true
                     MainRepository.updateSchedule(schedule)
@@ -261,16 +261,19 @@ class AllScheduleListFragment : Fragment() {
                     alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                         intent.putExtra("SCHEDULE_ID", item.id)
                         intent.putExtra("NOTE", false)
-                        PendingIntent.getBroadcast(context, 0, intent, 0)
+                        PendingIntent.getBroadcast(context, 0, intent,
+                            PendingIntent.FLAG_CANCEL_CURRENT
+                        )
                     }
                     if (alarmFlag) {
+                        val needTime = mergeDateHoursMinutes(schedule.date, schedule.hours, schedule.minutes)
                         alarmManager?.set(
                             AlarmManager.RTC_WAKEUP,
-                            System.currentTimeMillis() + 60,
+                            needTime,
                             alarmIntent
                         )
                     }
-                } //todo оповещения и свич
+                }
             }
 
             holder.dateInEdit.text = Tools.dateToString(item.date)
@@ -309,7 +312,7 @@ class AllScheduleListFragment : Fragment() {
                     schedule = dataItems[position]
                     schedule.date = date
                     schedule.checkBoxDone = false
-                   MainRepository.updateSchedule(schedule)
+                    MainRepository.updateSchedule(schedule)
                 }
                 picker.show(parentFragmentManager, picker.toString())
             }

@@ -27,52 +27,48 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val noteId = intent?.getLongExtra("ID", 0)!!
-            val scheduleId = intent.getLongExtra("SCHEDULE_ID", 0)
-            val isNote = intent.getBooleanExtra("NOTE", true)
+         GlobalScope.launch(Dispatchers.IO) {
+        //   val noteId = intent?.getLongExtra("ID", 0)!!
+        val scheduleId = intent?.getLongExtra("SCHEDULE_ID", 0)
+        //val isNote = intent.getBooleanExtra("NOTE", true)
+//
+//            val (title, description) =
+//                if (isNote) {
+//                    val note =
+//                        MainRepository.getNotesNow().firstOrNull { note -> note.id == noteId }
+//                    Pair(note?.name, note?.description)
+//                } else {
+        val schedule = MainRepository.getAllSchedulesNow()
+            .firstOrNull { schedule -> schedule.id == scheduleId }
+        // Pair("Напоминание:", schedule?.description)
+//                }
+//
+//            val intentRes = Intent(context, MainActivity::class.java)
+//            val resultIntent = if (isNote) {
+//                intentRes.putExtra("IS_NOTE", true)
+//                intentRes.putExtra("ID", noteId)
+//            } else {
+//                intentRes.putExtra("IS_NOTE", false)
+//            }
 
-            Log.d(
-                "AlarmReceiver",
-                "onReceiver = isNote = $isNote, scheduleId = $scheduleId, noteId = $noteId"
-            )
 
-            val (title, description) =
-                if (isNote) {
-                    val note =
-                        MainRepository.getNotesNow().firstOrNull { note -> note.id == noteId }
-                    Pair(note?.name, note?.description)
-                } else {
-                    val schedule = MainRepository.getAllSchedulesNow()
-                        .firstOrNull { schedule -> schedule.id == scheduleId }
-                    Pair("Напоминание:", schedule?.description)
-                }
-            // TODO
-            val resultIntent = if (true) {
-                intent.putExtra("IS_NOTE", true)
-                intent.putExtra("ID", noteId)
-                Intent(context, MainActivity::class.java)
-            } else {
-                intent.putExtra("IS_NOTE", false)
-                Intent(context, MainActivity::class.java)
-            }
-            createNotificationChannel(context)
-            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_star)
-                .setContentTitle(title)
-                .setContentText(description)
-                .setAutoCancel(true)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(description))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(
-                    PendingIntent.getActivity(
-                        context, 0, resultIntent, FLAG_UPDATE_CURRENT
-                    )
+        createNotificationChannel(context)
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_star)
+            .setContentTitle("Напоминание")
+            .setContentText(schedule?.description)
+            .setAutoCancel(true)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(schedule?.description))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    context, 0,  Intent(context, MainActivity::class.java), FLAG_UPDATE_CURRENT
                 )
-            val notificationManager = NotificationManagerCompat.from(context)
-            // TODO не юзать постоянно один и тот же NOTIFY_ID
-            builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
-        }
+            )
+        val notificationManager = NotificationManagerCompat.from(context)
+
+        builder?.build()?.let { notificationManager.notify(NOTIFY_ID, it) }
+          }
     }
 
     private fun createNotificationChannel(context: Context) {

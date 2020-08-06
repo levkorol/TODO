@@ -43,13 +43,17 @@ object Tools {
         return dateFormat.format(date)
     }
 
-
-    fun convertLongToTimeString(hours: Int, minutes: Int): String {
-        return " $hours:$minutes"
-//        SimpleDateFormat("HH:mm", Locale.getDefault())
-//            .format(sum).toString()
+    fun timeToString(time: Long): String {
+       val tim = SimpleDateFormat("HH:mm", Locale.getDefault())
+            return tim.format(time).toString()
     }
 
+    fun convertLongHoursAndMinutesToString(hours: Int, minutes: Int): String {
+        if (minutes < 10 ) {
+            return "$hours:0$minutes"
+        }
+        return "$hours:$minutes"
+    }
 }
 
 fun isToday(time: Long): Boolean {
@@ -95,7 +99,6 @@ fun mergeDateHoursMinutes(date: Long, hours: Int, minutes: Int): Long {
     resultCalendar.set(DAY_OF_MONTH, dateCalendar.get(DAY_OF_MONTH))
     resultCalendar.set(HOUR_OF_DAY, hours)
     resultCalendar.set(Calendar.MINUTE, minutes)
-    // TODO
     return resultCalendar.timeInMillis
 }
 

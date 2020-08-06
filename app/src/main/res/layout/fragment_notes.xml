@@ -23,6 +23,7 @@
                 android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_add"
+                android:background="?attr/selectableItemBackground"
                 />
 
         </FrameLayout>

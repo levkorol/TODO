@@ -210,32 +210,32 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/alarmSchedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/palegray"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:gravity="center"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/alarmSchedule"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/palegray"-->
+<!--            android:visibility="gone"-->
+<!--            tools:visibility="visible"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:text="@string/opov"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:text="@string/opov"-->
+<!--                android:textSize="17sp"-->
+<!--                android:textStyle="bold" />-->
 
-            <Switch
-                android:id="@+id/swich_note_alarm"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_margin="16dp" />
+<!--            <Switch-->
+<!--                android:id="@+id/swich_note_alarm"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_margin="16dp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

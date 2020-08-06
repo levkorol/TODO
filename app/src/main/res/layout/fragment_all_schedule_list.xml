@@ -12,28 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.3">
-
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="15dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_back" />
-
-        </FrameLayout>
-
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_weight="2">
 
             <TextView
@@ -43,6 +25,7 @@
                 android:layout_gravity="center"
                 android:drawableStart="@drawable/ic_search_black_24dp"
                 android:gravity="center"
+                android:background="?attr/selectableItemBackground"
                 android:padding="6dp"
                 android:text="Поиск по дате"
                 android:textStyle="bold"
@@ -57,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:visibility="gone"
-        android:text="Задачи за все время"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp" />
 
@@ -65,7 +47,6 @@
         android:id="@+id/search_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@color/lichtpinck"
         android:orientation="vertical"
         android:visibility="gone"

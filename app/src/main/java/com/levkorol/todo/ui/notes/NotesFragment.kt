@@ -27,6 +27,7 @@ import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_IN_S
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_WITH_ALARM
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_FOLDER
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_NOTES
+import com.levkorol.todo.ui.schedule.AddScheduleFragment
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 class NotesFragment : Fragment() {
@@ -80,7 +81,7 @@ class NotesFragment : Fragment() {
         }
 
         add_notes_or_folder.setOnClickListener {
-            showAlterDialog()
+            showAlterDialogAdding()
         }
 
         filter_btn.setOnClickListener {
@@ -100,6 +101,7 @@ class NotesFragment : Fragment() {
                     updateNotes()
                     return true
                 }
+
                 override fun onQueryTextChange(newText: String?): Boolean {
                     query = newText ?: ""
                     updateNotes()
@@ -160,7 +162,7 @@ class NotesFragment : Fragment() {
                         element is Note && notesFilter == ONLY_NOTES -> true
                         element is Note && notesFilter == IMPORTANT_NOTES && element.star -> true
                         element is Note && notesFilter == NOTES_IN_SCHEDULE && element.addSchedule -> true
-                        element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
+                      //  element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
                         else -> false
                     }
                 }
@@ -180,8 +182,8 @@ class NotesFragment : Fragment() {
                 "Только заметки",
                 "Важные заметки",
                 "Старые папки и заметки",
-                "Заметки с датой и временем",
-                "Заметки с включенным оповещением"
+                "Заметки с датой и временем"
+              //  "Заметки с включенным оповещением"
             )
         builder.setItems(
             pictureDialogItems
@@ -204,7 +206,10 @@ class NotesFragment : Fragment() {
     }
 
     private fun showAlterDialog() {
-        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
+        val builder = MaterialAlertDialogBuilder(
+            requireContext(),
+            R.style.ThemeOverlay_App_MaterialAlertDialog
+        )
         builder.setMessage("Что вы хотите создать?")
         builder.setPositiveButton("Заметку") { _, _ ->
             (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(parentFolderId))
@@ -216,5 +221,33 @@ class NotesFragment : Fragment() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+
+    private fun showAlterDialogAdding() {
+        val builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setTitle("Что вы хотите сделать?")
+        val pictureDialogItems =
+            arrayOf(
+                "Добавить в мое расписание",
+                "Создать заметку",
+                "Создать папку",
+                "Добавить цель",
+                "Все отменить и погладить льва"
+            )
+        builder.setItems(
+            pictureDialogItems
+        ) { _, which ->
+            when (which) {
+                0 -> (activity as MainActivity).loadFragment(AddScheduleFragment())
+                1 -> (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(parentFolderId))
+                2 -> (activity as MainActivity).loadFragment(AddFolderFragment.newInstance(parentFolderId))
+                3 -> {
+                }
+                4 -> {
+                }
+            }
+        }
+        builder.show()
     }
 }

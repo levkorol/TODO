@@ -33,13 +33,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/btn_back"
-                    />
+                    android:background="@drawable/btn_back" />
 
             </FrameLayout>
-
-
-
 
 
             <FrameLayout
@@ -54,8 +50,7 @@
                     android:orientation="horizontal"
                     android:text="@string/add_note"
                     android:textColor="@android:color/background_dark"
-                    android:textSize="16sp"
-                   />
+                    android:textSize="16sp" />
 
             </FrameLayout>
 
@@ -75,16 +70,15 @@
                 android:id="@+id/add_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
                 android:hint="Название..."
-                 />
+                android:imeOptions="actionDone" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
                 android:gravity="center"
                 android:text="@string/discription_note"
+                android:textSize="17sp"
 
                 />
 
@@ -110,8 +104,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="top|start"
-                    android:inputType="textPostalAddress|textMultiLine"
                     android:imeOptions="actionDone"
+                    android:inputType="textPostalAddress|textMultiLine"
                     android:lines="19" />
 
 
@@ -138,11 +132,11 @@
                     android:id="@+id/deletePhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Удалить фото"
+                    android:drawableLeft="@drawable/ic_clear"
                     android:gravity="center"
+                    android:text="Удалить фото"
                     android:visibility="gone"
-                    tools:visibility="visible"
-                    android:drawableLeft="@drawable/ic_clear"/>
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/photoView"
@@ -195,11 +189,11 @@
                     android:id="@+id/deleteSchedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Убрать дату/вр."
+                    android:drawableLeft="@drawable/ic_clear"
                     android:gravity="center"
+                    android:text="Убрать дату/вр."
                     android:visibility="gone"
-                    tools:visibility="visible"
-                    android:drawableLeft="@drawable/ic_clear"/>
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/add_schedule"
@@ -218,23 +212,23 @@
                     android:textAlignment="center"
                     android:textColor="@color/ultramarin"
                     android:textSize="12sp" />
+
                 <TextView
                     android:id="@+id/text_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textAlignment="center"
-                    android:visibility="gone"
                     android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
         <Button
             android:id="@+id/save_note_btn"
             android:layout_width="match_parent"
@@ -243,11 +237,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/btn_background"
-            android:textSize="16sp"
             android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-         />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

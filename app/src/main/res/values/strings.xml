@@ -47,12 +47,13 @@
         <item>Октябрь</item>
         <item>Ноябрь</item>
         <item>Декабрь</item>
-    </array> 13
+    </array>
+    13
 
     <string name="material_calendar_today_button">Сегодня</string>
     <string name="material_calendar_positive_button">Хорошо</string>
     <string name="material_calendar_negative_button">Отмена</string>
-    
+
     <plurals name="seconds">
         <item quantity="one">секунда</item>
         <item quantity="many">seconds</item>

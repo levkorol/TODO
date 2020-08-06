@@ -1,14 +1,20 @@
 package com.levkorol.todo.ui.target
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.levkorol.todo.R
+import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.ui.target.AddingTargets.AddTargetFragment
+import com.levkorol.todo.ui.target.viewpagertargets.CompletedFragment
+import com.levkorol.todo.ui.target.viewpagertargets.MyHabitsFragment
+import com.levkorol.todo.ui.target.viewpagertargets.MyTargetsFragment
 import kotlinx.android.synthetic.main.target_fragment.*
 import java.util.*
 
@@ -19,6 +25,7 @@ class TargetFragment : Fragment() {
     }
 
     private lateinit var viewModel: TargetViewModel
+    private var pagePosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,48 +37,51 @@ class TargetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn_start.setOnClickListener {
-            //todo
-        }
-
-        btn_pause.setOnClickListener {
-            //todo
-        }
-
-        btn_stop.setOnClickListener {
-            //todo
-        }
-
-        resources.getQuantityString(R.plurals.seconds, 13)
-    }
-
-    private val timer by lazy { Timer() }
-    private var timerTask: TimerTask? = null
-    // TODO завести отдельную переменную для времени момента нажатия (по умолчанию - null или DEFAULT_TIME) epoch
-
-    private fun start() {
-        // TODO запоминаем время нажатия
-        timerTask = object : TimerTask() {
-            override fun run() {
-                updateUI()
+        viewPagerTarget.adapter = ViewPagerAdapterTarget(childFragmentManager)
+        tabsTarget.setupWithViewPager(viewPagerTarget)
+        viewPagerTarget.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                pagePosition = position
+                //   update()
             }
+        })
+
+        add_.setOnClickListener {
+            (activity as MainActivity).loadFragment(AddTargetFragment())
         }
-        timer.schedule(timerTask, 0, 25)
+ //       resources.getQuantityString(R.plurals.seconds, 13)  дни дней днях
     }
 
-    private fun pause() {
-        // TODO
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).updateNavigation(TargetFragment())
     }
 
-    private fun stop() {
-        timerTask?.cancel()
-        // TODO сбросить время нажатия
-        // TODO обновить интерфейс
+
+}
+
+class ViewPagerAdapterTarget(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+    override fun getItem(position: Int): Fragment {
+        var fragment: Fragment? = null
+        when (position) {
+            0 -> fragment = MyTargetsFragment()
+            1 -> fragment = MyHabitsFragment()
+           // 2 -> fragment = CompletedFragment()
+        }
+        return fragment!!
     }
 
-    private fun updateUI() {
-        Log.v("TargetFragment", "updateUI")
-        // TODO считаем разницу между текущим и нажатием
-        // TODO обновляешь интерфейс
+    override fun getCount(): Int = 2
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        var title: String? = null
+        when (position) {
+            0 -> title = "Мои цели"
+            1 -> title = "Архив"
+            //2 -> title = "Архив"
+        }
+        return title!!
     }
+
 }

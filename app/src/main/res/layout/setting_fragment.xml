@@ -26,63 +26,76 @@
 <!--        android:textColor="@android:color/background_dark"-->
 <!--        android:layout_marginStart="16dp"/>-->
 
+    <TextView
+        android:id="@+id/sinhr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/ic_tag_faces"
+        android:text=" Личный кабинет"/>
+
     <Switch
         android:id="@+id/pin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Пароль на вход в приложение"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:drawableStart="@drawable/ic_lock_open"
+        android:text=" Пароль на вход в приложение"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:layout_marginStart="16dp"/>
 
+<!--    <Switch-->
+<!--        android:id="@+id/sw_schedule_up"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Переносить невыполненные задачи на следующий день"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:textColor="@android:color/background_dark"-->
+<!--        android:textSize="16sp"-->
+<!--        android:layout_marginStart="16dp"/>-->
 
-    <Switch
-        android:id="@+id/sw_schedule_up"
+
+
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Переносить невыполненные задачи на следующий день"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/background_dark"
-        android:textSize="16sp"
-        android:layout_marginStart="16dp"/>
-
-    <TextView
-        android:id="@+id/sinhr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:text="Синхронизация"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:autoLink="web"
-        android:linksClickable="true"
-        android:text="Поставьте нам оценку: google_play.ru"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/background_dark"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:autoLink="email"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
         android:linksClickable="true"
-        android:text="Связь с разработчиком: sasiskajik@mail.ru"
+        android:drawableStart="@drawable/ic_mail"
+        android:text=" Связь с разработчиком : sasiskajik@mail.ru"
        />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:autoLink="web"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:drawableStart="@drawable/ic_star_border_black_24dp"
+        android:linksClickable="true"
+        android:text=" Поставьте нам оценку: google_play.ru"
+        />
 
 
 </LinearLayout>

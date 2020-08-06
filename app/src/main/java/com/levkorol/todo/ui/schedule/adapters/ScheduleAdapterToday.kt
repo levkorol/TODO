@@ -47,7 +47,7 @@ class ScheduleAdapterToday(
            // holder.timer.visibility = View.GONE
         } else {
             holder.time.visibility = View.VISIBLE
-            holder.time.text = Tools.convertLongToTimeString(item.hours, item.minutes)
+            holder.time.text = Tools.convertLongHoursAndMinutesToString(item.hours, item.minutes)
         }
         if(item.alarm ) {
             holder.timer.visibility = View.VISIBLE
@@ -90,5 +90,6 @@ class ScheduleAdapterToday(
       //  var min: TextView = itemView.findViewById(R.id.tv_min)
         var timer: ImageView = itemView.findViewById(R.id.iv_timer)
         var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
+
     }
 }

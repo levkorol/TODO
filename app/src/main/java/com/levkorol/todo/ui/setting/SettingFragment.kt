@@ -55,18 +55,18 @@ class SettingFragment : Fragment() {
         //  если время задачи меньше текущего и она не выполнена,то тогда время задачи поменять день на текущий,сохранить!
 
         //todo swich переноски таска на след день
-        if (todayFlag) sw_schedule_up.isChecked = true
-        sw_schedule_up.setOnClickListener {
-            schedules?.filter {
-                isToday(1)
-            }
+//        if (todayFlag) sw_schedule_up.isChecked = true
+//        sw_schedule_up.setOnClickListener {
+//            schedules?.filter {
+//                isToday(1)
+//            }
 //             if () {
 //                todayFlag = false
 //                sw_schedule_up.isChecked = false
 //            } else {
 //                todayFlag = true
 //            }
-        }
+       // }
 
 
         sinhr.setOnClickListener {

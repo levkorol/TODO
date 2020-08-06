@@ -101,45 +101,45 @@ class NoteFragment : Fragment() {
             )
         }
 
-        if (alarmFlag) swich_note_alarm.isChecked = true
-        swich_note_alarm.setOnClickListener {
-            if (swich_note_alarm.isChecked) {
-                val builder = MaterialAlertDialogBuilder(requireContext())
-                builder.setMessage("Включить оповещение?")
-                builder.setPositiveButton("Да") { _, _ ->
-                    if (swich_note_alarm.isChecked) alarmFlag = true
-                    note?.alarm = true
-                    note?.let { it1 -> MainRepository.update(it1) }
-
-                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                        intent.putExtra("ID", noteId)
-                        intent.putExtra("NOTE", true)
-                        // TODO
-                        PendingIntent.getBroadcast(context, 0, intent,
-                            FLAG_CANCEL_CURRENT
-                        )
-                    }
-                    GregorianCalendar().timeInMillis
-                    if (note?.alarm == true) {
-                        alarmManager?.set(
-                            AlarmManager.RTC_WAKEUP,
-                            System.currentTimeMillis() + 60,
-                            alarmIntent
-                        )
-                    }
-                }
-                builder.setNegativeButton("Отмена") { _, _ ->
-                    note?.alarm = false
-                    note?.let { it1 -> MainRepository.update(it1) }
-                    swich_note_alarm.isChecked = false
-                }
-                val dialog: AlertDialog = builder.create()
-                dialog.show()
-            } else {
-                swich_note_alarm.isChecked
-            }
-        }
+//        if (alarmFlag) swich_note_alarm.isChecked = true
+//        swich_note_alarm.setOnClickListener {
+//            if (swich_note_alarm.isChecked) {
+//                val builder = MaterialAlertDialogBuilder(requireContext())
+//                builder.setMessage("Включить оповещение?")
+//                builder.setPositiveButton("Да") { _, _ ->
+//                    if (swich_note_alarm.isChecked) alarmFlag = true
+//                    note?.alarm = true
+//                    note?.let { it1 -> MainRepository.update(it1) }
+//
+//                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+//                        intent.putExtra("ID", noteId)
+//                        intent.putExtra("NOTE", true)
+//                        // TODO
+//                        PendingIntent.getBroadcast(context, 0, intent,
+//                            FLAG_CANCEL_CURRENT
+//                        )
+//                    }
+//                    GregorianCalendar().timeInMillis
+//                    if (note?.alarm == true) {
+//                        alarmManager?.set(
+//                            AlarmManager.RTC_WAKEUP,
+//                            System.currentTimeMillis() + 60,
+//                            alarmIntent
+//                        )
+//                    }
+//                }
+//                builder.setNegativeButton("Отмена") { _, _ ->
+//                    note?.alarm = false
+//                    note?.let { it1 -> MainRepository.update(it1) }
+//                    swich_note_alarm.isChecked = false
+//                }
+//                val dialog: AlertDialog = builder.create()
+//                dialog.show()
+//            } else {
+//                swich_note_alarm.isChecked
+//            }
+//        }
 
         star.setOnClickListener {
             updateStar()
@@ -152,7 +152,7 @@ class NoteFragment : Fragment() {
 
             title_note_text_view.text = note?.name
             description_note_text_view.text = note?.description
-            if (note?.alarm == true) swich_note_alarm.isChecked = true
+          //  if (note?.alarm == true) swich_note_alarm.isChecked = true
 
             if (note?.star == true) {
                 star.isSelected = true
@@ -168,9 +168,9 @@ class NoteFragment : Fragment() {
             }
             if (note?.addSchedule == true) {
                 timeSchedule.visibility = View.VISIBLE
-                alarmSchedule.visibility = View.VISIBLE
+              //  alarmSchedule.visibility = View.VISIBLE
                 text_date.text = "${note?.dateSchedule?.let { Tools.dateToString(it) }}, "
-                //text_time.text = "${note?.time?.let { Tools.convertLongToTimeString(it) }}" //todo
+                text_time.text = "${note?.time?.let { Tools.timeToString(it) }}"
             }
         })
     }

@@ -18,6 +18,7 @@
             android:layout_height="33dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="9dp"
+            android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_add" />
 
         <TextView
@@ -25,24 +26,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:gravity="center"
+            android:layout_marginStart="-40dp"
             android:layout_marginTop="3dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:textColor="@color/color_grey"
             tools:text="gdfhgjdsf" />
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4">
+<!--        <FrameLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="0.4">-->
 
-            <ImageView
-                android:id="@+id/list_all_schedule"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:src="@drawable/ic_list_black_24dp" />
-        </FrameLayout>
+<!--            <ImageView-->
+<!--                android:id="@+id/list_all_schedule"-->
+<!--                android:layout_width="43dp"-->
+<!--                android:layout_height="43dp"-->
+<!--                android:src="@drawable/ic_list_black_24dp" />-->
+<!--        </FrameLayout>-->
 
     </LinearLayout>
 
@@ -58,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
-            app:tabIndicator="@drawable/btn_background"
+            app:tabIndicator="@drawable/backgraund_view_page"
             app:tabIndicatorColor="@color/palegray"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="stretch"
