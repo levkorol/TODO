@@ -115,7 +115,7 @@ class NoteFragment : Fragment() {
 //                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
 //                        intent.putExtra("ID", noteId)
 //                        intent.putExtra("NOTE", true)
-//                        // TODO
+//
 //                        PendingIntent.getBroadcast(context, 0, intent,
 //                            FLAG_CANCEL_CURRENT
 //                        )

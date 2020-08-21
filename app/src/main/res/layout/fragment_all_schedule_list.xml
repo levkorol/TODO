@@ -34,14 +34,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/no_schedule"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:visibility="gone"
-        android:textColor="@android:color/background_dark"
-        android:textSize="16sp" />
+
 
     <LinearLayout
         android:id="@+id/search_ll"
@@ -98,7 +91,16 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/no_schedule"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:visibility="gone"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_all_schedule"

@@ -6,172 +6,442 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/back_click"
-                android:layout_width="15dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_back" />
-
-        </FrameLayout>
-
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2.">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:text="Создай свою цель"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                />
-
-        </FrameLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-        <EditText
-            android:id="@+id/name_target"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Название..."
-            android:imeOptions="actionDone" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/discription_note"
-            android:textSize="17sp"
-
-            />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="0.3"
-        android:background="@drawable/background_item_note">
-
-        <EditText
-            android:id="@+id/disc_target"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="top|start"
-            android:hint="Название..."
-            android:textColor="@android:color/background_dark"
-            android:inputType="textPostalAddress|textMultiLine"
-            android:lines="15" />
-
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Цвет карточки:"
-            android:textColor="@android:color/black"
-            android:textSize="17sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <RadioGroup
-                android:id="@+id/radioGroupColorFolder"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:layout_below="@+id/textView"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1">
 
-                <RadioButton
-                    android:id="@+id/radioButtonPurpur"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/back_click"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_back" />
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2.">
+
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Фиолетовый"
-                    android:checked="true"/>
+                    android:orientation="horizontal"
+                    android:text="Создай свою цель"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="16sp" />
 
-                <RadioButton
-                    android:id="@+id/radioButtonGrey"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Синий" />
+            </FrameLayout>
 
-                <RadioButton
-                    android:id="@+id/radioButtonGreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Зеленый" />
-
-                <RadioButton
-                    android:id="@+id/radioButtonRed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Красный" />
-            </RadioGroup>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/name_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="  Название..."
+                android:imeOptions="actionDone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/discription_note"
+                android:textSize="17sp"
+
+                />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="2.5"
+            android:background="@drawable/background_item_note">
+
+            <EditText
+                android:id="@+id/disc_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top|start"
+                android:hint="Описание..."
+                android:inputType="textPostalAddress|textMultiLine"
+                android:lines="15"
+                android:textColor="@android:color/background_dark" />
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Выберите иконку:"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/ic_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Без иконки"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/ic_1"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                      />
+
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/lev_del_net" />
+
+                    <RadioButton
+                        android:id="@+id/ic_2"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+
+                        />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_up" />
+
+                    <RadioButton
+                        android:id="@+id/ic_3"
+                        android:layout_width="30dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="53dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_repit" />
+
+                    <RadioButton
+                        android:id="@+id/ic_4"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_idea" />
+
+                    <RadioButton
+                        android:id="@+id/ic_5"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_mystars" />
+
+                    <RadioButton
+                        android:id="@+id/ic_6"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pick8" />
+
+                    <RadioButton
+                        android:id="@+id/ic_7"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clear" />
+
+                    <RadioButton
+                        android:id="@+id/ic_8"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                      />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_access_time" />
+
+                    <RadioButton
+                        android:id="@+id/ic_9"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_as" />
+
+                    <RadioButton
+                        android:id="@+id/ic_10"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                       />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pick_lenivec" />
+
+                    <RadioButton
+                        android:id="@+id/ic_11"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                 />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/lion_pick_three" />
+
+                    <RadioButton
+                        android:id="@+id/ic_12"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_hot" />
+                    <RadioButton
+                        android:id="@+id/ic_13"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_air" />
+
+                    <RadioButton
+                        android:id="@+id/ic_14"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_eat" />
+                    <RadioButton
+                        android:id="@+id/ic_15"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_all_inclusive_black_24dp" />
+
+                    <RadioButton
+                        android:id="@+id/ic_16"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_audiotrack_black_24dp" />
+                </RadioGroup>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Цвет карточки:"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="16dp">
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/white_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Белый" />
+
+                        <RadioButton
+                            android:id="@+id/grey_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Сиреневый" />
+
+                        <RadioButton
+                            android:id="@+id/darkblu_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Темно-синий" />
+
+                        <RadioButton
+                            android:id="@+id/oranzh_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Оранжевый" />
+
+                        <RadioButton
+                            android:id="@+id/kiwi_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Зеленый" />
+
+                        <RadioButton
+                            android:id="@+id/blu_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Голубой" />
+
+                        <RadioButton
+                            android:id="@+id/pink_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Светло-розовый" />
+
+                    </RadioGroup>
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <Button
+                android:id="@+id/save_target_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_background"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-
-        android:id="@+id/save_target_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_background"
-        android:text="@string/save"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
-
 
 </LinearLayout>

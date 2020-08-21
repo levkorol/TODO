@@ -81,7 +81,7 @@ class NotesFragment : Fragment() {
         }
 
         add_notes_or_folder.setOnClickListener {
-            showAlterDialogAdding()
+            showAlterDialog()
         }
 
         filter_btn.setOnClickListener {
@@ -152,8 +152,8 @@ class NotesFragment : Fragment() {
             .filter { element ->
                 if (notesFilter < 0) {
                     when (element) {
-                        is Folder -> element.nameFolder.indexOf(query) != -1
-                        is Note -> element.name.indexOf(query) != -1
+                        is Folder -> element.nameFolder.toLowerCase().trim().indexOf(query.toLowerCase().trim()) != -1
+                        is Note -> element.name.toLowerCase().trim().indexOf(query.toLowerCase().trim()) != -1
                         else -> false
                     }
                 } else {
@@ -162,12 +162,15 @@ class NotesFragment : Fragment() {
                         element is Note && notesFilter == ONLY_NOTES -> true
                         element is Note && notesFilter == IMPORTANT_NOTES && element.star -> true
                         element is Note && notesFilter == NOTES_IN_SCHEDULE && element.addSchedule -> true
-                      //  element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
+                        //  element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
                         else -> false
                     }
                 }
             }
             .sortedByDescending { it.date }
+        //  .map { text -> text.toLowerCase().trim() }
+
+
         if (notesFilter == NotesFilter.OLD_FOLDER_AND_NOTES) adapter.data =
             childElements!!.sortedBy { it.date }
         adapter.notifyDataSetChanged()
@@ -183,11 +186,11 @@ class NotesFragment : Fragment() {
                 "Важные заметки",
                 "Старые папки и заметки",
                 "Заметки с датой и временем"
-              //  "Заметки с включенным оповещением"
+                //  "Заметки с включенным оповещением"
             )
         builder.setItems(
             pictureDialogItems
-        ) { a, selectionNumber ->
+        ) { _, selectionNumber ->
             notesFilter = selectionNumber
             updateNotes()
         }
@@ -240,8 +243,16 @@ class NotesFragment : Fragment() {
         ) { _, which ->
             when (which) {
                 0 -> (activity as MainActivity).loadFragment(AddScheduleFragment())
-                1 -> (activity as MainActivity).loadFragment(AddNoteFragment.newInstance(parentFolderId))
-                2 -> (activity as MainActivity).loadFragment(AddFolderFragment.newInstance(parentFolderId))
+                1 -> (activity as MainActivity).loadFragment(
+                    AddNoteFragment.newInstance(
+                        parentFolderId
+                    )
+                )
+                2 -> (activity as MainActivity).loadFragment(
+                    AddFolderFragment.newInstance(
+                        parentFolderId
+                    )
+                )
                 3 -> {
                 }
                 4 -> {

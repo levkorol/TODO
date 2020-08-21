@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.target.viewpagertargets.MyTargetsFragment">
 
 
+    <ImageView
+        android:id="@+id/pick"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:src="@drawable/lev22"/>
     <TextView
         android:id="@+id/no_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:textSize="16sp"
         android:visibility="gone"
-        android:text="целей пока нет  вы ничтожество"/>
+        android:text="Целей пока нет."/>
+
+    <TextView
+        android:id="@+id/add_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_orange"
+        android:gravity="center"
+        android:padding="7dp"
+        android:visibility="gone"
+        android:text="   Создать цель   "
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_targets"
@@ -20,4 +48,4 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_target_list" />
 
-</FrameLayout>
+</LinearLayout>

@@ -112,8 +112,8 @@ class ScheduleFragment : Fragment() {
 
     private fun initViews() {
         add_new_schedule.setOnClickListener {
-            // (activity as MainActivity).loadFragment(AddScheduleFragment())
-            showAlterDialogAdding()
+             (activity as MainActivity).loadFragment(AddScheduleFragment())
+          //  showAlterDialogAdding()
         }
 
 //        list_all_schedule.setOnClickListener {

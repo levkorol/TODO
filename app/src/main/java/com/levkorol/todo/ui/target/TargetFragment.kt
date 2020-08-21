@@ -1,7 +1,6 @@
 package com.levkorol.todo.ui.target
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,9 @@ import androidx.viewpager.widget.ViewPager
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.target.AddingTargets.AddTargetFragment
-import com.levkorol.todo.ui.target.viewpagertargets.CompletedFragment
-import com.levkorol.todo.ui.target.viewpagertargets.MyHabitsFragment
+import com.levkorol.todo.ui.target.viewpagertargets.ArchiveFragment
 import com.levkorol.todo.ui.target.viewpagertargets.MyTargetsFragment
 import kotlinx.android.synthetic.main.target_fragment.*
-import java.util.*
 
 class TargetFragment : Fragment() {
 
@@ -66,8 +63,7 @@ class ViewPagerAdapterTarget(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = MyTargetsFragment()
-            1 -> fragment = MyHabitsFragment()
-           // 2 -> fragment = CompletedFragment()
+            1 -> fragment = ArchiveFragment()
         }
         return fragment!!
     }

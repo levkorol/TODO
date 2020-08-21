@@ -31,32 +31,45 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageView
 
                 android:id="@+id/add_note_or_folder"
                 android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_margin="6dp"
-                android:src="@drawable/ic_add"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                />
+                android:layout_margin="6dp"
+                android:src="@drawable/ic_add" />
 
         </FrameLayout>
-
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.3">
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/edit_folder"
+                android:layout_width="30dp"
+                android:layout_height="33dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_edit" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/delete_folder"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="right"
+             android:layout_gravity="center"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_delete" />
         </FrameLayout>
@@ -65,15 +78,21 @@
 
     <TextView
         android:id="@+id/title_folder"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:enabled="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:focusableInTouchMode="false"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="papka" />
+        tools:text="Сделать" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_folder_fragment"

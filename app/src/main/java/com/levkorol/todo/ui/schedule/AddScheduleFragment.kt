@@ -146,14 +146,16 @@ class AddScheduleFragment : Fragment() {
 
         schedule = Schedule(
             description = add_description_text.text.toString(),
+            comment = "",
             date = date,
             checkBoxDone = false,
             hours = hours,
             minutes = minutes,
             alarm = alarmFlag,
-            addTime = addTime
+            addTime = addTime,
+            archive = false
         )
-        MainRepository.addSchedule(schedule) {id ->  //todo
+        MainRepository.addSchedule(schedule) {id ->
             scheduleId = id
 
             alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->

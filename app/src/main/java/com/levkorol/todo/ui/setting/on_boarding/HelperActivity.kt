@@ -3,6 +3,7 @@ package com.levkorol.todo.ui.setting.on_boarding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -21,11 +22,18 @@ class HelperActivity : AppCompatActivity() {
         next.setOnClickListener {
             setPage(view_pager.currentItem + 1)
             if (view_pager.currentItem == 2) {
-                next.text = "Готово"
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+               // next.text = "Готово"
+                setPage(view_pager.currentItem + 1)
+                next.visibility = View.GONE
+                ok.visibility = View.VISIBLE
+
             }
+        }
+
+        ok.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

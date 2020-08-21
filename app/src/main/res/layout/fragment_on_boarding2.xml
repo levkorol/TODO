@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="22sp"
-                android:text="Расписание"
-                android:layout_marginBottom="10dp"
+                android:text="Расписание и цели"
+                android:layout_marginBottom="4dp"
                 android:textColor="@android:color/background_dark"/>
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="Создавайте список дел на каждый день и отмечайте выполненные задачи"/>
+                android:text="Создавайте список дел на каждый день и отмечайте выполненные задачи. Записывайте свои цели и достигайте их вместе с TODO."/>
 
         </LinearLayout>
 

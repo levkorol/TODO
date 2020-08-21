@@ -79,8 +79,36 @@
         android:padding="4dp"
         android:linksClickable="true"
         android:drawableStart="@drawable/ic_mail"
-        android:text=" Связь с разработчиком : sasiskajik@mail.ru"
+        android:text=" Связь с разработчиком :"
        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="0dp"
+        android:textSize="16sp"
+        android:autoLink="email"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:linksClickable="true"
+        android:text="Почта: lev.dev.apps@gmail.com"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="0dp"
+        android:textSize="16sp"
+        android:autoLink="email"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:linksClickable="true"
+        android:text="Телеграмм канал: @LevDev"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -94,8 +122,22 @@
         android:padding="4dp"
         android:drawableStart="@drawable/ic_star_border_black_24dp"
         android:linksClickable="true"
-        android:text=" Поставьте нам оценку: google_play.ru"
+        android:text=" Поставьте нам оценку:\n https://play.google.com/store/apps/details?id=com.levkorol.todo"
         />
+
+<!--    <ImageView-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_marginTop="70dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:src="@drawable/lev33"/>-->
+
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="600dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/lev11" />-->
 
 
 </LinearLayout>

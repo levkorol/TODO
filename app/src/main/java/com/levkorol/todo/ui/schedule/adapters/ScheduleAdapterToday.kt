@@ -1,10 +1,12 @@
 package com.levkorol.todo.ui.schedule.adapters
 
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
@@ -12,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.utils.Tools
+import kotlinx.android.synthetic.main.edit_note_fragment.*
 
 class ScheduleAdapterToday(
     val activity: MainActivity
@@ -41,24 +44,20 @@ class ScheduleAdapterToday(
 
         holder.title_schedule.text = item.description
 
-        if(!item.addTime) {
+        if (!item.addTime) {
             holder.time.visibility = View.GONE
-            //holder.min.visibility = View.GONE
-           // holder.timer.visibility = View.GONE
         } else {
             holder.time.visibility = View.VISIBLE
             holder.time.text = Tools.convertLongHoursAndMinutesToString(item.hours, item.minutes)
         }
-        if(item.alarm ) {
+        if (item.alarm) {
             holder.timer.visibility = View.VISIBLE
-          //  holder.time.visibility = View.VISIBLE
         } else {
             holder.timer.visibility = View.GONE
-           // holder.time.visibility = View.GONE
         }
 
 
-        holder.checkBox.setOnCheckedChangeListener (null)
+        holder.checkBox.setOnCheckedChangeListener(null)
         holder.checkBox.isChecked = item.checkBoxDone
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             schedule = dataItems[position]
@@ -82,14 +81,38 @@ class ScheduleAdapterToday(
             dialog.show()
             true
         }
+
+        holder.add_comment.setOnClickListener {
+            holder.lladd_comment.visibility = View.VISIBLE
+            holder.ed_text.setText(item.comment)
+
+        }
+        holder.clear.setOnClickListener {
+            holder.lladd_comment.visibility = View.GONE
+        }
+        holder.ok.setOnClickListener {
+
+            holder.lladd_comment.visibility = View.GONE
+            item.comment = holder.ed_text.text.toString()
+            holder.comment.text = item.comment
+            MainRepository.updateSchedule(item)
+        }
+        holder.comment.text = item.comment
     }
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title_schedule: TextView = itemView.findViewById(R.id.tv_title_today)
         var time: TextView = itemView.findViewById(R.id.tv_hours_min)
-      //  var min: TextView = itemView.findViewById(R.id.tv_min)
+        //  var min: TextView = itemView.findViewById(R.id.tv_min)
         var timer: ImageView = itemView.findViewById(R.id.iv_timer)
         var checkBox: CheckBox = itemView.findViewById(R.id.cb_done)
+
+        var add_comment: ImageView = itemView.findViewById(R.id.btn_add_comment)
+        var lladd_comment: LinearLayout = itemView.findViewById(R.id.add_comment)
+        var ok: ImageView = itemView.findViewById(R.id.ok)
+        var clear: ImageView = itemView.findViewById(R.id.clear)
+        var ed_text: EditText = itemView.findViewById(R.id.ed_description)
+        var comment: TextView = itemView.findViewById(R.id.comment)
 
     }
 }

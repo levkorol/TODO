@@ -97,6 +97,7 @@
             android:background="@drawable/bg_orange"
             android:gravity="center"
             android:padding="7dp"
+            android:textStyle="bold"
             android:text="   Да, добавить   "
             android:textAllCaps="false"
             android:textColor="@android:color/white" />

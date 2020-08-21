@@ -1,5 +1,6 @@
 package com.levkorol.todo.ui.target.viewpagertargets
 
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,49 +15,40 @@ import androidx.recyclerview.widget.RecyclerView
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Targets
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.target.AddingTargets.AddTargetFragment
 import com.levkorol.todo.ui.target.TargetViewModel
 import com.levkorol.todo.ui.target.adapters.AdapterTargets
+import kotlinx.android.synthetic.main.fragment_my_habits.*
 import kotlinx.android.synthetic.main.fragment_my_targets.*
 
 
-class MyTargetsFragment : Fragment() {
+class ArchiveFragment : Fragment() {
     private lateinit var viewModel: TargetViewModel
     private var targets: List<Targets>? = null
     private lateinit var adapterTargets: AdapterTargets
-    private val TAG = "MyTargetsFragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_targets, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_my_habits, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_targets)
+        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_archive)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
         adapterTargets = AdapterTargets(activity as MainActivity)
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapterTargets
-
-        add_target.setOnClickListener {
-            (activity as MainActivity).loadFragment(AddTargetFragment())
-        }
     }
 
     override fun onStart() {
         super.onStart()
         viewModel = ViewModelProvider(requireActivity()).get(TargetViewModel::class.java)
         observeTarget()
-        Log.d(TAG,"$targets")
     }
 
     private fun observeTarget() {
@@ -71,17 +63,17 @@ class MyTargetsFragment : Fragment() {
         if (targets == null) return
         adapterTargets.dataItems = targets!!
             .filter {
-                !it.inArchive
+                it.inArchive
             }
             .sortedByDescending { it.startData }
         if (adapterTargets.dataItems.isEmpty()) {
-            no_target.visibility = View.VISIBLE
-            pick.visibility = View.VISIBLE
-            add_target.visibility = View.VISIBLE
+            no_target_in_archive.visibility = View.VISIBLE
+            pick1.visibility = View.VISIBLE
         } else {
-            no_target.visibility = View.GONE
-            pick.visibility = View.GONE
-            add_target.visibility = View.GONE
+            no_target_in_archive.visibility = View.GONE
+            pick1.visibility = View.GONE
         }
     }
+
+
 }

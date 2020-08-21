@@ -31,5 +31,6 @@ data class Folder(
         GRAY(1, R.drawable.bg_folder_gray),
         PINK(2, R.drawable.bg_folder_pink),
         GREEN(3, R.drawable.bg_folder_green)
+       // WHITE(4, R.color.white)
     }
 }

@@ -91,6 +91,9 @@ class AddFolderFragment : Fragment() {
         if (radioButtonRed.isChecked) {
             background = Folder.Background.PINK
         }
+//        if(radioButtonWhite.isChecked) {
+//            background = Folder.Background.GRASS
+//        }
         MainRepository.addFolder(
             Folder(
                 nameFolder = add_title_text_folder.text.toString(),

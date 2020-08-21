@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.notes
 
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,10 @@ class Adapter(val activity: MainActivity) :
         } else {
             item as Folder
             holder as FolderViewHolder
+//            if(item.background == Folder.Background.GRASS) {
+//                holder.nameFolder.setTextColor(Color.BLACK)
+//                holder.image.setImageResource(R.drawable.ic_folder_yellow)
+//            }
             holder.nameFolder.text = item.nameFolder
             holder.itemView.setBackgroundResource(item.background.res)
             holder.itemView.setOnClickListener {
@@ -93,6 +98,7 @@ class Adapter(val activity: MainActivity) :
 
 class FolderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val nameFolder: TextView = itemView.findViewById(R.id.name_folder_text)
+    val image: ImageView = itemView.findViewById(R.id.folder_image)
 }
 
 class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

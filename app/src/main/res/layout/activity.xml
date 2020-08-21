@@ -51,4 +51,20 @@
         android:textAllCaps="false"
         android:textColor="@color/ultramarin" />
 
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:drawableEnd="@drawable/ic_r"
+        android:padding="2dp"
+        android:text="Готово"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@color/ultramarin" />
+
 </RelativeLayout>

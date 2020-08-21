@@ -14,10 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
-import com.levkorol.todo.model.Folder
-import com.levkorol.todo.model.Note
-import com.levkorol.todo.model.Schedule
-import com.levkorol.todo.model.User
+import com.levkorol.todo.model.*
 import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.Dispatchers
@@ -60,10 +57,12 @@ class ProfileFragment : Fragment() {
                 val notes = MainRepository.getNotesNow()
                 val schedules = MainRepository.getAllSchedulesNow()
                 val folders = MainRepository.getAllFoldersNow()
+                val targets = MainRepository.getAllTargetsNow()
                 val data = mapOf(
                     "folders" to folders,
                     "notes" to notes,
-                    "schedules" to schedules
+                    "schedules" to schedules,
+                    "targets" to targets
                 )
                 mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
                     .updateChildren(data)
@@ -89,6 +88,7 @@ class ProfileFragment : Fragment() {
             MainRepository.deleteAllFolders()
             MainRepository.deleteAllNotes()
             MainRepository.deleteAllSchedules()
+            MainRepository.deleteAllTargets()
 
             mDataBase.child("users").child(auth.currentUser!!.uid).child("notes")
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter { notes ->
@@ -96,7 +96,12 @@ class ProfileFragment : Fragment() {
                     val childNotes = notes.child("notes").children
                     childNotes.forEach { firebaseNote ->
                         val realNote = firebaseNote.getValue(Note::class.java)
-                        realNote?.let { note -> MainRepository.addNote(note) {} }
+                        realNote?.let { note ->
+
+                                note.addPhoto = false
+                                note.photo = ""
+                                MainRepository.addNote(note) {}
+                            }
                     }
 
                     val childFolders = notes.child("folders").children
@@ -105,14 +110,18 @@ class ProfileFragment : Fragment() {
                         realFolder?.let { folder -> MainRepository.addFolder(folder) }
                     }
 
-                    val childSchedule = notes.child("schedules").children //WTF?! как у тебя восстанавливалось расписание?
+                    val childSchedule = notes.child("schedules").children
                     childSchedule.forEach { firebaseSchedules ->
                         val realSchedule = firebaseSchedules.getValue(Schedule::class.java)
                         realSchedule?.let { task -> MainRepository.addSchedule(task) {} }
                     }
-                })
 
-            // TODO пока всё что пришло из файербейса - без уведомлений!
+                    val childTargets = notes.child("targets").children
+                    childTargets.forEach { fireBaseTargets ->
+                        val realTargets = fireBaseTargets.getValue(Targets::class.java)
+                        realTargets?.let { target -> MainRepository.addTargets(target) }
+                    }
+                })
         }
 
         mDataBase.child("users").child(auth.currentUser!!.uid)

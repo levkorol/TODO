@@ -111,7 +111,10 @@ class AllScheduleListFragment : Fragment() {
         }
 
         if (adapterAllSchedule.dataItems.isEmpty()) {
-            no_schedule.text = "Задач пока нет..."
+            no_schedule.visibility = View.VISIBLE
+            no_schedule.text = "Задач нет..."
+        } else {
+            no_schedule.visibility = View.GONE
         }
 
         adapterAllSchedule.notifyDataSetChanged()
@@ -151,7 +154,7 @@ class AllScheduleListFragment : Fragment() {
     inner class AllScheduleAdapter(
         val activity: MainActivity
     ) : RecyclerView.Adapter<AllScheduleAdapter.ScheduleViewHolder>() {
-        private lateinit var schedule: Schedule
+        //  private lateinit var schedule: Schedule
         private var alarmManager: AlarmManager? = null
         private lateinit var alarmIntent: PendingIntent
 
@@ -177,15 +180,21 @@ class AllScheduleListFragment : Fragment() {
             var date: Long
             var time: Long
 
+            if (item.comment.isNotEmpty()) {
+                holder.comment.text = "Комментарий: ${item.comment}"
+            } else {
+                holder.comment.visibility = View.GONE
+            }
+
             holder.clearTime.setOnClickListener {
                 item.addTime = false
                 item.alarm = false
                 holder.timeInEdit.text = "Не выставлено"
                 holder.clearTime.visibility = View.GONE
                 item.addTime = false
-                schedule = dataItems[position]
-                schedule.addTime = false
-                MainRepository.updateSchedule(schedule)
+                //  schedule = dataItems[position]
+                item.addTime = false
+                MainRepository.updateSchedule(item)
             }
 
             holder.title_schedule.text = item.description
@@ -193,8 +202,10 @@ class AllScheduleListFragment : Fragment() {
 
             if (!item.addTime) {
                 holder.timeInEdit.text = "Не выставлено"
+                holder.clearTime.visibility = View.GONE
             } else {
-                holder.timeInEdit.text = Tools.convertLongHoursAndMinutesToString(item.hours, item.minutes)
+                holder.timeInEdit.text =
+                    Tools.convertLongHoursAndMinutesToString(item.hours, item.minutes)
                 holder.clearTime.visibility = View.VISIBLE
             }
 
@@ -236,9 +247,9 @@ class AllScheduleListFragment : Fragment() {
                     isCursorVisible = false
                     isEnabled = false
                 }
-                schedule = dataItems[position]
-                schedule.description = holder.title_schedule.text.toString()
-                MainRepository.updateSchedule(schedule)
+                // schedule = dataItems[position]
+                item.description = holder.title_schedule.text.toString()
+                MainRepository.updateSchedule(item)
                 notifyDataSetChanged()
             }
 
@@ -247,33 +258,29 @@ class AllScheduleListFragment : Fragment() {
                 if (!item.addTime) {
                     Toast.makeText(activity, "Назначьте время выполнения", Toast.LENGTH_LONG).show()
                     holder.swich.isChecked = false
-                } else {
-                    holder.swich.isChecked = true
-                }//todo
-
+                }
                 if (item.addTime) {
-                    schedule = dataItems[position]
-                    schedule.alarm = true
-                    MainRepository.updateSchedule(schedule)
-                    holder.swich.isChecked = true
-
-                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-                        intent.putExtra("SCHEDULE_ID", item.id)
-                        intent.putExtra("NOTE", false)
-                        PendingIntent.getBroadcast(context, 0, intent,
-                            PendingIntent.FLAG_CANCEL_CURRENT
-                        )
-                    }
-                    if (alarmFlag) {
-                        val needTime = mergeDateHoursMinutes(schedule.date, schedule.hours, schedule.minutes)
+                    if (item.alarm) {
+                        alarmManager =
+                            context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                            intent.putExtra("SCHEDULE_ID", item.id)
+                            intent.putExtra("NOTE", false)
+                            PendingIntent.getBroadcast(
+                                context, 0, intent,
+                                PendingIntent.FLAG_CANCEL_CURRENT
+                            )
+                        }
+                        val needTime = mergeDateHoursMinutes(item.date, item.hours, item.minutes)
                         alarmManager?.set(
                             AlarmManager.RTC_WAKEUP,
                             needTime,
                             alarmIntent
                         )
                     }
+                    MainRepository.updateSchedule(item)
                 }
+                item.alarm = holder.swich.isChecked
             }
 
             holder.dateInEdit.text = Tools.dateToString(item.date)
@@ -309,10 +316,10 @@ class AllScheduleListFragment : Fragment() {
                     holder.dateInEdit.text =
                         SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
                     date = unixTime
-                    schedule = dataItems[position]
-                    schedule.date = date
-                    schedule.checkBoxDone = false
-                    MainRepository.updateSchedule(schedule)
+                    //    schedule = dataItems[position]
+                    item.date = date
+                    item.checkBoxDone = false
+                    MainRepository.updateSchedule(item)
                 }
                 picker.show(parentFragmentManager, picker.toString())
             }
@@ -327,11 +334,11 @@ class AllScheduleListFragment : Fragment() {
                     time = cal.time.time
                     addTime = true
                     holder.clearTime.visibility = View.VISIBLE
-                    schedule = dataItems[position]
-                    schedule.hours = hour
-                    schedule.minutes = minute
-                    schedule.addTime = true
-                    MainRepository.updateSchedule(schedule)
+                    // schedule = dataItems[position]
+                    item.hours = hour
+                    item.minutes = minute
+                    item.addTime = true
+                    MainRepository.updateSchedule(item)
                 }
                 TimePickerDialog(
                     context,
@@ -357,6 +364,8 @@ class AllScheduleListFragment : Fragment() {
             var saveText: TextView = itemView.findViewById(R.id.save_text)
             var exitEditText: TextView = itemView.findViewById(R.id.exit_edit_text)
             var swich: Switch = itemView.findViewById(R.id.swich_alarm)
+
+            var comment: TextView = itemView.findViewById(R.id.comment)
         }
     }
 }

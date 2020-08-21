@@ -7,8 +7,8 @@
 
 
     <stroke
-        android:width="2dp"
-        android:color="#50c1c1c1" />
+        android:width="4dp"
+        android:color="@color/Orange" />
 
     <gradient android:startColor="@color/Orange"
         android:endColor="@color/coral"/>

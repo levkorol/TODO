@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:textSize="22sp"
                 android:text="Синхронизация"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="4dp"
                 android:textColor="@android:color/background_dark"/>
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="16sp"
-                android:text="Синхронизируйте записи для восстановления их на других устройствах"/>
+                android:text="Вы можете включить синхронизацию. Сохранение и восстановление записей на других устройствах в личном кабинете."/>
 
         </LinearLayout>
 

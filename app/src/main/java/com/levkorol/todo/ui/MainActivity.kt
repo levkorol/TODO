@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             e.putBoolean("hasVisited", true)
             e.apply()
         } else {
-
             loadFragment(ScheduleFragment())
         }
 

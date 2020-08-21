@@ -73,7 +73,7 @@
             android:visibility="gone"
             tools:visibility="visible"
             tools:text="14.00"
-            android:layout_below="@id/star_image"
+            android:layout_below="@id/text_note"
             android:layout_alignParentRight="true"
             />
 

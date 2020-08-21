@@ -98,6 +98,12 @@ object MainRepository {
         }
     }
 
+    fun updateFolder(folder: Folder) {
+        GlobalScope.launch(Dispatchers.IO) {
+            folderDao.update(folder)
+        }
+    }
+
     fun getAllSchedulesNow(): List<Schedule> = scheduleDao.getAllScheduleNow()
 
 
@@ -159,6 +165,12 @@ object MainRepository {
     fun deleteAllSchedules() {
         GlobalScope.launch(Dispatchers.IO) {
             scheduleDao.deleteAll()
+        }
+    }
+
+    fun deleteAllTargets() {
+        GlobalScope.launch(Dispatchers.IO) {
+            targetsDao.deleteAll()
         }
     }
 
