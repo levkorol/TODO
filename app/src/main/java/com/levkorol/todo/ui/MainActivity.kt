@@ -1,34 +1,28 @@
 package com.levkorol.todo.ui
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.notes.NotesFragment
 import com.levkorol.todo.ui.schedule.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import android.content.Context
-import android.util.Log
-import androidx.fragment.app.FragmentTransaction
-import com.levkorol.todo.ui.note.NoteFragment
-import com.levkorol.todo.ui.schedule.TodayFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
 import com.levkorol.todo.ui.target.TargetFragment
-import com.levkorol.todo.utils.getMillisecondsWithoutCurrentTime
+import com.levkorol.todo.utils.replaceFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
     private val MY_SETTINGS = "MY_SETTINGS"
-    private var noteId: Long = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        Log.i("MainActivity", "Date ${getMillisecondsWithoutCurrentTime(1595967790000)}")
 
         val sp = getSharedPreferences(
             MY_SETTINGS,
@@ -36,18 +30,14 @@ class MainActivity : AppCompatActivity() {
         )
 
         val hasVisited = sp.getBoolean("hasVisited", false)
-
         if (!hasVisited) {
-
-            // loadFragment(OnBoardingFragment())
             val intent = Intent(this, HelperActivity::class.java)
             startActivity(intent)
-
             val e = sp.edit()
             e.putBoolean("hasVisited", true)
             e.apply()
         } else {
-            loadFragment(ScheduleFragment())
+            replaceFragment(ScheduleFragment(), false)
         }
 
         bottom_nav_view.setOnNavigationItemSelectedListener { menuItem ->
@@ -74,21 +64,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-//        if (intent?.hasExtra("IS_NOTE") == true) { //todo
-//            noteId = intent.getLongExtra("ID", noteId)
-//            loadFragment(NoteFragment.instance(noteId))
-//
-//        } else {
-//            intent?.getBooleanExtra("IS_NOTE", false)
-            loadFragment(ScheduleFragment())
-      //  }
-        Log.i("MainActivity", "id ${noteId}")
-        Log.i("MainActivity", "intent ${intent?.extras}")
     }
 
     fun loadFragment(fragment: Fragment) {
@@ -96,10 +71,6 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//            .setCustomAnimations(
-//                android.R.anim.slide_in_left,
-//                android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.slide_out_right
-//            )
             .addToBackStack(null)
             .commit()
     }

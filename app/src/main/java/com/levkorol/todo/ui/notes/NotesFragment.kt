@@ -12,9 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
-import com.google.android.material.resources.MaterialAttributes
-import com.google.android.material.textview.MaterialTextView
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Base
 import com.levkorol.todo.model.Folder
@@ -24,22 +21,18 @@ import com.levkorol.todo.ui.folder.AddFolderFragment
 import com.levkorol.todo.ui.note.AddNoteFragment
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.IMPORTANT_NOTES
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_IN_SCHEDULE
-import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.NOTES_WITH_ALARM
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_FOLDER
 import com.levkorol.todo.ui.notes.NotesFragment.NotesFilter.Companion.ONLY_NOTES
-import com.levkorol.todo.ui.schedule.AddScheduleFragment
 import kotlinx.android.synthetic.main.fragment_notes.*
 
 class NotesFragment : Fragment() {
     private lateinit var viewModel: NotesViewModel
     private lateinit var adapter: Adapter
     private var folderId = -1L
-    private var notes: List<Note>? = null
     private var parentFolderId: Long = -1
     private var childElements: MutableList<Base>? = null
     private var query: String = ""
     private var notesFilter = -1
-    private var noteId: Long = -1
 
     companion object {
         private const val PARENT_FOLDER = "ParentId"
@@ -162,7 +155,6 @@ class NotesFragment : Fragment() {
                         element is Note && notesFilter == ONLY_NOTES -> true
                         element is Note && notesFilter == IMPORTANT_NOTES && element.star -> true
                         element is Note && notesFilter == NOTES_IN_SCHEDULE && element.addSchedule -> true
-                        //  element is Note && notesFilter == NOTES_WITH_ALARM && element.alarm -> true
                         else -> false
                     }
                 }
@@ -204,7 +196,6 @@ class NotesFragment : Fragment() {
             val IMPORTANT_NOTES = 2
             val OLD_FOLDER_AND_NOTES = 3
             val NOTES_IN_SCHEDULE = 4
-            val NOTES_WITH_ALARM = 5
         }
     }
 
@@ -224,41 +215,5 @@ class NotesFragment : Fragment() {
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }
-
-
-    private fun showAlterDialogAdding() {
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setTitle("Что вы хотите сделать?")
-        val pictureDialogItems =
-            arrayOf(
-                "Добавить в мое расписание",
-                "Создать заметку",
-                "Создать папку",
-                "Добавить цель",
-                "Все отменить и погладить льва"
-            )
-        builder.setItems(
-            pictureDialogItems
-        ) { _, which ->
-            when (which) {
-                0 -> (activity as MainActivity).loadFragment(AddScheduleFragment())
-                1 -> (activity as MainActivity).loadFragment(
-                    AddNoteFragment.newInstance(
-                        parentFolderId
-                    )
-                )
-                2 -> (activity as MainActivity).loadFragment(
-                    AddFolderFragment.newInstance(
-                        parentFolderId
-                    )
-                )
-                3 -> {
-                }
-                4 -> {
-                }
-            }
-        }
-        builder.show()
     }
 }

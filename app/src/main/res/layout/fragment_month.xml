@@ -6,22 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/palegray"
     tools:context=".ui.schedule.MonthFragment">
 
         <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarViewM"
             android:layout_width="match_parent"
             app:datePicker="true"
+            android:layout_marginTop="10dp"
             app:highlightedDaysLabelsColor="@color/biu"
-
-            app:headerColor="@color/biu"
-
-            app:headerLabelColor="@color/white"
-
-            app:abbreviationsBarColor="@color/color_grey_dark"
-            app:abbreviationsLabelsColor="@color/lichtpinck"
-            app:pagesColor="@color/palegray"
+            app:abbreviationsBarColor="@color/white"
+            app:abbreviationsLabelsColor="@color/ultramarin"
+            app:headerColor="@color/white"
+            app:headerLabelColor="@android:color/black"
+            app:pagesColor="@color/white"
             app:selectionColor="@color/biu"
             app:todayLabelColor="@color/colorAccent"
             app:eventsEnabled="true"

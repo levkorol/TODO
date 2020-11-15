@@ -6,26 +6,27 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.utils.*
+import com.levkorol.todo.utils.DEFAULT_DATE
+import com.levkorol.todo.utils.Tools
+import com.levkorol.todo.utils.areDatesEqual
+import com.levkorol.todo.utils.mergeDateHoursMinutes
 import kotlinx.android.synthetic.main.fragment_all_schedule_list.*
-import kotlinx.android.synthetic.main.fragment_all_schedule_list.add
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,7 +36,6 @@ class AllScheduleListFragment : Fragment() {
     private lateinit var adapterAllSchedule: AllScheduleAdapter
     private var schedules: List<Schedule>? = null
     private var selectDate: Long = DEFAULT_DATE
-    private var alarmFlag = false
     private var addTime = false
 
     companion object {
@@ -123,9 +123,7 @@ class AllScheduleListFragment : Fragment() {
     }
 
     private fun initViews() {
-//        back.setOnClickListener {
-//            parentFragmentManager.popBackStack()
-//        }
+
         filter_date.setOnClickListener {
             val builder = MaterialDatePicker.Builder.datePicker()
             val picker: MaterialDatePicker<Long> = builder.build()
@@ -184,6 +182,18 @@ class AllScheduleListFragment : Fragment() {
                 holder.comment.text = "Комментарий: ${item.comment}"
             } else {
                 holder.comment.visibility = View.GONE
+            }
+
+            holder.checkBox.setOnCheckedChangeListener(null)
+            holder.checkBox.isChecked = item.checkBoxDone
+            holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    item.checkBoxDone = true
+                    MainRepository.updateSchedule(item)
+                } else {
+                    item.checkBoxDone = false
+                    MainRepository.updateSchedule(item)
+                }
             }
 
             holder.clearTime.setOnClickListener {
@@ -354,13 +364,13 @@ class AllScheduleListFragment : Fragment() {
             var date_schedule: TextView = itemView.findViewById(R.id.date)
             var title_schedule: TextView = itemView.findViewById(R.id.tv_title)
             var editTaskBtn: TextView = itemView.findViewById(R.id.edit_task)
-            var deleteTask: TextView = itemView.findViewById(R.id.delete_task)
+            var deleteTask: ImageView = itemView.findViewById(R.id.delete_task)
             var dateInEdit: TextView = itemView.findViewById(R.id.date_in_edit)
             var timeInEdit: TextView = itemView.findViewById(R.id.time_in_edit)
             var changeDate: LinearLayout = itemView.findViewById(R.id.edit_date)
             var changeTime: LinearLayout = itemView.findViewById(R.id.edit_time)
             var clearTime: TextView = itemView.findViewById(R.id.clear_time_in_edit)
-
+            var checkBox: CheckBox = itemView.findViewById(R.id.cb_done_all_schedule)
             var saveText: TextView = itemView.findViewById(R.id.save_text)
             var exitEditText: TextView = itemView.findViewById(R.id.exit_edit_text)
             var swich: Switch = itemView.findViewById(R.id.swich_alarm)

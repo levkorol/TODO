@@ -1,10 +1,10 @@
 package com.levkorol.todo.ui.target
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -46,15 +46,12 @@ class TargetFragment : Fragment() {
         add_.setOnClickListener {
             (activity as MainActivity).loadFragment(AddTargetFragment())
         }
- //       resources.getQuantityString(R.plurals.seconds, 13)  дни дней днях
     }
 
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).updateNavigation(TargetFragment())
     }
-
-
 }
 
 class ViewPagerAdapterTarget(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -75,7 +72,6 @@ class ViewPagerAdapterTarget(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         when (position) {
             0 -> title = "Мои цели"
             1 -> title = "Архив"
-            //2 -> title = "Архив"
         }
         return title!!
     }

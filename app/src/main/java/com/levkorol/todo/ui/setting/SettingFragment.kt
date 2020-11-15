@@ -1,32 +1,24 @@
 package com.levkorol.todo.ui.setting
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
+
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.todo.R
-import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.schedule.AlarmReceiver
 import com.levkorol.todo.ui.schedule.ScheduleViewModel
 import com.levkorol.todo.ui.setting.profile.AuthorizationFragment
 import com.levkorol.todo.ui.setting.profile.ProfileFragment
-import com.levkorol.todo.utils.isToday
-import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.setting_fragment.*
-import java.util.*
 
 class SettingFragment : Fragment() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
@@ -40,7 +32,7 @@ class SettingFragment : Fragment() {
         fun newInstance() = SettingFragment()
     }
 
-   // private lateinit var viewModel: SettingViewModel
+    // private lateinit var viewModel: SettingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,23 +43,6 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO полночь,получаем задачи,проходимся по ним,
-        //  если время задачи меньше текущего и она не выполнена,то тогда время задачи поменять день на текущий,сохранить!
-
-        //todo swich переноски таска на след день
-//        if (todayFlag) sw_schedule_up.isChecked = true
-//        sw_schedule_up.setOnClickListener {
-//            schedules?.filter {
-//                isToday(1)
-//            }
-//             if () {
-//                todayFlag = false
-//                sw_schedule_up.isChecked = false
-//            } else {
-//                todayFlag = true
-//            }
-       // }
-
 
         sinhr.setOnClickListener {
             if (auth.currentUser == null) {
@@ -77,27 +52,30 @@ class SettingFragment : Fragment() {
             }
         }
 
-//        if (alarmFlag) off_notify.isChecked = true
-//        off_notify.setOnClickListener {
-//            if (off_notify.isChecked) {
-//                val builder = MaterialAlertDialogBuilder(requireContext())
-//                builder.setMessage("Выключить все оповещения?")
-//                builder.setPositiveButton("Да") { _, _ ->
-//                    if (off_notify.isChecked) alarmFlag = false
-//                }
-//                builder.setNegativeButton("Отмена") { _, _ ->
-//                    off_notify.isChecked = true
-//                }
-//                val dialog: AlertDialog = builder.create()
-//                dialog.show()
-//            } else {
-//                 off_notify.isChecked
-//            }
-//        }
+        btn_web.setOnClickListener {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=com.levkorol.todo")
+            );
+            startActivity(browserIntent)
+        }
+
 
         pin.setOnClickListener {
             pin.isChecked = false
-            Toast.makeText(activity, "Установка пароля будет доступна в следующей версии", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                activity,
+                "Установка пароля будет доступна в следующей версии",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        lion_pick.setOnClickListener {
+            Toast.makeText(
+                activity,
+                "Привет! Я Лев ",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

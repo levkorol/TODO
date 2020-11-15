@@ -2,36 +2,29 @@ package com.levkorol.todo.ui.note
 
 import android.app.Activity
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import com.levkorol.todo.data.note.MainRepository
-import com.levkorol.todo.model.Note
-import kotlinx.android.synthetic.main.add_note.*
-import java.util.*
 import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.N
+import android.os.Bundle
 import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.provider.MediaStore.EXTRA_OUTPUT
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
+import com.levkorol.todo.data.note.MainRepository
+import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
-import kotlinx.android.synthetic.main.add_note.add_title_text
-import kotlinx.android.synthetic.main.add_note.back_profile
-import kotlinx.android.synthetic.main.fragment_add_schedule.*
+import kotlinx.android.synthetic.main.add_note.*
 import java.io.File
 import java.text.SimpleDateFormat
-import android.os.Looper
-import android.os.Handler
+import java.util.*
 
 
 class AddNoteFragment : Fragment() {
@@ -44,7 +37,6 @@ class AddNoteFragment : Fragment() {
     private var time: Long = 1
     private var addScheduleFlag = false
     private var addPhoto = false
-    private var noteId: Long = 1
 
     companion object {
         private val TAG = AddNoteFragment::class.java.simpleName
@@ -123,7 +115,7 @@ class AddNoteFragment : Fragment() {
             }
             picker.show(parentFragmentManager, picker.toString())
 
-       // text_date.setOnClickListener {
+
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 cal.set(Calendar.HOUR_OF_DAY, hour)
@@ -188,7 +180,6 @@ class AddNoteFragment : Fragment() {
             description = add_description_note_text.text.toString(),
             star = star_image_btn.isSelected,
             photo = photoUri.toString(),
-          //  date = System.currentTimeMillis(),
             parentFolderId = parentFolderId,
             time = time,
             dateSchedule = dateDateSchedule,

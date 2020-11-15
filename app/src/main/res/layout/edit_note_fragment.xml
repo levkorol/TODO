@@ -71,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Название..."
+                android:textAllCaps="false"
                 android:lines="1"
                 android:textStyle="bold" />
 
@@ -104,7 +105,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="top|start"
-                    android:inputType="textPostalAddress|textMultiLine"
+                    android:inputType="textMultiLine"
+                    android:textAllCaps="false"
                     android:lines="22" />
 
             </ScrollView>
@@ -227,14 +229,12 @@
         </LinearLayout>
 
         <Button
-
             android:id="@+id/edit_save_note_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/btn_background"
             android:text="@string/save_edit"
             android:textAllCaps="false"
             android:textColor="@android:color/white"

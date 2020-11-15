@@ -12,9 +12,7 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,10 +25,8 @@ import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
 import com.levkorol.todo.utils.Tools
-import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
-import kotlinx.android.synthetic.main.fragment_note.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,13 +38,11 @@ class EditNoteFragment : Fragment() {
     private var photoUri: Uri? = null
     private var dateDateSchedule: Long = 1
     private var time: Long = 1
-    private var addScheduleFlag = false
 
     companion object {
         private const val PICK_IMAGE = 100
         private const val CAMERA_INTENT = 12
         private const val NOTE_ID = "NOTE_ID"
-        private const val PHOTO = "Photo"
 
         fun newInstance(noteId: Long): EditNoteFragment {
             val fragment = EditNoteFragment()
@@ -102,7 +96,7 @@ class EditNoteFragment : Fragment() {
             Toast.makeText(activity, "Изменения сохранены", Toast.LENGTH_LONG).show()
             saveEditNote()
             parentFragmentManager.popBackStack()
-            (activity as MainActivity).loadFragment(NoteFragment.instance(note!!.id))//newInstance(note!!))
+            (activity as MainActivity).loadFragment(NoteFragment.instance(note!!.id))
         }
 
         star_ed.setOnClickListener {
@@ -156,10 +150,6 @@ class EditNoteFragment : Fragment() {
     }
 
     private fun saveEditNote() {
-        //        val oldNote = note?.copy()
-//        if (oldNote != note) {
-//          showAlterDialog()
-//        }
         note!!.name = edit_title_text.text.toString()
         note!!.description = edit_description_note_text.text.toString()
         note!!.star = star_ed.isSelected
@@ -237,7 +227,6 @@ class EditNoteFragment : Fragment() {
 
     private fun showAlterDialog() {
         val builder = MaterialAlertDialogBuilder(requireContext())
-        //  builder.setMessage("Откуда вы хотите загрузить изображение?")
         builder.setTitle("Откуда вы хотите загрузить изображение?")
         val pictureDialogItems = arrayOf("Галлерея", "Камера")
         builder.setItems(

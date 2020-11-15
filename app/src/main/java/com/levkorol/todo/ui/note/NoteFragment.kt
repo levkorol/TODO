@@ -1,19 +1,15 @@
 package com.levkorol.todo.ui.note
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.PendingIntent.FLAG_CANCEL_CURRENT
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -22,15 +18,8 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.notes.NotesViewModel
-import com.levkorol.todo.ui.schedule.AlarmReceiver
 import com.levkorol.todo.utils.Tools
-import kotlinx.android.synthetic.main.add_note.*
-import kotlinx.android.synthetic.main.edit_note_fragment.*
-import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import kotlinx.android.synthetic.main.fragment_note.*
-import kotlinx.android.synthetic.main.fragment_note.back_profile
-import kotlinx.android.synthetic.main.fragment_note.text_date
-import java.util.*
 
 
 class NoteFragment : Fragment() {
@@ -39,9 +28,6 @@ class NoteFragment : Fragment() {
     private var noteId: Long = -1
     private var note: Note? = null
     private lateinit var photoUri: Uri
-    private var alarmFlag = false
-    private var alarmManager: AlarmManager? = null
-    private lateinit var alarmIntent: PendingIntent
 
     companion object {
         private const val NOTE_ID = "NOTE_ID"
@@ -101,46 +87,6 @@ class NoteFragment : Fragment() {
             )
         }
 
-//        if (alarmFlag) swich_note_alarm.isChecked = true
-//        swich_note_alarm.setOnClickListener {
-//            if (swich_note_alarm.isChecked) {
-//                val builder = MaterialAlertDialogBuilder(requireContext())
-//                builder.setMessage("Включить оповещение?")
-//                builder.setPositiveButton("Да") { _, _ ->
-//                    if (swich_note_alarm.isChecked) alarmFlag = true
-//                    note?.alarm = true
-//                    note?.let { it1 -> MainRepository.update(it1) }
-//
-//                    alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//                    alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-//                        intent.putExtra("ID", noteId)
-//                        intent.putExtra("NOTE", true)
-//
-//                        PendingIntent.getBroadcast(context, 0, intent,
-//                            FLAG_CANCEL_CURRENT
-//                        )
-//                    }
-//                    GregorianCalendar().timeInMillis
-//                    if (note?.alarm == true) {
-//                        alarmManager?.set(
-//                            AlarmManager.RTC_WAKEUP,
-//                            System.currentTimeMillis() + 60,
-//                            alarmIntent
-//                        )
-//                    }
-//                }
-//                builder.setNegativeButton("Отмена") { _, _ ->
-//                    note?.alarm = false
-//                    note?.let { it1 -> MainRepository.update(it1) }
-//                    swich_note_alarm.isChecked = false
-//                }
-//                val dialog: AlertDialog = builder.create()
-//                dialog.show()
-//            } else {
-//                swich_note_alarm.isChecked
-//            }
-//        }
-
         star.setOnClickListener {
             updateStar()
         }
@@ -152,7 +98,6 @@ class NoteFragment : Fragment() {
 
             title_note_text_view.text = note?.name
             description_note_text_view.text = note?.description
-          //  if (note?.alarm == true) swich_note_alarm.isChecked = true
 
             if (note?.star == true) {
                 star.isSelected = true
@@ -168,7 +113,6 @@ class NoteFragment : Fragment() {
             }
             if (note?.addSchedule == true) {
                 timeSchedule.visibility = View.VISIBLE
-              //  alarmSchedule.visibility = View.VISIBLE
                 text_date.text = "${note?.dateSchedule?.let { Tools.dateToString(it) }}, "
                 text_time.text = "${note?.time?.let { Tools.timeToString(it) }}"
             }

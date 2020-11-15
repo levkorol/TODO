@@ -25,14 +25,13 @@
         <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
     </style>
 
+
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/color_primary_dark</item>
-
     </style>
-
     <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/color_primary_dark</item>
     </style>
 

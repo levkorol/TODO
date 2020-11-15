@@ -2,23 +2,20 @@ package com.levkorol.todo.ui.target.viewpagertargets
 
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Targets
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.target.TargetViewModel
 import com.levkorol.todo.ui.target.adapters.AdapterTargets
 import kotlinx.android.synthetic.main.fragment_my_habits.*
-import kotlinx.android.synthetic.main.fragment_my_targets.*
 
 
 class ArchiveFragment : Fragment() {
@@ -66,6 +63,7 @@ class ArchiveFragment : Fragment() {
                 it.inArchive
             }
             .sortedByDescending { it.startData }
+
         if (adapterTargets.dataItems.isEmpty()) {
             no_target_in_archive.visibility = View.VISIBLE
             pick1.visibility = View.VISIBLE

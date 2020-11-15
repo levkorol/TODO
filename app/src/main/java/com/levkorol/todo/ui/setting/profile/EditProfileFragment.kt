@@ -4,12 +4,12 @@ package com.levkorol.todo.ui.setting.profile
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -46,6 +46,10 @@ class EditProfileFragment : Fragment() {
         save.setOnClickListener {
             updateProfile()
         }
+        back_profile.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
     }
 
     private fun updateProfile() {

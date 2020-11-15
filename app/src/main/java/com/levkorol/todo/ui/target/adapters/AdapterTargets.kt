@@ -1,8 +1,8 @@
 package com.levkorol.todo.ui.target.adapters
 
 
+import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +16,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Targets
-import com.levkorol.todo.model.Targets.BackgroundTarget
 import com.levkorol.todo.model.Targets.BackgroundTarget.*
 import com.levkorol.todo.ui.MainActivity
+import com.levkorol.todo.ui.target.EditTargetFragment
 import com.levkorol.todo.utils.Tools
-import kotlinx.android.synthetic.main.fragment_note.view.*
+
 
 class AdapterTargets(val activity: MainActivity) :
     RecyclerView.Adapter<AdapterTargets.ViewHolderTargets>() {
@@ -69,10 +69,10 @@ class AdapterTargets(val activity: MainActivity) :
             result / 1000 /*количество секунд*/ / 60 /* количество минут */ / 60 /* количество часов */ / 24 /* количество дней */
         val hours = result / 1000 / 60 / 60
 
-
+        var resultHours: Long = hours % 24
         holder.name.text = targetItem.name
         holder.description.text = targetItem.description
-        holder.countDay.text = "Прошло дней: $days ,  часов: $hours "
+        holder.countDay.text = "Прошло дней: $days ,  часов: $resultHours "
         holder.swich_target.isChecked = targetItem.targetDone
 
         //targets = dataItems[position]
@@ -102,9 +102,13 @@ class AdapterTargets(val activity: MainActivity) :
                 targetItem.stopData = 0
                 MainRepository.updateTarget(targetItem)
             }
-            if(holder.swich_target.isChecked) {
+            if (holder.swich_target.isChecked) {
                 Toast.makeText(activity, "Цель выполнена", Toast.LENGTH_LONG).show()
             }
+        }
+
+        holder.editTarget.setOnClickListener {
+            (activity).loadFragment(EditTargetFragment.newInstance(targetItem.id))
         }
 
         holder.addArchive.setOnClickListener {
@@ -118,7 +122,7 @@ class AdapterTargets(val activity: MainActivity) :
             holder.swich_target.visibility = View.GONE
             holder.done_in_archiv.visibility = View.VISIBLE
             holder.countDay.visibility = View.GONE
-            holder.done_in_archiv.text = "Дней: ${days}, Часов: $hours "
+            holder.done_in_archiv.text = "Дней: ${days}, Часов: ${resultHours} "
         } else {
             holder.swich_target.visibility = View.VISIBLE
             holder.done_in_archiv.visibility = View.GONE
@@ -164,11 +168,13 @@ class AdapterTargets(val activity: MainActivity) :
         val name: TextView = itemView.findViewById(R.id.name_target)
         val description: TextView = itemView.findViewById(R.id.description_target)
         val countDay: TextView = itemView.findViewById(R.id.count_day)
+
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
         val swich_target: Switch = itemView.findViewById(R.id.swich_targets)
         val addArchive: TextView = itemView.findViewById(R.id.add_archive)
         val done_in_archiv: TextView = itemView.findViewById(R.id.target_done)
         val icon: ImageView = itemView.findViewById(R.id.icon)
-
+        val editTarget: ImageView = itemView.findViewById(R.id.edit_target)
         val dateCreate: TextView = itemView.findViewById(R.id.dateCreate)
     }
 }

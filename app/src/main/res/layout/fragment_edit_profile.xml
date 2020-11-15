@@ -4,7 +4,7 @@
     android:id="@+id/scrollsign"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_fon">
+   >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,20 +12,46 @@
         android:isScrollContainer="true"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="19dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:text="Редактирование"
-            android:shadowColor="#000000"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="5"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/back_profile"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_back" />
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1.9">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:text="Редактирование"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+        </LinearLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -36,8 +62,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:hint="Имя"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white">
+            android:textColorHint="@android:color/black"
+            app:boxStrokeColor="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
@@ -47,7 +73,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textPersonName"
                 android:textAlignment="viewStart"
-                android:textColor="@color/white" />
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -60,8 +86,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:hint="Е-маил"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white">
+            android:textColorHint="@android:color/black"
+            app:boxStrokeColor="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
@@ -69,9 +95,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_gravity="start"
+                android:textColor="@android:color/black"
                 android:inputType="textEmailAddress"
                 android:textAlignment="viewStart"
-                android:textColor="@color/white" />
+                android:textColorLink="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
 <!--        <TextView-->
@@ -161,7 +188,6 @@
             android:layout_marginTop="60dp"
             android:layout_marginRight="35dp"
             android:gravity="center"
-            android:background="@drawable/bg_folder_green"
             android:elevation="2dp"
             android:text="Сохранить"
             android:layout_marginBottom="16dp"

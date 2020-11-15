@@ -8,7 +8,7 @@ import com.levkorol.todo.R
 @Entity
 data class Targets(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
-    val name: String,
+    var name: String,
     var description: String,
     var date: Long,
     var targetDone: Boolean,

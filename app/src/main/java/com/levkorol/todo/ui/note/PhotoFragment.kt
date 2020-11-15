@@ -3,18 +3,12 @@ package com.levkorol.todo.ui.note
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-
+import androidx.fragment.app.Fragment
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Note
-import com.levkorol.todo.ui.notes.NotesViewModel
-import com.levkorol.todo.utils.convertByteArrayToBitmapView
-import com.levkorol.todo.utils.convertToByteArrayView
-import kotlinx.android.synthetic.main.fragment_note.*
 import kotlinx.android.synthetic.main.fragment_photo.*
 
 
@@ -30,7 +24,6 @@ class PhotoFragment : Fragment() {
             val fragment = PhotoFragment()
             val arguments = Bundle()
             arguments.apply {
-                //putLong(NOTE_ID, noteId)
                 putString(PHOTO, note.photo)
             }
             fragment.arguments = arguments

@@ -64,7 +64,7 @@
             android:gravity="top|start"
             android:hint="Название..."
             android:textColor="@android:color/background_dark"
-            android:inputType="textPostalAddress|textMultiLine"
+            android:inputType="textMultiLine"
             android:lines="15" />
 
     </FrameLayout>
@@ -149,7 +149,6 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/btn_background"
         android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

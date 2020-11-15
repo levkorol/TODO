@@ -12,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/bg_fon"
         android:orientation="vertical">
 
         <ImageView
@@ -25,12 +24,11 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textSize="16sp"
-           android:textColor="@android:color/white"
-           android:textStyle="bold"
+           android:shadowColor="@color/biu"
            android:layout_marginTop="8dp"
            android:layout_gravity="center"
            android:gravity="center"
-           android:shadowColor="#000000"
+           android:textColor="@android:color/black"
            android:shadowDx="2"
            android:shadowDy="2"
            android:shadowRadius="5"
@@ -44,8 +42,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="Е-маил"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white">
+            android:textColorHint="@android:color/black"
+            app:boxStrokeColor="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login"
@@ -55,7 +53,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textEmailAddress"
                 android:textAlignment="viewStart"
-                android:textColor="@color/white" />
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -65,8 +63,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="Пароль"
-            android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white">
+            android:textColorHint="@android:color/black"
+            app:boxStrokeColor="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -77,7 +75,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textPassword"
                 android:textAlignment="viewStart"
-                android:textColor="@color/white" />
+                android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -88,7 +86,6 @@
             android:layout_marginLeft="35dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="35dp"
-            android:background="@drawable/bg_folder_green"
             android:gravity="center"
             android:text="Войти"
             android:textAllCaps="false"
@@ -110,8 +107,8 @@
             android:shadowDy="2"
             android:shadowRadius="7"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
 
 

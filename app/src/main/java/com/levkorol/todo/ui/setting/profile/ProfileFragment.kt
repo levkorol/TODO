@@ -2,12 +2,13 @@ package com.levkorol.todo.ui.setting.profile
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -37,6 +38,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mDataBase = FirebaseDatabase.getInstance().reference
+
 
         exit.setOnClickListener {
             shoeAlertExit()
@@ -126,11 +128,22 @@ class ProfileFragment : Fragment() {
 
         mDataBase.child("users").child(auth.currentUser!!.uid)
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                if(hello != null) {
+                if (hello != null) {
                     user = it.getValue(User::class.java)!!
                     hello.text = "Привет, ${user.name} ! :) \n"
                 }
             })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) //картинка в статус бар
+    }
+
+    override fun onStop() {
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        super.onStop()
+
     }
 
     private fun shoeAlertExit() {

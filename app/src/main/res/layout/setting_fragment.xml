@@ -6,33 +6,43 @@
     tools:context=".ui.setting.SettingFragment"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:id="@+id/lion_pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Настройки"
-        android:textStyle="bold"
-        android:textSize="17sp"
-        android:textColor="@color/ultramarin"
-        android:layout_gravity="center"/>
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center" />
 
-<!--    <Switch-->
-<!--        android:id="@+id/off_notify"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Выключить все оповещения"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@android:color/background_dark"-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Настройки"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:textSize="17sp"-->
+    <!--        android:textColor="@android:color/black"-->
+    <!--        android:layout_gravity="center"/>-->
+
+    <!--    <Switch-->
+    <!--        android:id="@+id/off_notify"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Выключить все оповещения"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:textColor="@android:color/background_dark"-->
 <!--        android:layout_marginStart="16dp"/>-->
 
     <TextView
+
         android:id="@+id/sinhr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/background_dark"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
         android:textSize="16sp"
@@ -93,24 +103,24 @@
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
         android:linksClickable="true"
-        android:text="Почта: lev.dev.apps@gmail.com"
-        />
+        android:text="Почта: lev.dev.apps@gmail.com" />
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textColor="@android:color/background_dark"-->
+    <!--        android:layout_marginStart="44dp"-->
+    <!--        android:layout_marginTop="0dp"-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:autoLink="email"-->
+    <!--        android:background="?attr/selectableItemBackground"-->
+    <!--        android:padding="4dp"-->
+    <!--        android:linksClickable="true"-->
+    <!--        android:text="Телеграмм канал: @LevDev"-->
+    <!--        />-->
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="0dp"
-        android:textSize="16sp"
-        android:autoLink="email"
-        android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
-        android:linksClickable="true"
-        android:text="Телеграмм канал: @LevDev"
-        />
-
-    <TextView
+        android:id="@+id/btn_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/background_dark"
@@ -122,7 +132,7 @@
         android:padding="4dp"
         android:drawableStart="@drawable/ic_star_border_black_24dp"
         android:linksClickable="true"
-        android:text=" Поставьте нам оценку:\n https://play.google.com/store/apps/details?id=com.levkorol.todo"
+        android:text=" Поставьте нам оценку"
         />
 
 <!--    <ImageView-->

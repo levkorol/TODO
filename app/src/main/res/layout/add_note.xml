@@ -9,7 +9,6 @@
             type="com.levkorol.todo.ui.note.AddNoteFragment" />
     </data>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Название..."
+                android:textAllCaps="false"
                 android:imeOptions="actionDone" />
 
             <TextView
@@ -105,7 +105,8 @@
                     android:background="@null"
                     android:gravity="top|start"
                     android:imeOptions="actionDone"
-                    android:inputType="textPostalAddress|textMultiLine"
+                    android:inputType="textMultiLine"
+                    android:textAllCaps="false"
                     android:lines="22" />
 
 
@@ -236,7 +237,6 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/btn_background"
             android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
