@@ -78,7 +78,7 @@
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/background_dark"
                 android:textAllCaps="false"
-                android:lines="20" />
+                />
 
         </ScrollView>
 

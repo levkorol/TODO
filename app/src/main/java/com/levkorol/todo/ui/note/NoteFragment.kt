@@ -108,6 +108,7 @@ class NoteFragment : Fragment() {
             }
             if (note?.addPhoto == true) {
                 photoUri = Uri.parse(note!!.photo)
+                //activity?.contentResolver?.takePersistableUriPermission(photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 imageViewNotePhoto.setImageURI(photoUri)
                 cardView.visibility = View.VISIBLE
             }

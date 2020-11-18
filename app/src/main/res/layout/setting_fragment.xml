@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,26 +15,6 @@
         android:src="@mipmap/ic_launcher"
         android:layout_gravity="center" />
 
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Настройки"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:textSize="17sp"-->
-    <!--        android:textColor="@android:color/black"-->
-    <!--        android:layout_gravity="center"/>-->
-
-    <!--    <Switch-->
-    <!--        android:id="@+id/off_notify"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Выключить все оповещения"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:textSize="16sp"-->
-    <!--        android:textColor="@android:color/background_dark"-->
-<!--        android:layout_marginStart="16dp"/>-->
 
     <TextView
 
@@ -46,35 +27,22 @@
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
         android:textSize="16sp"
-        android:drawableStart="@drawable/ic_tag_faces"
-        android:text=" Личный кабинет"/>
+        android:text=" Личный кабинет"
+        app:drawableStartCompat="@drawable/ic_tag_faces" />
 
-    <Switch
+    <TextView
         android:id="@+id/pin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
-        android:drawableStart="@drawable/ic_lock_open"
         android:text=" Пароль на вход в приложение"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
-        android:layout_marginStart="16dp"/>
-
-<!--    <Switch-->
-<!--        android:id="@+id/sw_schedule_up"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Переносить невыполненные задачи на следующий день"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:textColor="@android:color/background_dark"-->
-<!--        android:textSize="16sp"-->
-<!--        android:layout_marginStart="16dp"/>-->
-
-
+        android:layout_marginStart="16dp"
+        app:drawableStartCompat="@drawable/ic_lock_open" />
 
 
     <TextView
@@ -105,19 +73,6 @@
         android:linksClickable="true"
         android:text="Почта: lev.dev.apps@gmail.com" />
 
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:textColor="@android:color/background_dark"-->
-    <!--        android:layout_marginStart="44dp"-->
-    <!--        android:layout_marginTop="0dp"-->
-    <!--        android:textSize="16sp"-->
-    <!--        android:autoLink="email"-->
-    <!--        android:background="?attr/selectableItemBackground"-->
-    <!--        android:padding="4dp"-->
-    <!--        android:linksClickable="true"-->
-    <!--        android:text="Телеграмм канал: @LevDev"-->
-    <!--        />-->
 
     <TextView
         android:id="@+id/btn_web"
@@ -135,19 +90,6 @@
         android:text=" Поставьте нам оценку"
         />
 
-<!--    <ImageView-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:layout_marginTop="70dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:src="@drawable/lev33"/>-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="600dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@drawable/lev11" />-->
 
 
 </LinearLayout>

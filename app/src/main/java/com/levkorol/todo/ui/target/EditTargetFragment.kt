@@ -1,13 +1,15 @@
 package com.levkorol.todo.ui.target
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Targets
@@ -15,7 +17,7 @@ import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_edit_target.*
 
 
-class EditTargetFragment : Fragment() {
+class EditTargetFragment : androidx.fragment.app.Fragment() {
     private var targetId: Long = -1
     private lateinit var viewModel: TargetViewModel
     private var targets: Targets? = null
@@ -49,6 +51,22 @@ class EditTargetFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        edit_delete_target.setOnClickListener {
+
+            val builder = activity?.let { it1 -> MaterialAlertDialogBuilder(it1) }
+            builder?.setMessage("Удалить: ${targets?.name} ?")
+            builder?.setPositiveButton("Да") { _, _ ->
+                targets?.id?.let { it1 -> MainRepository.deleteTarget(it1) }
+                parentFragmentManager.popBackStack()
+            }
+            builder?.setNegativeButton("Отмена") { _, _ ->
+            }
+            val dialog: AlertDialog = builder?.create()!!
+            dialog.show()
+            true
+
+        }
+
     }
 
     private fun saveEditTarget() {
@@ -64,6 +82,7 @@ class EditTargetFragment : Fragment() {
         if (edit_blu_btn.isChecked) targets!!.background = Targets.BackgroundTarget.LIGHT_BLU
         if (edit_pink_btn.isChecked) targets!!.background = Targets.BackgroundTarget.PINK_LIGHT
 
+        if (edit_ic_0.isChecked) targets!!.image = 0
         if (edit_ic_1.isChecked) targets!!.image = 1
         if (edit_ic_2.isChecked) targets!!.image = 2
         if (edit_ic_3.isChecked) targets!!.image = 3

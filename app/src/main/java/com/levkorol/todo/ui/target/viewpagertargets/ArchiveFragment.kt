@@ -10,15 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.levkorol.todo.DraggableListDelegate
 import com.levkorol.todo.R
 import com.levkorol.todo.model.Targets
 import com.levkorol.todo.ui.MainActivity
 import com.levkorol.todo.ui.target.TargetViewModel
 import com.levkorol.todo.ui.target.adapters.AdapterTargets
+import com.levkorol.todo.ui.target.viewpagertargets.MyTargetsFragment.Companion.itemTouchHelper
 import kotlinx.android.synthetic.main.fragment_my_habits.*
 
 
-class ArchiveFragment : Fragment() {
+class ArchiveFragment : Fragment(), DraggableListDelegate {
     private lateinit var viewModel: TargetViewModel
     private var targets: List<Targets>? = null
     private lateinit var adapterTargets: AdapterTargets
@@ -28,8 +30,11 @@ class ArchiveFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_habits, container, false)
+    }
+
+    override fun startDragging(viewHolder: RecyclerView.ViewHolder) {
+        itemTouchHelper.startDrag(viewHolder)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +42,7 @@ class ArchiveFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_archive)
         val llm = LinearLayoutManager(view.context)
         llm.orientation = LinearLayoutManager.VERTICAL
-        adapterTargets = AdapterTargets(activity as MainActivity)
+        adapterTargets = AdapterTargets(activity as MainActivity, this)
         recyclerView.layoutManager = llm
         recyclerView.adapter = adapterTargets
     }
@@ -63,6 +68,7 @@ class ArchiveFragment : Fragment() {
                 it.inArchive
             }
             .sortedByDescending { it.startData }
+            .toMutableList()
 
         if (adapterTargets.dataItems.isEmpty()) {
             no_target_in_archive.visibility = View.VISIBLE

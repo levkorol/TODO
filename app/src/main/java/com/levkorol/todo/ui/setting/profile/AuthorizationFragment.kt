@@ -1,11 +1,12 @@
 package com.levkorol.todo.ui.setting.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.todo.R
 import com.levkorol.todo.ui.MainActivity
@@ -41,12 +42,23 @@ class AuthorizationFragment : Fragment() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     (activity as MainActivity).loadFragment(ProfileFragment())
-                   //  parentFragmentManager.popBackStack() //todo ne rab
+                    //  parentFragmentManager.popBackStack() //todo ne rab
                 }
             }
         } else {
             Toast.makeText(activity, "Введите Е-маил и пароль", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) //картинка в статус бар
+    }
+
+    override fun onStop() {
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        super.onStop()
+
     }
 
     private fun validate(email: String, password: String) =

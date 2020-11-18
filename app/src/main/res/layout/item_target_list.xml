@@ -24,10 +24,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <com.levkorol.todo.views.RoundRectCornerImageView
                     android:id="@+id/icon"
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitXY"
                     android:visibility="gone" />
 
                 <Switch

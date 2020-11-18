@@ -39,7 +39,6 @@ class TargetFragment : Fragment() {
         viewPagerTarget.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 pagePosition = position
-                //   update()
             }
         })
 

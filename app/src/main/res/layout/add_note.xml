@@ -107,7 +107,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
                     android:textAllCaps="false"
-                    android:lines="22" />
+                    />
 
 
             </ScrollView>

@@ -2,19 +2,16 @@ package com.levkorol.todo.ui.folder
 
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Folder.Background.PURPLE
-import kotlinx.android.synthetic.main.add_note.*
 import kotlinx.android.synthetic.main.fragment_add_folder.*
-import kotlinx.android.synthetic.main.fragment_add_folder.back_profile
 
 class AddFolderFragment : Fragment() {
     //  private lateinit var viewModel: FolderViewModel
@@ -102,7 +99,6 @@ class AddFolderFragment : Fragment() {
                 date = System.currentTimeMillis()
             )
         )
-        Log.d("back","$background")
     }
 
     private fun validations(): Boolean {

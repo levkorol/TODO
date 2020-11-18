@@ -20,7 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="0.3">
 
                 <ImageView
                     android:id="@+id/edit_back_click"
@@ -38,17 +38,28 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2.">
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:text="Редактирование цели"
+                    android:text="Редактирование"
                     android:textColor="@android:color/background_dark"
                     android:textSize="16sp" />
 
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/edit_delete_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/ic_clear"
+                android:gravity="center"
+                android:text="Удалить цель"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -97,7 +108,6 @@
                 android:gravity="top|start"
                 android:hint="Описание..."
                 android:inputType="textMultiLine"
-                android:lines="15"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_dark" />
 
@@ -430,6 +440,7 @@
 
                     </RadioGroup>
                 </HorizontalScrollView>
+
 
             </LinearLayout>
 

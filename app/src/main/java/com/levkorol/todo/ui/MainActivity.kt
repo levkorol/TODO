@@ -1,6 +1,5 @@
 package com.levkorol.todo.ui
 
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -64,7 +63,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+//        val permissions = arrayListOf(Manifest.permission.ACCESS_FINE_LOCATION,
+//        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//        Manifest.permission.MANAGE_DOCUMENTS)
+//        for( permission in permissions){
+//            if (ContextCompat.checkSelfPermission(this, permission)
+//                != PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                        permission)) {
+//                } else {
+//                    ActivityCompat.requestPermissions(this,
+//                        permissions, 0);
+//                }
+//            }
+//        }
     }
+
+//    fun weHavePermissionToReadContacts(): Boolean {
+//        return ContextCompat.checkSelfPermission(
+//            this,
+//            Manifest.permission.READ_CALENDAR
+//        ) == PackageManager.PERMISSION_GRANTED
+//    }
+
 
     fun loadFragment(fragment: Fragment) {
         supportFragmentManager

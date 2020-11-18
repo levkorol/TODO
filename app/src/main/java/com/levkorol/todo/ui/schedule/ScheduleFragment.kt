@@ -22,22 +22,8 @@ import kotlinx.android.synthetic.main.schedule_fragment.*
 class ScheduleFragment : Fragment() {
     private var parentFolderId: Long = -1
     private lateinit var viewModel: ScheduleViewModel
-    //  private lateinit var adapterToday: ScheduleAdapterToday
-    private var id: Long = -1
     private var date: Long = 1
 
-//    companion object {
-//        private const val SCHEDULE_ID = "SCHEDULE_ID"
-//        fun newInstance(id: Long): ScheduleFragment {
-//            val fragment = ScheduleFragment()
-//            val arguments = Bundle()
-//            arguments.apply {
-//                putLong(SCHEDULE_ID, id)
-//            }
-//            fragment.arguments = arguments
-//            return fragment
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,17 +34,6 @@ class ScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        if (arguments != null) {
-//            id = arguments?.getLong(SCHEDULE_ID, id)!!
-//        }
-//
-//        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_sch)
-//        val llm = LinearLayoutManager(view.context)
-//        llm.orientation = LinearLayoutManager.VERTICAL
-//        adapterToday = ScheduleAdapterToday(activity as MainActivity)
-//        recyclerView.layoutManager = llm
-//        recyclerView.adapter = adapterToday
 
         initViews()
 
@@ -97,28 +72,11 @@ class ScheduleFragment : Fragment() {
         })
     }
 
-//    private fun updateSchedules() {
-//        if (schedules == null) return
-//        adapterToday.dataItems = schedules!!.filter { schedule ->
-//            when (pagePosition) {
-//                0 -> isToday(schedule.date)
-//              //  1 -> isSameWeek(schedule.date)
-//                1 -> isMounth(schedule.date)
-//                else -> true
-//            }
-//        }
-//        adapterToday.notifyDataSetChanged()
-//    }
-
     private fun initViews() {
         add_new_schedule.setOnClickListener {
              (activity as MainActivity).loadFragment(AddScheduleFragment())
-          //  showAlterDialogAdding()
         }
 
-//        list_all_schedule.setOnClickListener {
-//            (activity as MainActivity).loadFragment(AllScheduleListFragment())
-//        }
     }
 
     private fun showAlterDialogAdding() {

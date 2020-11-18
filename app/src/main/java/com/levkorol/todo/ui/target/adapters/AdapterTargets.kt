@@ -4,15 +4,15 @@ package com.levkorol.todo.ui.target.adapters
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.levkorol.todo.DraggableListDelegate
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Targets
@@ -22,10 +22,10 @@ import com.levkorol.todo.ui.target.EditTargetFragment
 import com.levkorol.todo.utils.Tools
 
 
-class AdapterTargets(val activity: MainActivity) :
+class AdapterTargets(val activity: MainActivity, val draggableListDelegate: DraggableListDelegate) :
     RecyclerView.Adapter<AdapterTargets.ViewHolderTargets>() {
 
-    var dataItems: List<Targets> = listOf()
+    var dataItems: MutableList<Targets> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -69,25 +69,25 @@ class AdapterTargets(val activity: MainActivity) :
             result / 1000 /*количество секунд*/ / 60 /* количество минут */ / 60 /* количество часов */ / 24 /* количество дней */
         val hours = result / 1000 / 60 / 60
 
-        var resultHours: Long = hours % 24
+        val resultHours: Long = hours % 24
         holder.name.text = targetItem.name
         holder.description.text = targetItem.description
         holder.countDay.text = "Прошло дней: $days ,  часов: $resultHours "
         holder.swich_target.isChecked = targetItem.targetDone
 
         //targets = dataItems[position]
-        holder.itemView.setOnLongClickListener {
-            val builder = MaterialAlertDialogBuilder(activity)
-            builder.setMessage("Удалить: ${holder.name.text} ?")
-            builder.setPositiveButton("Да") { _, _ ->
-                MainRepository.deleteTarget(targetItem.id)
-            }
-            builder.setNegativeButton("Отмена") { _, _ ->
-            }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
-            true
-        }
+//        holder.itemView.setOnLongClickListener {
+//            val builder = MaterialAlertDialogBuilder(activity)
+//            builder.setMessage("Удалить: ${holder.name.text} ?")
+//            builder.setPositiveButton("Да") { _, _ ->
+//                MainRepository.deleteTarget(targetItem.id)
+//            }
+//            builder.setNegativeButton("Отмена") { _, _ ->
+//            }
+//            val dialog: AlertDialog = builder.create()
+//            dialog.show()
+//            true
+//        }
 
 
         holder.swich_target.setOnClickListener {
@@ -153,13 +153,32 @@ class AdapterTargets(val activity: MainActivity) :
         if (targetItem.image == 16) holder.icon.setImageResource(R.drawable.ic_audiotrack_black_24dp)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderTargets {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(
+        val itemView = layoutInflater.inflate(
             R.layout.item_target_list,
             parent, false
         )
-        return ViewHolderTargets(view)
+        val viewHolder = ViewHolderTargets(itemView)
+
+        viewHolder.itemView.setOnTouchListener { view, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                draggableListDelegate.startDragging(viewHolder)
+            }
+            return@setOnTouchListener true
+        }
+        return viewHolder
+    }
+
+    fun moveItem(from: Int, to: Int) {
+        val fromEmoji = dataItems[from]
+        dataItems.removeAt(from)
+        if (to < from) {
+            dataItems.add(to, fromEmoji)
+        } else {
+            dataItems.add(to - 1, fromEmoji)
+        }
     }
 
     override fun getItemCount(): Int = dataItems.size

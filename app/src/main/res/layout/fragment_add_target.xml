@@ -97,11 +97,9 @@
                 android:hint="Описание..."
                 android:inputType="textMultiLine"
                 android:textAllCaps="false"
-                android:lines="15"
                 android:textColor="@android:color/background_dark" />
 
         </FrameLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -261,10 +259,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                        />
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.levkorol.todo.views.RoundRectCornerImageView
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
+                        android:scaleType="fitXY"
                         android:src="@drawable/pick_lenivec" />
 
                     <RadioButton

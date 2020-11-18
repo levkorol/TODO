@@ -32,8 +32,6 @@ class SettingFragment : Fragment() {
         fun newInstance() = SettingFragment()
     }
 
-    // private lateinit var viewModel: SettingViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,10 +60,9 @@ class SettingFragment : Fragment() {
 
 
         pin.setOnClickListener {
-            pin.isChecked = false
             Toast.makeText(
                 activity,
-                "Установка пароля будет доступна в следующей версии",
+                "Установка пароля будет доступна совсем скоро :)",
                 Toast.LENGTH_LONG
             ).show()
         }

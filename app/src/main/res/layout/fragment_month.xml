@@ -24,37 +24,4 @@
             app:eventsEnabled="true"
             android:layout_height="match_parent" />
 
-<!--        <CalendarView-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:id="@+id/calendarView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:focusedMonthDateColor="@color/ultramarin"-->
-<!--            android:selectedWeekBackgroundColor="@color/ultramarin"-->
-<!--            android:weekNumberColor="@color/electricpurpur"-->
-<!--            android:weekSeparatorLineColor="@color/strongpink" />-->
-
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@drawable/line" />-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/recycler_view_mounth"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:listitem="@layout/item_list_schedule" />-->
-
-
-<!--         <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/fab"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom|end"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:background="@color/color_accent"-->
-<!--            android:contentDescription="date"-->
-<!--            android:src="@drawable/ic_add_black_24dp"/>-->
-
-
 </LinearLayout>
