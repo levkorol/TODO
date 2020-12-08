@@ -6,22 +6,55 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_note">Название</string>
+
+    <!--    add_note_fragment-->
     <string name="add_note">Создание заметки</string>
-    <string name="titile_note">Название</string>
-    <string name="discription_note">Описание</string>
-    <string name="save">Сохранить</string>
+    <string name="add_note_description_note">Описание</string>
+    <string name="add_note_delete_photo">Удалить фото</string>
+    <string name="add_note_delete_date">Убрать дату/вр.</string>
+    <string name="add_note_add_date">Доб. дату/время</string>
+    <string name="add_note_hint_name_note">Название...</string>
+    <string name="add_note_add_photo">Добавить фото</string>
+    <string name="add_note_importantly">Важность</string>
+    <string name="add_note_save">Сохранить</string>
+    <!--    add_note_fragment-->
+
+    <!--    authorization-->
+    <string name="authorization_text_about_save">Сохраняйте свои записи в личном кабинете</string>
+    <string name="authorization_email">Е-маил</string>
+    <string name="authorization_password">Пароль</string>
+    <string name="authorization_entry">Войти</string>
+    <string name="authorization_no_acc_authorization">Нет аккаунта? Зарегистрируйтесь</string>
+    <!--    authorization-->
+
+    <!--    dialog_password-->
+    <string name="dialog_password">Пароль</string>
+    <!--    dialog_password-->
+
+    <!--    edit_note_fragment-->
+    <string name="edit_note_edit">Редактирование</string>
+    <string name="edit_note_save_edit">Сохранить изменения</string>
+    <string name="edit_note_name">Название...</string>
+    <string name="edit_note_description">Описание</string>
+    <string name="edit_note_delete_photo">Удалить фото</string>
+    <string name="edit_note_add_photo">Добавить фото</string>
+    <string name="edit_note_importantly">Важность</string>
+    <string name="edit_note_delete_date">Убрать дату/вр.</string>
+    <string name="edit_note_add_date">Доб. дату/время</string>
+    <!--    edit_note_fragment-->
+
     <string name="opov">Оповещение</string>
     <string name="vipolnot">Выполнить до: </string>
-    <string name="save_edit">Сохранить изменения</string>
-    <string name="edit">Редактирование</string>
-    <string name="add_photo">Добавить фото</string>
+
+
     <string name="star1">Важность</string>
     <string name="add_schedul">Добавить дату</string>
     <string name="edit_note">Редактировать</string>
-    <string name="star">Важность</string>
+
     <string name="delete_note">Удалить</string>
     <string name="share">Поделиться</string>
-    <string name="date_picker_title">Выберете дату</string>
+    <string name="date_picker_title">Выберите дату</string>
     <string name="one">one</string>
     <string name="two">two</string>
     <string name="three">three</string>
@@ -53,6 +86,7 @@
     <string name="material_calendar_today_button">Сегодня</string>
     <string name="material_calendar_positive_button">Хорошо</string>
     <string name="material_calendar_negative_button">Отмена</string>
+
 
     <plurals name="seconds">
         <item quantity="one">секунда</item>

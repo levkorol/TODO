@@ -3,6 +3,10 @@ package com.levkorol.todo.data.note
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.levkorol.todo.data.note.dao.FolderDao
+import com.levkorol.todo.data.note.dao.NoteDao
+import com.levkorol.todo.data.note.dao.ScheduleDao
+import com.levkorol.todo.data.note.dao.TargetDao
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule

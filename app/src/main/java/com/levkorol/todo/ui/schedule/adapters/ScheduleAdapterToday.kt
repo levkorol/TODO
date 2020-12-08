@@ -1,20 +1,17 @@
 package com.levkorol.todo.ui.schedule.adapters
 
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.levkorol.todo.R
-import com.levkorol.todo.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.levkorol.todo.MainActivity
+import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.utils.Tools
-import kotlinx.android.synthetic.main.edit_note_fragment.*
 
 class ScheduleAdapterToday(
     val activity: MainActivity

@@ -1,14 +1,14 @@
 package com.levkorol.todo.ui.setting.on_boarding
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
-import com.levkorol.todo.ui.MainActivity
 import kotlinx.android.synthetic.main.activity.*
 
 class HelperActivity : AppCompatActivity() {

@@ -32,7 +32,7 @@
            android:shadowDx="2"
            android:shadowDy="2"
            android:shadowRadius="5"
-           android:text="Сохраняйте свои записи в личном кабинете"/>
+           android:text="@string/authorization_text_about_save" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:hint="Е-маил"
+            android:hint="@string/authorization_email"
             android:textColorHint="@android:color/black"
             app:boxStrokeColor="@android:color/black">
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:hint="Пароль"
+            android:hint="@string/authorization_password"
             android:textColorHint="@android:color/black"
             app:boxStrokeColor="@android:color/black">
 
@@ -87,7 +87,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="35dp"
             android:gravity="center"
-            android:text="Войти"
+            android:text="@string/authorization_entry"
             android:textAllCaps="false"
             android:textColor="#F5E9E9"
             />
@@ -101,7 +101,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="30dp"
             android:gravity="center"
-            android:text="Нет аккаунта? Зарегистрируйтесь"
+            android:text="@string/authorization_no_acc_authorization"
             android:shadowColor="@color/colorPrimaryDark"
             android:shadowDx="2"
             android:shadowDy="2"

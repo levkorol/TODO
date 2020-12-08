@@ -38,4 +38,6 @@
 
     <color name="pink_light">#FCCFEA</color>
 
+    <color name="fragment_background">#FFF</color>
+
 </resources>

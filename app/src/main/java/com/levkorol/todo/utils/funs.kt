@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
 import java.text.SimpleDateFormat
@@ -25,22 +26,24 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 
 //из активити в фрагмент
 fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = true) {
-    if (addStack) {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.fragmentContainer, fragment).commit()
-    } else {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment).commit()
-    }
-
+    supportFragmentManager.beginTransaction()
+        .also { transition ->
+            if (addStack) {
+                transition.addToBackStack(null)
+            }
+        }
+        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        .replace(R.id.fragmentContainer, fragment)
+        .commit()
 }
 
 //во фрагментах
 fun Fragment.replaceFragment(fragment: Fragment) {
-    this.fragmentManager?.beginTransaction()
+    activity?.supportFragmentManager?.beginTransaction()
+        ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         ?.addToBackStack(null)
-        ?.replace(R.id.fragmentContainer, fragment)?.commit()
+        ?.replace(R.id.fragmentContainer, fragment)
+        ?.commit()
 }
 
 
@@ -60,7 +63,7 @@ fun String.asTime(): String {
 fun openDatePicker(fragment: FragmentManager, data: (dateStr: String) -> Unit) {
     val builder = MaterialDatePicker.Builder.datePicker()
     val picker: MaterialDatePicker<Long> = builder.build()
-    var dateString = "1" //todo 3 окрасить выбранные даты в пикере
+    var dateString = "1"
     picker.addOnPositiveButtonClickListener { unixDate ->
         dateString = dateToString(unixDate)
         data(dateString)

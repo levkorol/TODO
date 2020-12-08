@@ -44,6 +44,34 @@
         android:layout_marginStart="16dp"
         app:drawableStartCompat="@drawable/ic_lock_open" />
 
+    <TextView
+        android:id="@+id/theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:text=" Тема"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_theme" />
+
+    <TextView
+        android:id="@+id/vidget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:text=" Виджет расписания"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_vidget" />
+
 
     <TextView
         android:layout_width="match_parent"

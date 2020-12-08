@@ -12,13 +12,13 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.levkorol.todo.DraggableListDelegate
+import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
+import com.levkorol.todo.base.DraggableListDelegate
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Targets
 import com.levkorol.todo.model.Targets.BackgroundTarget.*
-import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.target.EditTargetFragment
+import com.levkorol.todo.ui.target.fragments.EditTargetFragment
 import com.levkorol.todo.utils.Tools
 
 
@@ -41,6 +41,7 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
             holder.addArchive.setTextColor(Color.WHITE)
             holder.done_in_archiv.setTextColor(Color.CYAN)
             holder.swich_target.setTextColor(Color.WHITE)
+            holder.dateCreate.setTextColor(Color.WHITE)
         } else {
             holder.name.setTextColor(Color.BLACK)
             holder.description.setTextColor(Color.BLACK)
@@ -48,6 +49,7 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
             holder.addArchive.setTextColor(Color.BLUE)
             holder.done_in_archiv.setTextColor(Color.BLACK)
             holder.swich_target.setTextColor(Color.BLACK)
+            holder.dateCreate.setTextColor(Color.GRAY)
         }
 
         holder.dateCreate.text = "Дата создания: ${Tools.dateToString(targetItem.startData)}"
@@ -74,20 +76,6 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
         holder.description.text = targetItem.description
         holder.countDay.text = "Прошло дней: $days ,  часов: $resultHours "
         holder.swich_target.isChecked = targetItem.targetDone
-
-        //targets = dataItems[position]
-//        holder.itemView.setOnLongClickListener {
-//            val builder = MaterialAlertDialogBuilder(activity)
-//            builder.setMessage("Удалить: ${holder.name.text} ?")
-//            builder.setPositiveButton("Да") { _, _ ->
-//                MainRepository.deleteTarget(targetItem.id)
-//            }
-//            builder.setNegativeButton("Отмена") { _, _ ->
-//            }
-//            val dialog: AlertDialog = builder.create()
-//            dialog.show()
-//            true
-//        }
 
 
         holder.swich_target.setOnClickListener {
@@ -123,9 +111,11 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
             holder.done_in_archiv.visibility = View.VISIBLE
             holder.countDay.visibility = View.GONE
             holder.done_in_archiv.text = "Дней: ${days}, Часов: ${resultHours} "
+            holder.touchDrag.visibility = View.GONE
         } else {
             holder.swich_target.visibility = View.VISIBLE
             holder.done_in_archiv.visibility = View.GONE
+            holder.touchDrag.visibility = View.VISIBLE
         }
 
         if (targetItem.image > 0) {
@@ -135,7 +125,7 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
         }
         holder.itemView.setBackgroundResource(targetItem.background.res)
 
-        if (targetItem.image == 1) holder.icon.setImageResource(R.drawable.lev_del_net)
+        if (targetItem.image == 1) holder.icon.setImageResource(R.drawable.pick_leo)
         if (targetItem.image == 2) holder.icon.setImageResource(R.drawable.ic_up)
         if (targetItem.image == 3) holder.icon.setImageResource(R.drawable.ic_repit)
         if (targetItem.image == 4) holder.icon.setImageResource(R.drawable.ic_idea)
@@ -144,8 +134,8 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
         if (targetItem.image == 7) holder.icon.setImageResource(R.drawable.ic_clear)
         if (targetItem.image == 8) holder.icon.setImageResource(R.drawable.ic_access_time)
         if (targetItem.image == 9) holder.icon.setImageResource(R.drawable.ic_as)
-        if (targetItem.image == 10) holder.icon.setImageResource(R.drawable.pick_lenivec)
-        if (targetItem.image == 11) holder.icon.setImageResource(R.drawable.lion_pick_three)
+        if (targetItem.image == 10) holder.icon.setImageResource(R.drawable.ic_cake)
+        if (targetItem.image == 11) holder.icon.setImageResource(R.drawable.pick_leo_office)
         if (targetItem.image == 12) holder.icon.setImageResource(R.drawable.ic_hot)
         if (targetItem.image == 13) holder.icon.setImageResource(R.drawable.ic_air)
         if (targetItem.image == 14) holder.icon.setImageResource(R.drawable.ic_eat)
@@ -162,14 +152,17 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
         )
         val viewHolder = ViewHolderTargets(itemView)
 
-        viewHolder.itemView.setOnTouchListener { view, event ->
+
+        viewHolder.touchDrag.setOnTouchListener { view, event ->
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 draggableListDelegate.startDragging(viewHolder)
             }
             return@setOnTouchListener true
         }
+
         return viewHolder
     }
+
 
     fun moveItem(from: Int, to: Int) {
         val fromEmoji = dataItems[from]
@@ -195,5 +188,6 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
         val icon: ImageView = itemView.findViewById(R.id.icon)
         val editTarget: ImageView = itemView.findViewById(R.id.edit_target)
         val dateCreate: TextView = itemView.findViewById(R.id.dateCreate)
+        val touchDrag: ImageView = itemView.findViewById(R.id.drag_target)
     }
 }

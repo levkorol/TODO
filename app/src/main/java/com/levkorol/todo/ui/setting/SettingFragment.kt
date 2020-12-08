@@ -8,19 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
+import com.levkorol.todo.base.BaseFragment
 import com.levkorol.todo.model.Schedule
-import com.levkorol.todo.ui.MainActivity
-import com.levkorol.todo.ui.schedule.ScheduleViewModel
-import com.levkorol.todo.ui.setting.profile.AuthorizationFragment
-import com.levkorol.todo.ui.setting.profile.ProfileFragment
+import com.levkorol.todo.ui.schedule.viewmodel.ScheduleViewModel
+import com.levkorol.todo.ui.setting.pincode.AddPinFragment
+import com.levkorol.todo.ui.setting.profile.fragments.AuthorizationFragment
+import com.levkorol.todo.ui.setting.profile.fragments.ProfileFragment
+import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.setting_fragment.*
 
-class SettingFragment : Fragment() {
+class SettingFragment : BaseFragment() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private var schedules: List<Schedule>? = null
     private var todayFlag = false
@@ -44,9 +46,9 @@ class SettingFragment : Fragment() {
 
         sinhr.setOnClickListener {
             if (auth.currentUser == null) {
-                (activity as MainActivity).loadFragment(AuthorizationFragment())
+                replaceFragment(AuthorizationFragment())
             } else {
-                (activity as MainActivity).loadFragment(ProfileFragment())
+                replaceFragment(ProfileFragment())
             }
         }
 
@@ -60,11 +62,12 @@ class SettingFragment : Fragment() {
 
 
         pin.setOnClickListener {
-            Toast.makeText(
-                activity,
-                "Установка пароля будет доступна совсем скоро :)",
-                Toast.LENGTH_LONG
-            ).show()
+//            Toast.makeText(
+//                activity,
+//                "Установка пароля будет доступна совсем скоро :)",
+//                Toast.LENGTH_LONG
+//            ).show()
+            replaceFragment(AddPinFragment())
         }
 
         lion_pick.setOnClickListener {

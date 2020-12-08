@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSelect"
     android:orientation="vertical"
-    tools:context=".ui.setting.pincode.PinCodeFragment">
+    tools:context=".ui.setting.pincode.PinCodeActivity">
 
 
     <TextView
@@ -14,15 +13,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="62dp"
         android:text="Установить пин код:"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        />
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:inputType="textPassword"
         android:textSize="30sp"
         tools:text="1234"
@@ -32,7 +30,7 @@
         android:layout_width="135dp"
         android:layout_height="1dp"
         android:layout_gravity="center"
-        android:background="@android:color/white"/>
+        android:textColor="@android:color/black" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,36 +38,35 @@
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
         android:text="Введите повторно:"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        />
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:inputType="textPassword"
         android:textSize="30sp"
         tools:text="1234"
-        android:maxLines="1"/>
+        android:maxLines="1" />
 
     <View
         android:layout_width="135dp"
         android:layout_height="1dp"
         android:layout_gravity="center"
-        android:background="@android:color/white"/>
+        android:textColor="@android:color/black" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="150dp"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:text="Сохранить"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:background="@drawable/bg_folder_gray"
-        android:textSize="17sp"
-        android:text="Сохранить "
-        android:textAllCaps="false" />
+        android:textStyle="bold" />
 
 
 </LinearLayout>

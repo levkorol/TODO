@@ -69,7 +69,7 @@
                 android:id="@+id/delete_folder"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-             android:layout_gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_delete" />
         </FrameLayout>
@@ -87,8 +87,8 @@
         android:background="@android:color/white"
         android:enabled="false"
         android:focusable="false"
-        android:gravity="center"
         android:focusableInTouchMode="false"
+        android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         tools:text="Сделать" />

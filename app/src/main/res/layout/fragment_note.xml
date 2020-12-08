@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ui.note.NoteFragment">
+        tools:context=".ui.note.fragments.NoteFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/star"
+                    android:text="@string/add_note_importantly"
                     android:textColor="@color/ultramarin"
                     android:textSize="12sp" />
 

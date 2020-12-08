@@ -11,9 +11,9 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
-import com.levkorol.todo.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

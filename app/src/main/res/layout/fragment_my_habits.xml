@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.target.viewpagertargets.ArchiveFragment">
+    tools:context=".ui.target.fragments.ArchiveFragment">
 
     <ImageView
         android:id="@+id/pick1"
@@ -12,7 +12,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
-        android:src="@drawable/lev11"/>
+        android:src="@drawable/lev11" />
 
     <TextView
         android:id="@+id/no_target_in_archive"

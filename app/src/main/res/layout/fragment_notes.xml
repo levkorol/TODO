@@ -124,4 +124,127 @@
         tools:listitem="@layout/list_item_folder" />
 
 
-</LinearLayout>
+</LinearLayout><!--<layout>-->
+
+    <!--    <data>-->
+
+    <!--        <import type="android.view.View" />-->
+
+    <!--        <variable-->
+    <!--            name="vm"-->
+    <!--            type="com.levkorol.todo.ui.note.viewmodel.NotesViewModel" />-->
+    <!--    </data>-->
+
+    <!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--        xmlns:tools="http://schemas.android.com/tools"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal">-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/add_notes_or_folder"-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="33dp"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:src="@drawable/ic_add"-->
+    <!--                android:background="?attr/selectableItemBackground"-->
+    <!--                />-->
+
+    <!--            <SearchView-->
+    <!--                android:id="@+id/searchView"-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="37dp"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:background="@drawable/background_search"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                android:layout_weight="4" />-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/filter_btn"-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="32dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:layout_margin="10dp"-->
+    <!--                android:layout_marginTop="8dp"-->
+    <!--                android:background="?selectableItemBackgroundBorderless"-->
+    <!--                android:onClick="@{() -> vm.onFilterClicked()}"-->
+    <!--                android:src="@drawable/ic_filter" />-->
+
+    <!--        </LinearLayout>-->
+
+
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/dont_have_notes"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:visibility="@{vm.isDontHaveNotesVisible ? View.VISIBLE : View.GONE}"-->
+    <!--            tools:visibility="visible">-->
+
+    <!--            <ImageView-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="0dp"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:src="@drawable/lion_office" />-->
+
+    <!--            <TextView-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:gravity="center"-->
+    <!--                android:text="Записей пока нет. \n Добавить? "-->
+    <!--                android:textColor="@android:color/background_dark" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/add_nf"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_gravity="center"-->
+    <!--                android:layout_marginBottom="32dp"-->
+    <!--                android:layout_marginTop="8dp"-->
+    <!--                android:background="@drawable/bg_orange"-->
+    <!--                android:gravity="center"-->
+    <!--                android:onClick="@{() -> vm.onAddClicked()}"-->
+    <!--                android:padding="7dp"-->
+    <!--                android:textStyle="bold"-->
+    <!--                android:text="   Да, добавить   "-->
+    <!--                android:textAllCaps="false"-->
+    <!--                android:textColor="@android:color/white" />-->
+
+    <!--        </LinearLayout>-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/clear_filter"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:drawableStart="@drawable/ic_clear"-->
+    <!--            android:gravity="center"-->
+    <!--            android:onClick="@{() -> vm.onClearFilterClicked()}"-->
+    <!--            android:text="Сбросить фильтр"-->
+    <!--            android:visibility="@{vm.isClearFilterVisible ? View.VISIBLE : View.GONE}"-->
+    <!--            tools:visibility="visible" />-->
+
+
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/recycler_view"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+    <!--            tools:listitem="@layout/list_item_folder" />-->
+
+
+    <!--    </LinearLayout>-->
+
+    <!--</layout>-->
+
+

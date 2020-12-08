@@ -2,15 +2,17 @@ package com.levkorol.todo.data.note
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.levkorol.todo.data.note.dao.FolderDao
+import com.levkorol.todo.data.note.dao.NoteDao
+import com.levkorol.todo.data.note.dao.ScheduleDao
+import com.levkorol.todo.data.note.dao.TargetDao
 import com.levkorol.todo.model.Folder
-import com.levkorol.todo.model.Folder.Background.PURPLE
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.model.Targets
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 
 object MainRepository {
 
@@ -26,7 +28,6 @@ object MainRepository {
     var folders: List<Folder>? = null
     var schedule: List<Schedule>? = null
     var targets: List<Targets>? = null
-
 
     fun initialize(database: NoteDatabase) {
         noteDao = database.noteDao()

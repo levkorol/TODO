@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.target.viewpagertargets.MyTargetsFragment">
+    tools:context=".ui.target.fragments.MyTargetsFragment">
 
 
     <ImageView
@@ -13,7 +13,8 @@
         android:layout_height="250dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
-        android:src="@drawable/lev22"/>
+        android:src="@drawable/lev22" />
+
     <TextView
         android:id="@+id/no_target"
         android:layout_width="wrap_content"

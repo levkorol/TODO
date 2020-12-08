@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSelect"
+    android:orientation="vertical"
+    tools:context=".ui.setting.pincode.PinCodeActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="62dp"
+        android:text="Введите пин:"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/tvPinCode"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:textColor="@android:color/white"-->
+    <!--        android:textSize="30sp"-->
+    <!--        tools:text="1234" />-->
+
+    <com.goodiebag.pinview.Pinview
+        android:id="@+id/pinview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        app:cursorVisible="false"
+        app:forceKeyboard="true"
+        app:hint="0"
+        app:inputType="number"
+        app:password="true"
+        app:pinBackground="@color/color_grey"
+        app:pinHeight="40dp"
+        app:pinLength="4"
+        app:pinWidth="40dp" />
+
+    <!--    <View-->
+    <!--        android:layout_width="135dp"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:background="@android:color/white"/>-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginBtnPinCode"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_folder_gray"
+        android:text="Войти"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
+
+    <!--     <com.andrognito.patternlockview.PatternLockView-->
+    <!--        android:id="@+id/pattern_lock_view"-->
+    <!--        android:layout_width="280dp"-->
+    <!--        android:layout_height="280dp"/>-->
+
+</LinearLayout>

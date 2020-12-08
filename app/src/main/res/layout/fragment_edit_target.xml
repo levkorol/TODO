@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.target.EditTargetFragment">
+    tools:context=".ui.target.fragments.EditTargetFragment">
 
 
     <LinearLayout
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="@string/discription_note"
+                android:text="@string/add_note_description_note"
                 android:textSize="17sp"
 
                 />
@@ -160,7 +160,7 @@
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/lev_del_net" />
+                        android:src="@drawable/pick_leo" />
 
                     <RadioButton
                         android:id="@+id/edit_ic_2"
@@ -275,11 +275,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.levkorol.todo.views.RoundRectCornerImageView
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/pick_lenivec" />
+                        android:src="@drawable/ic_cake" />
 
                     <RadioButton
                         android:id="@+id/edit_ic_11"
@@ -292,7 +292,7 @@
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/lion_pick_three" />
+                        android:src="@drawable/pick_leo_office" />
 
                     <RadioButton
                         android:id="@+id/edit_ic_12"

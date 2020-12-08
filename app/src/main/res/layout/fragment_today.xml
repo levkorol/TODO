@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.schedule.TodayFragment">
+    tools:context=".ui.schedule.fragments.TodayFragment">
 
     <LinearLayout
         android:id="@+id/no_schedule_today"
