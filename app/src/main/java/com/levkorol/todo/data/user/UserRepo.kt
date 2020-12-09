@@ -17,13 +17,17 @@ class UserRepoImpl(
 ) : UserRepo {
 
     override val hasPinCode: Boolean
-        get() = false
+        get() = sp.getString(PIN_KEY, "").orEmpty().isNotEmpty()
 
     override fun setPinCode(pinCode: String) {
-
+        sp.edit().putString(PIN_KEY, pinCode).apply()
     }
 
     override fun getPinCode(): String {
-        return ""
+        return sp.getString(PIN_KEY, "").orEmpty()
+    }
+
+    private companion object {
+        const val PIN_KEY = "pin_key"
     }
 }

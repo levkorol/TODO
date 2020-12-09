@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.levkorol.todo.R
+import com.levkorol.todo.data.DataProvider
+import com.levkorol.todo.utils.showToast
+import kotlinx.android.synthetic.main.fragment_add_pin.*
 
 class AddPinFragment : Fragment() {
+
+    private val userRepo = DataProvider.userRepo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,20 +33,24 @@ class AddPinFragment : Fragment() {
 //        pin.setInputType(Pinview.InputType.NUMBER);
 //        pin.setValue("1234");
 
+        btnSavePinCode.setOnClickListener {
+            checkPin(vPinCode.text.toString(), vPinCodeRepeat.text.toString())
+        }
+
     }
 
-    private fun checkPin(pin: String, pinRepeat: String): Boolean {
+    private fun checkPin(pin: String, pinRepeat: String) {
         // проверить одинаковость
-        return if (pin == pinRepeat) {
+        if (pin == pinRepeat) {
             saveToDb(pin)
-            true
+            requireContext().showToast("Пин-код сохранен")
         } else {
-            false
+            requireContext().showToast("Пин-коды не совпадают")
         }
     }
 
     private fun saveToDb(pin: String) {
-        // todo сохранить в базу
+        userRepo.setPinCode(pin)
     }
 
 }
