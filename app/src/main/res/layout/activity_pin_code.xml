@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,50 +17,31 @@
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/tvPinCode"-->
-    <!--        android:layout_width="wrap_content"-->
+    <com.levkorol.todo.views.PinEntryEditText
+        android:id="@+id/vEnterPinCode"
+        android:layout_marginHorizontal="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:layout_gravity="center"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="30sp" />
+
+
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/loginBtnPinCode"-->
+    <!--        android:layout_width="150dp"-->
     <!--        android:layout_height="wrap_content"-->
     <!--        android:layout_gravity="center"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:maxLines="1"-->
+    <!--        android:layout_marginTop="32dp"-->
+    <!--        android:background="@drawable/bg_folder_gray"-->
+    <!--        android:text="Войти"-->
+    <!--        android:textAllCaps="false"-->
     <!--        android:textColor="@android:color/white"-->
-    <!--        android:textSize="30sp"-->
-    <!--        tools:text="1234" />-->
-
-    <com.goodiebag.pinview.Pinview
-        android:id="@+id/pinview"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        app:cursorVisible="false"
-        app:forceKeyboard="true"
-        app:hint="0"
-        app:inputType="number"
-        app:password="true"
-        app:pinBackground="@color/color_grey"
-        app:pinHeight="40dp"
-        app:pinLength="4"
-        app:pinWidth="40dp" />
-
-    <!--    <View-->
-    <!--        android:layout_width="135dp"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:background="@android:color/white"/>-->
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginBtnPinCode"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_folder_gray"
-        android:text="Войти"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="17sp" />
+    <!--        android:textSize="17sp" />-->
 
     <!--     <com.andrognito.patternlockview.PatternLockView-->
     <!--        android:id="@+id/pattern_lock_view"-->

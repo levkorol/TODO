@@ -19,12 +19,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val userRepo = DataProvider.userRepo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // TODO вынести в userRepo
         val sp = DataProvider.sharedPrefs
-
         val hasVisited = sp.getBoolean(SharedPrefsKeys.HAS_VISITED, false)
         if (!hasVisited) {
             val intent = Intent(this, HelperActivity::class.java)
@@ -33,8 +35,8 @@ class MainActivity : AppCompatActivity() {
             e.putBoolean(SharedPrefsKeys.HAS_VISITED, true)
             e.apply()
         }
-        //        else if (MainRepository.hasPinCode()) {
-//            // todo открыть экран пинкода
+//        else if (userRepo.hasPinCode) {
+//            startActivity(Intent(this, PinCodeActivity::class.java))
 //        }
         else {
             replaceFragment(ScheduleFragment(), false)

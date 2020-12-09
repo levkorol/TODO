@@ -16,16 +16,19 @@
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
-    <EditText
+
+    <com.levkorol.todo.views.PinEntryEditText
         android:id="@+id/vPinCode"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        tools:text="1234" />
+        android:layout_marginHorizontal="30dp"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="30sp" />
 
     <View
         android:layout_width="135dp"
@@ -42,16 +45,18 @@
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
-    <EditText
+    <com.levkorol.todo.views.PinEntryEditText
         android:id="@+id/vPinCodeRepeat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        tools:text="1234" />
+        android:layout_marginHorizontal="30dp"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="30sp" />
 
     <View
         android:layout_width="135dp"
