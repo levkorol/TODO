@@ -2,6 +2,7 @@ package com.levkorol.todo.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,11 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+fun Context.isDarkThemeOn(): Boolean {
+    return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+}
 
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()

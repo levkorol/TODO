@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,7 @@ import com.levkorol.todo.ui.schedule.viewmodel.ScheduleViewModel
 import com.levkorol.todo.ui.setting.pincode.AddPinFragment
 import com.levkorol.todo.ui.setting.profile.fragments.AuthorizationFragment
 import com.levkorol.todo.ui.setting.profile.fragments.ProfileFragment
+import com.levkorol.todo.utils.isDarkThemeOn
 import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.setting_fragment.*
 
@@ -58,6 +60,13 @@ class SettingFragment : BaseFragment() {
                 Uri.parse("https://play.google.com/store/apps/details?id=com.levkorol.todo")
             );
             startActivity(browserIntent)
+        }
+
+        theme.setOnClickListener {
+            // TODO добавить флажок темного режима и префы
+            AppCompatDelegate.setDefaultNightMode(
+                if (requireContext().isDarkThemeOn()) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+            )
         }
 
 

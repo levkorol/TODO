@@ -39,7 +39,7 @@
         android:text=" Пароль на вход в приложение"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@android:color/background_dark"
+        android:textColor="?attr/colorSurface"
         android:textSize="16sp"
         android:layout_marginStart="16dp"
         app:drawableStartCompat="@drawable/ic_lock_open" />
