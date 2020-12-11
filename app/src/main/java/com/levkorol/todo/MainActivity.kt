@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             val e = sp.edit()
             e.putBoolean(SharedPrefsKeys.HAS_VISITED, true)
             e.apply()
-        } else if (userRepo.hasPinCode) {
+        } else if (userRepo.needToRequestPinCode) {
             replaceFragment(PinCodFragment())
         } else {
             replaceFragment(ScheduleFragment(), false)

@@ -34,9 +34,9 @@ class AddPinFragment : Fragment() {
             checkPin(vPinCode.text.toString(), vPinCodeRepeat.text.toString())
         }
 
-        switch_pin.isChecked = userRepo.hasPinCode
+        switch_pin.isChecked = userRepo.needToRequestPinCode
         switch_pin.setOnClickListener {
-            userRepo.hasPinCode = !userRepo.hasPinCode
+            userRepo.needToRequestPinCode = !userRepo.needToRequestPinCode
         }
     }
 
