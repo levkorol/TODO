@@ -29,15 +29,19 @@ class UserRepoImpl(
 
     override fun setPinCode(pinCode: String) {
         needToRequestPinCode = true
-        sp.edit().putString(PIN_KEY, pinCode).apply()
     }
 
     override fun getPinCode(): String {
         return sp.getString(PIN_KEY, "").orEmpty()
     }
 
+    enum class AppThemes {
+        DARK, REGULAR
+    }
+
     private companion object {
         const val PIN_KEY = "pin_key"
         const val REQUEST_PIN_KEY = "request_pin_key"
+        const val DARK_THEME_KEY = "dark_theme_key"
     }
 }
