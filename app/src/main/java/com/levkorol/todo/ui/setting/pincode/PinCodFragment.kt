@@ -29,14 +29,14 @@ class PinCodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vEnterPinCode.setOnPinEnteredListener { pin ->
-            hideKeyboard(activity as MainActivity)
+            hideKeyboard()
             checkPinCode(pin.toString())
         }
     }
 
     private fun checkPinCode(enteredPinCode: String) {
         if (enteredPinCode == userRepo.getPinCode()) {
-            hideKeyboard(activity as MainActivity)
+            hideKeyboard()
             replaceFragment(ScheduleFragment())
         } else {
             showToastf(requireContext(), "Пин-код введен не верно")

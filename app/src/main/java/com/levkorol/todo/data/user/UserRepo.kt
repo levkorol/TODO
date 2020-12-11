@@ -19,7 +19,7 @@ class UserRepoImpl(
 ) : UserRepo {
 
     override var needToRequestPinCode: Boolean
-        get() = sp.getBoolean(REQUEST_PIN_KEY, true)
+        get() = sp.getBoolean(REQUEST_PIN_KEY, false)
         set(value) {
             sp.edit().putBoolean(REQUEST_PIN_KEY, value).apply()
         }
