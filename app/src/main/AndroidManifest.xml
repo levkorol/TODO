@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.setting.pincode.PinCodeActivity"></activity>
+
         <activity android:name=".ui.setting.on_boarding.HelperActivity" />
         <activity
             android:name=".MainActivity"
@@ -48,6 +48,22 @@
         <receiver
             android:name=".ui.schedule.AlarmReceiver"
             android:exported="false" />
+
+
+        <receiver
+            android:name=".ui.widget.ScheduleWidget"
+            android:icon="@drawable/ic_human"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@layout/widget_metadata"></meta-data>
+        </receiver>
+
+
     </application>
+
 
 </manifest>
