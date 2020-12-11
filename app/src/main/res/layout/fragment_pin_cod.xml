@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSelect"
     android:orientation="vertical"
-    tools:context=".ui.setting.pincode.PinCodeActivity">
+    tools:context=".ui.setting.pincode.PinCodFragment">
 
 
     <TextView
@@ -19,12 +19,12 @@
 
     <com.levkorol.todo.views.PinEntryEditText
         android:id="@+id/vEnterPinCode"
-        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="30dp"
         android:cursorVisible="false"
         android:digits="1234567890"
-        android:layout_gravity="center"
         android:inputType="number"
         android:maxLength="4"
         android:textIsSelectable="false"

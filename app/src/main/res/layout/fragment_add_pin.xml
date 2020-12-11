@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.setting.pincode.PinCodeActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Пароль на вход в приложение" />
+
+
+    <TextView
+        android:id="@+id/saved_pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@android:color/black"
+        tools:text="Сохраненный пароль - 2121" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="62dp"
-        android:text="Установить пин код:"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:layout_marginTop="32dp"
+        android:text="Установить новый пароль:"
+        android:textColor="@android:color/black" />
 
 
     <com.levkorol.todo.views.PinEntryEditText
@@ -22,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="80dp"
         android:cursorVisible="false"
         android:digits="1234567890"
         android:inputType="number"
@@ -42,15 +57,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
         android:text="Введите повторно:"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textColor="@android:color/black" />
 
     <com.levkorol.todo.views.PinEntryEditText
         android:id="@+id/vPinCodeRepeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="80dp"
         android:cursorVisible="false"
         android:digits="1234567890"
         android:inputType="number"

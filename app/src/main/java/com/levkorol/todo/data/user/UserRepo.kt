@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 
 interface UserRepo {
 
-    val hasPinCode: Boolean
+    var hasPinCode: Boolean
 
     fun setPinCode(pinCode: String)
 
@@ -16,7 +16,7 @@ class UserRepoImpl(
     private val sp: SharedPreferences
 ) : UserRepo {
 
-    override val hasPinCode: Boolean
+    override var hasPinCode: Boolean = false
         get() = sp.getString(PIN_KEY, "").orEmpty().isNotEmpty()
 
     override fun setPinCode(pinCode: String) {

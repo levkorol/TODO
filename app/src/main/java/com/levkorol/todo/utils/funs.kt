@@ -19,6 +19,11 @@ fun Context.isDarkThemeOn(): Boolean {
     return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }
 
+
+fun showToastf(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+}
+
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

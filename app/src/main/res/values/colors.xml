@@ -3,20 +3,36 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="fragment_background">#FFF</color>
+    <color name="textColor">#000000</color>
+    <color name="textColorLabel">#000000</color>
+
     <color name="electricpurpur">#9d19ff</color>
     <color name="ultramarin">#4000c0</color>
+
+    <color name="color_primary">#1C0E42</color>
+
     <color name="strongpink">#f12076</color>
     <color name="lichtpinck">#fffafc</color>
     <color name="palegray">#faf7ff</color>
-    <color name="color_primary">#1C0E42</color>
+
+
     <color name="color_primary_dark">#2A1956</color>
+
+
     <color name="color_primary_light">#473770</color>
     <color name="color_accent">#FC4C4C</color>
     <color name="color_accent_night">#2196F3</color>
+
     <color name="color_grey">#9CA9BA</color>
+
+
+    <!--    dont use-->
     <color name="color_grey_dark">#675F7F</color>
     <color name="color_grey_light">#ECECEC</color>
     <color name="color_indicator">#581F99</color>
+    <!--    dont use-->
 
     <color name="color_accent_secondary">#BEAC32EE</color>
     <color name="color_divider_dark">#1F000000</color>
@@ -26,6 +42,7 @@
 
     <color name="red">#f2483e</color>
     <color name="Orange">#ff7847</color>
+
     <color name="white">#FFFCFB</color>
     <color name="coral">#fa6243</color>
     <color name="kiwi">#99d94b</color>
@@ -38,6 +55,5 @@
 
     <color name="pink_light">#FCCFEA</color>
 
-    <color name="fragment_background">#FFF</color>
 
 </resources>

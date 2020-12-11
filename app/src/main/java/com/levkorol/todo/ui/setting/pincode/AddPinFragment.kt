@@ -26,23 +26,25 @@ class AddPinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//       val pin = Pinview(this)
-//        pin.setPinBackgroundRes(R.drawable.sample_background);
-//        pin.setPinHeight(40);
-//        pin.setPinWidth(40);
-//        pin.setInputType(Pinview.InputType.NUMBER);
-//        pin.setValue("1234");
+        if (userRepo.getPinCode() != "") {
+            saved_pin.text = "Текущий сохраненный пароль: ${userRepo.getPinCode()}"
+        }
 
         btnSavePinCode.setOnClickListener {
             checkPin(vPinCode.text.toString(), vPinCodeRepeat.text.toString())
         }
 
+        switch_pin.isChecked = userRepo.hasPinCode
+        switch_pin.setOnClickListener {
+            userRepo.hasPinCode = !userRepo.hasPinCode
+        }
     }
 
     private fun checkPin(pin: String, pinRepeat: String) {
         // проверить одинаковость
         if (pin == pinRepeat) {
             saveToDb(pin)
+            saved_pin.text = "Текущий сохраненный пароль: ${userRepo.getPinCode()}"
             requireContext().showToast("Пин-код сохранен")
         } else {
             requireContext().showToast("Пин-коды не совпадают")

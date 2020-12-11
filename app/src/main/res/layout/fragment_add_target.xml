@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="Создай свою цель"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
 
             </FrameLayout>
@@ -439,7 +439,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/add_note_save"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white"
+                android:textColor="@color/textColorLabel"
                 android:textStyle="bold" />
 
         </LinearLayout>

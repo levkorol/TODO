@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+
+    <color name="textColor">#96FFFFFF</color>
+    <color name="textColorLabel">#D9FFFFFF</color>
 
     <color name="fragment_background">#121212</color>
+
+    <color name="ultramarin">#B29CC1</color>
+    <color name="electricpurpur">#737375</color>
+
+
+    <color name="color_primary">#737375</color>
 </resources>

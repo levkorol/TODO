@@ -3,6 +3,7 @@ package com.levkorol.todo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -12,6 +13,7 @@ import com.levkorol.todo.ui.note.fragments.NotesFragment
 import com.levkorol.todo.ui.schedule.fragments.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
+import com.levkorol.todo.ui.setting.pincode.PinCodFragment
 import com.levkorol.todo.ui.target.fragments.TargetFragment
 import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,11 +36,9 @@ class MainActivity : AppCompatActivity() {
             val e = sp.edit()
             e.putBoolean(SharedPrefsKeys.HAS_VISITED, true)
             e.apply()
-        }
-//        else if (userRepo.hasPinCode) {
-//            startActivity(Intent(this, PinCodeActivity::class.java))
-//        }
-        else {
+        } else if (userRepo.hasPinCode) {
+            replaceFragment(PinCodFragment())
+        } else {
             replaceFragment(ScheduleFragment(), false)
         }
 
@@ -110,5 +110,13 @@ class MainActivity : AppCompatActivity() {
             .isChecked = true
         if (fragment is SettingFragment) bottom_nav_view.menu.findItem(R.id.item_setting)
             .isChecked = true
+    }
+
+    fun setBottomNavigationVisible(isVisible: Boolean) {
+        if (isVisible) {
+            bottom_nav_view.visibility = View.VISIBLE
+        } else {
+            bottom_nav_view.visibility = View.GONE
+        }
     }
 }
