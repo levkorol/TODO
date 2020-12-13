@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.levkorol.todo.R
+import com.levkorol.todo.ui.widget.ScheduleWidgetProvider.Companion.ITEM_POSITION
 
 
 data class WidgetItem(val id: String, val name: String)
@@ -12,15 +13,15 @@ data class WidgetItem(val id: String, val name: String)
 class RemoteViewsFactory(
     private val context: Context,
     intent: Intent?
-
 ) : RemoteViewsService.RemoteViewsFactory {
 
-    private val mCount = 10
-    private val mWidgetItems: MutableList<WidgetItem> = ArrayList<WidgetItem>()
+    // тут будут данные для списка виджета
+    private val testWidgetItems: MutableList<WidgetItem> = ArrayList()
 
     override fun onCreate() {
-        for (i in 0 until mCount) {
-            mWidgetItems.add(WidgetItem("$i!", "name - $i"))
+        // генерация тестовых данных
+        for (i in 0 until 10) {
+            testWidgetItems.add(WidgetItem("$i!", "Задача №$i"))
         }
     }
 
@@ -29,16 +30,22 @@ class RemoteViewsFactory(
     }
 
     override fun onDestroy() {
-        mWidgetItems.clear();
+        testWidgetItems.clear();
     }
 
     override fun getCount(): Int {
-        return mCount
+        return testWidgetItems.size
     }
 
+    // здесь добавляем данные для айтемов виджета
+    // TODO заменить на свои айтемы
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.item_list_widget_schedule)
-        rv.setTextViewText(R.id.tv_title_widget, mWidgetItems[position].name)
+        rv.setTextViewText(R.id.tv_title_widget, testWidgetItems[position].name)
+        // данные для клика
+        val clickIntent = Intent()
+        clickIntent.putExtra(ITEM_POSITION, position)
+        rv.setOnClickFillInIntent(R.id.tv_title_widget, clickIntent)
         return rv
     }
 
