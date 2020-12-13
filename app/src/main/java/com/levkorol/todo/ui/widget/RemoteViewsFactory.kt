@@ -17,28 +17,15 @@ class RemoteViewsFactory(
 
     private val mCount = 10
     private val mWidgetItems: MutableList<WidgetItem> = ArrayList<WidgetItem>()
-    private val mContext: Context? = null
-    private val mAppWidgetId = 0
 
     override fun onCreate() {
         for (i in 0 until mCount) {
             mWidgetItems.add(WidgetItem("$i!", "name - $i"))
         }
-        // We sleep for 3 seconds here to show how the empty view appears in the interim.
-        // The empty view is set in the StackWidgetProvider and should be a sibling of the
-        // collection view.
-        // We sleep for 3 seconds here to show how the empty view appears in the interim.
-        // The empty view is set in the StackWidgetProvider and should be a sibling of the
-        // collection view.
-        try {
-            Thread.sleep(3000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
     }
 
     override fun onDataSetChanged() {
-
+        // empty
     }
 
     override fun onDestroy() {
@@ -50,7 +37,7 @@ class RemoteViewsFactory(
     }
 
     override fun getViewAt(position: Int): RemoteViews {
-        val rv = RemoteViews(mContext!!.packageName, R.layout.item_list_widget_schedule)
+        val rv = RemoteViews(context.packageName, R.layout.item_list_widget_schedule)
         rv.setTextViewText(R.id.tv_title_widget, mWidgetItems[position].name)
         return rv
     }
