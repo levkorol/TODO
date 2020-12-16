@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,17 +11,17 @@
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarViewM"
         android:layout_width="match_parent"
-        app:datePicker="true"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        app:highlightedDaysLabelsColor="@color/biu"
-        app:abbreviationsBarColor="@color/white"
+        app:abbreviationsBarColor="@color/fragment_background"
         app:abbreviationsLabelsColor="@color/ultramarin"
-        app:headerColor="@color/white"
-            app:headerLabelColor="@android:color/black"
-            app:pagesColor="@color/white"
-            app:selectionColor="@color/biu"
-            app:todayLabelColor="@color/colorAccent"
-            app:eventsEnabled="true"
-            android:layout_height="match_parent" />
+        app:datePicker="true"
+        app:eventsEnabled="true"
+        app:headerColor="@color/fragment_background"
+        app:headerLabelColor="@color/textColorLight"
+        app:highlightedDaysLabelsColor="@color/biu"
+        app:pagesColor="@color/fragment_background"
+        app:selectionColor="@color/biu"
+        app:todayLabelColor="@color/colorAccent" />
 
 </LinearLayout>

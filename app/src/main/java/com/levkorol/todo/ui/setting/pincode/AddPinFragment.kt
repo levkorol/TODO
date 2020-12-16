@@ -7,8 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.levkorol.todo.R
+import com.levkorol.todo.data.DataProvider
+import com.levkorol.todo.utils.hideKeyboard
+import com.levkorol.todo.utils.showToast
+import kotlinx.android.synthetic.main.fragment_add_pin.*
 
 class AddPinFragment : Fragment() {
+
+    private val userRepo = DataProvider.userRepo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,27 +27,43 @@ class AddPinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//       val pin = Pinview(this)
-//        pin.setPinBackgroundRes(R.drawable.sample_background);
-//        pin.setPinHeight(40);
-//        pin.setPinWidth(40);
-//        pin.setInputType(Pinview.InputType.NUMBER);
-//        pin.setValue("1234");
 
+        saved_pin.setOnClickListener {
+            if (userRepo.getPinCode() != "") {
+                requireContext().showToast("${userRepo.getPinCode()}")
+            } else {
+                requireContext().showToast("У вас еще нет сохраненного пароля")
+            }
+
+        }
+
+        btnSavePinCode.setOnClickListener {
+            checkPin(vPinCode.text.toString(), vPinCodeRepeat.text.toString())
+        }
+
+        switch_pin.isChecked = userRepo.needToRequestPinCode
+        switch_pin.setOnClickListener {
+            if (userRepo.getPinCode() == "") {
+                requireContext().showToast("Создайте сначала пароль")
+                switch_pin.isChecked = false
+            } else {
+                userRepo.needToRequestPinCode = !userRepo.needToRequestPinCode
+            }
+        }
     }
 
-    private fun checkPin(pin: String, pinRepeat: String): Boolean {
-        // проверить одинаковость
-        return if (pin == pinRepeat) {
+    private fun checkPin(pin: String, pinRepeat: String) {
+        if (pin == pinRepeat) {
             saveToDb(pin)
-            true
+            requireContext().showToast("Пароль сохранен")
+            hideKeyboard()
         } else {
-            false
+            requireContext().showToast("Пароли не совпадают")
         }
     }
 
     private fun saveToDb(pin: String) {
-        // todo сохранить в базу
+        userRepo.setPinCode(pin)
     }
 
 }

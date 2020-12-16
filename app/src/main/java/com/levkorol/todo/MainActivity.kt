@@ -2,16 +2,20 @@ package com.levkorol.todo
 
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.levkorol.todo.data.DataProvider
-import com.levkorol.todo.data.SharedPrefsKeys
 import com.levkorol.todo.ui.note.fragments.NotesFragment
 import com.levkorol.todo.ui.schedule.fragments.ScheduleFragment
 import com.levkorol.todo.ui.setting.SettingFragment
 import com.levkorol.todo.ui.setting.on_boarding.HelperActivity
+import com.levkorol.todo.ui.setting.pincode.PinCodFragment
 import com.levkorol.todo.ui.target.fragments.TargetFragment
 import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,26 +23,45 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val userRepo = DataProvider.userRepo
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sp = DataProvider.sharedPrefs
+        if (userRepo.needToRequestDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//            }
 
-        val hasVisited = sp.getBoolean(SharedPrefsKeys.HAS_VISITED, false)
-        if (!hasVisited) {
-            val intent = Intent(this, HelperActivity::class.java)
-            startActivity(intent)
-            val e = sp.edit()
-            e.putBoolean(SharedPrefsKeys.HAS_VISITED, true)
-            e.apply()
+            if (!userRepo.hasVisited) {
+                val intent = Intent(this, HelperActivity::class.java)
+                startActivity(intent)
+                userRepo.setVisited(true)
+            } else if (userRepo.needToRequestPinCode) {
+                replaceFragment(PinCodFragment())
+            } else {
+                replaceFragment(ScheduleFragment(), false)
+            }
+        } else if (!userRepo.needToRequestDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            if (!userRepo.hasVisited) {
+                val intent = Intent(this, HelperActivity::class.java)
+                startActivity(intent)
+                userRepo.setVisited(true)
+            } else if (userRepo.needToRequestPinCode) {
+                replaceFragment(PinCodFragment())
+            } else {
+                replaceFragment(ScheduleFragment(), false)
+            }
         }
-        //        else if (MainRepository.hasPinCode()) {
-//            // todo открыть экран пинкода
-//        }
-        else {
-            replaceFragment(ScheduleFragment(), false)
-        }
+
 
         bottom_nav_view.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -108,5 +131,13 @@ class MainActivity : AppCompatActivity() {
             .isChecked = true
         if (fragment is SettingFragment) bottom_nav_view.menu.findItem(R.id.item_setting)
             .isChecked = true
+    }
+
+    fun setBottomNavigationVisible(isVisible: Boolean) {
+        if (isVisible) {
+            bottom_nav_view.visibility = View.VISIBLE
+        } else {
+            bottom_nav_view.visibility = View.GONE
+        }
     }
 }

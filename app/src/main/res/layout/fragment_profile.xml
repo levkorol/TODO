@@ -42,7 +42,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="Для восстановления записей с других устройств необходимо их сначала сохранить "
-            android:textColor="@color/colorSelect"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
             android:gravity="center"
             android:layout_marginTop="8dp"
             android:text="Сохраните свои записи"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp" />
 
         <Button
@@ -77,7 +77,7 @@
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="Восстановите после сохранения.\n Обратите внимание что текущие записи в приложении полностью заменятся восстановленными."
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorLight"
             android:textSize="14sp" />
 
 
@@ -103,7 +103,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="Редактировать профиль"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp" />
 
         <TextView
@@ -113,7 +113,7 @@
             android:layout_marginTop="16dp"
             android:text="Выйти"
             android:layout_gravity="center"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp" />
 
     </LinearLayout>

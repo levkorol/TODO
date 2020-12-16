@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -73,12 +74,11 @@
                 android:layout_marginStart="22dp"
                 android:layout_weight="1"
                 android:gravity="center|start"
-                android:drawableStart="@drawable/ic_add_circle"
                 android:text="Добавить задачу"
                 android:padding="3dp"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="16sp"
-               />
+                app:drawableStartCompat="@drawable/ic_add_circle" />
 
             <TextView
                 android:id="@+id/cancel_filter"
@@ -86,12 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center|start"
-                android:drawableStart="@drawable/ic_clear"
                 android:text="Сбросить поиск"
                 android:padding="3dp"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="16sp"
-                />
+                app:drawableStartCompat="@drawable/ic_clear" />
         </LinearLayout>
 
     </LinearLayout>
@@ -103,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:visibility="gone"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView

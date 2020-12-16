@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.setting.SettingFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.setting.SettingFragment">
 
     <ImageView
         android:id="@+id/lion_pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center" />
+        android:src="@mipmap/ic_launcher" />
 
 
     <TextView
@@ -21,40 +21,39 @@
         android:id="@+id/sinhr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
+        android:text="  Личный кабинет"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
-        android:text=" Личный кабинет"
         app:drawableStartCompat="@drawable/ic_tag_faces" />
 
     <TextView
         android:id="@+id/pin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
-        android:text=" Пароль на вход в приложение"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:textColor="@android:color/background_dark"
+        android:background="?attr/selectableItemBackground"
+        android:padding="4dp"
+        android:text="  Пароль на вход в приложение"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
-        android:layout_marginStart="16dp"
         app:drawableStartCompat="@drawable/ic_lock_open" />
 
-    <TextView
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
-        android:text=" Тема"
-        android:textColor="@android:color/background_dark"
+        android:text="  Темная тема"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:drawableStartCompat="@drawable/ic_theme" />
 
@@ -63,12 +62,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackground"
         android:padding="4dp"
-        android:text=" Виджет расписания"
-        android:textColor="@android:color/background_dark"
+        android:text="  Виджет расписания"
+        android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:drawableStartCompat="@drawable/ic_vidget" />
 
@@ -76,48 +74,45 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
         android:autoLink="email"
         android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
+        android:layout_marginTop="8dp"
         android:linksClickable="true"
-        android:drawableStart="@drawable/ic_mail"
-        android:text=" Связь с разработчиком :"
-       />
+        android:padding="4dp"
+        android:text="  Связь с разработчиком :"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_mail" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
         android:layout_marginStart="44dp"
         android:layout_marginTop="0dp"
-        android:textSize="16sp"
         android:autoLink="email"
         android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
         android:linksClickable="true"
-        android:text="Почта: lev.dev.apps@gmail.com" />
+        android:padding="4dp"
+        android:text="Почта: lev.dev.apps@gmail.com"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp" />
 
 
     <TextView
         android:id="@+id/btn_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/background_dark"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:textSize="16sp"
         android:autoLink="web"
         android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
-        android:drawableStart="@drawable/ic_star_border_black_24dp"
         android:linksClickable="true"
-        android:text=" Поставьте нам оценку"
-        />
-
+        android:padding="4dp"
+        android:text="  Поставьте нам оценку"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_star_border_black_24dp" />
 
 
 </LinearLayout>

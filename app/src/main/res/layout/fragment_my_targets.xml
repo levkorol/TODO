@@ -12,41 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginTop="40dp"
-        android:visibility="gone"
-        android:src="@drawable/lev22" />
+        android:src="@drawable/lev22"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/no_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_gravity="center"
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:text="Целей пока нет."/>
+        android:layout_marginTop="16dp"
+        android:text="Целей пока нет..."
+        android:textColor="@color/textColorLight"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/add_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/bg_orange"
         android:gravity="center"
         android:padding="7dp"
-        android:visibility="gone"
         android:text="   Создать цель   "
-        android:textStyle="bold"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/whiteText"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_targets"
         android:layout_width="match_parent"
-        android:layout_marginTop="4dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
         tools:listitem="@layout/item_target_list" />
 
 </LinearLayout>

@@ -1,69 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.setting.pincode.PinCodeActivity">
+    android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Установить пароль на вход в приложение"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp" />
 
 
     <TextView
+        android:id="@+id/saved_pin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="62dp"
-        android:text="Установить пин код:"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@android:color/black"
-        android:inputType="textPassword"
-        android:textSize="30sp"
-        tools:text="1234"
-        android:maxLines="1"/>
-
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:textColor="@android:color/black" />
+        android:layout_marginStart="16dp"
+        android:text="Текущий сохраненный пароль"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
-        android:text="Введите повторно:"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:text="Создать новый пароль:"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp" />
 
-    <EditText
+
+    <com.levkorol.todo.views.PinEntryEditText
+        android:id="@+id/vPinCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="80dp"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        app:pinAnimationType="fromBottom"
+        app:pinCharacterMask="*" />
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@android:color/black"
-        android:inputType="textPassword"
-        android:textSize="30sp"
-        tools:text="1234"
-        android:maxLines="1" />
+        android:layout_marginTop="16dp"
+        android:text="Введите повторно:"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp" />
 
-    <View
-        android:layout_width="135dp"
-        android:layout_height="1dp"
+    <com.levkorol.todo.views.PinEntryEditText
+        android:id="@+id/vPinCodeRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@android:color/black" />
+        android:layout_marginHorizontal="80dp"
+        android:cursorVisible="false"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textIsSelectable="false"
+        android:textSize="20sp"
+        app:pinAnimationType="fromBottom"
+        app:pinCharacterMask="*" />
+
 
     <Button
+        android:id="@+id/btnSavePinCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
-        android:text="Сохранить"
+        android:text="Сохранить пароль"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
