@@ -15,71 +15,105 @@
         android:layout_marginTop="16dp"
         android:src="@mipmap/ic_launcher" />
 
-
-    <TextView
-
-        android:id="@+id/sinhr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
-        android:text="  Личный кабинет"
-        android:textColor="@color/textColorLight"
-        android:textSize="16sp"
-        app:drawableStartCompat="@drawable/ic_tag_faces" />
-
-    <TextView
-        android:id="@+id/pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
-        android:text="  Пароль на вход в приложение"
-        android:textColor="@color/textColorLight"
-        android:textSize="16sp"
-        app:drawableStartCompat="@drawable/ic_lock_open" />
-
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
+        android:padding="16dp"
         android:text="  Темная тема"
         android:textColor="@color/textColorLight"
         android:textSize="16sp"
         app:drawableStartCompat="@drawable/ic_theme" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/line" />
+
+    <TextView
+        android:id="@+id/sinhr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:text="  Личный кабинет"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_right"
+        app:drawableStartCompat="@drawable/ic_tag_faces" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/line" />
+
+    <TextView
+        android:id="@+id/pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:text="  Пароль на вход в приложение"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_right"
+        app:drawableStartCompat="@drawable/ic_lock_open" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/line" />
+
     <TextView
         android:id="@+id/vidget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackground"
-        android:padding="4dp"
+        android:padding="16dp"
         android:text="  Виджет расписания"
         android:textColor="@color/textColorLight"
         android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_right"
         app:drawableStartCompat="@drawable/ic_vidget" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/line" />
+
+    <TextView
+        android:id="@+id/btn_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:background="?attr/selectableItemBackground"
+        android:linksClickable="true"
+        android:padding="16dp"
+        android:text="  Поставьте нам оценку"
+        android:textColor="@color/textColorLight"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_right"
+        app:drawableStartCompat="@drawable/ic_star_border_black_24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/line" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:autoLink="email"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginTop="8dp"
         android:linksClickable="true"
-        android:padding="4dp"
+        android:padding="16dp"
         android:text="  Связь с разработчиком :"
         android:textColor="@color/textColorLight"
         android:textSize="16sp"
@@ -89,7 +123,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="0dp"
         android:autoLink="email"
         android:background="?attr/selectableItemBackground"
         android:linksClickable="true"
@@ -97,22 +130,5 @@
         android:text="Почта: lev.dev.apps@gmail.com"
         android:textColor="@color/textColorLight"
         android:textSize="16sp" />
-
-
-    <TextView
-        android:id="@+id/btn_web"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:background="?attr/selectableItemBackground"
-        android:linksClickable="true"
-        android:padding="4dp"
-        android:text="  Поставьте нам оценку"
-        android:textColor="@color/textColorLight"
-        android:textSize="16sp"
-        app:drawableStartCompat="@drawable/ic_star_border_black_24dp" />
-
 
 </LinearLayout>
