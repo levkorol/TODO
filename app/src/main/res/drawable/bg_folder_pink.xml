@@ -9,9 +9,9 @@
                 android:bottomLeftRadius="12dp"
                 android:bottomRightRadius="12dp"/>
 
-            <solid android:color="@android:color/darker_gray" />
-            <gradient android:startColor="@color/colorAccent"
-                android:endColor="#AB1346"/>
+            <gradient
+                android:startColor="#D81B60"
+                android:endColor="#AB1346" />
 
         </shape>
     </item>

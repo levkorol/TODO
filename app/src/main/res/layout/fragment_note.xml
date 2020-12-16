@@ -52,7 +52,7 @@
                     android:orientation="horizontal"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/textColorLight"
                     tools:text="Zametkafff" />
 
             </FrameLayout>
@@ -249,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/textColorLight"
                 android:textSize="18sp"
                 android:textIsSelectable="true"
                 tools:text="zametvdfvdfvdfvdfka

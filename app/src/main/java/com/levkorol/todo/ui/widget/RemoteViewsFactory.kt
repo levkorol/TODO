@@ -8,7 +8,11 @@ import com.levkorol.todo.R
 import com.levkorol.todo.ui.widget.ScheduleWidgetProvider.Companion.ITEM_POSITION
 
 
-data class WidgetItem(val id: String, val name: String)
+data class WidgetItem(val id: String, val name: String, val checkBox: Boolean, val time: Long)
+
+fun mapperForWidget() {
+
+}
 
 class RemoteViewsFactory(
     private val context: Context,
@@ -21,7 +25,7 @@ class RemoteViewsFactory(
     override fun onCreate() {
         // генерация тестовых данных
         for (i in 0 until 10) {
-            testWidgetItems.add(WidgetItem("$i!", "Задача №$i"))
+            testWidgetItems.add(WidgetItem("$i!", "Задача №$i", true, 1))
         }
     }
 

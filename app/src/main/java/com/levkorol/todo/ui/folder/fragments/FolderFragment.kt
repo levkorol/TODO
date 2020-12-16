@@ -145,16 +145,29 @@ class FolderFragment : BaseFragment() {
 
     private fun dialog() {
         val view = requireActivity().layoutInflater.inflate(R.layout.folder_name, null)
-        AlertDialog.Builder(requireContext())
-            .setView(view)
-            .setPositiveButton("Сохранить") { _, _ ->
+        val builder = MaterialAlertDialogBuilder(requireContext())
+//        AlertDialog.Builder(requireContext())
+        with(builder) {
+            setView(view)
+            setPositiveButton("Сохранить") { _, _ ->
                 folder.nameFolder = view.new_name.text.toString()
                 MainRepository.updateFolder(folder)
                 title_folder.text = folder.nameFolder
             }
-            .setNegativeButton("Отмена") { _, _ -> }
-            .setTitle("Изменить название папки")
-            .create()
-            .show()
+            setNegativeButton("Отмена") { _, _ -> }
+            setTitle("Изменить название папки")
+            create()
+            show()
+        }
+//                    .setView(view)
+//                    .setPositiveButton("Сохранить") { _, _ ->
+//                        folder.nameFolder = view.new_name.text.toString()
+//                        MainRepository.updateFolder(folder)
+//                        title_folder.text = folder.nameFolder
+//                    }
+//                    .setNegativeButton("Отмена") { _, _ -> }
+//                    .setTitle("Изменить название папки")
+//                    .create()
+//                    .show()
     }
 }

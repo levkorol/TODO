@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="Редактирование"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/textColorLight"
                     android:textSize="16sp" />
 
             </FrameLayout>
@@ -78,6 +78,7 @@
                 android:layout_marginTop="4dp"
                 android:hint="  Название..."
                 android:imeOptions="actionDone"
+                android:textColor="@color/textColorLight"
                 android:textAllCaps="false" />
 
             <TextView
@@ -109,7 +110,7 @@
                 android:hint="Описание..."
                 android:inputType="textMultiLine"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_dark" />
+                android:textColor="@color/textColorLight" />
 
         </FrameLayout>
 
@@ -126,7 +127,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="Выберите иконку:"
-                android:textColor="@android:color/black"
+                android:textColor="@color/textColorLight"
                 android:textSize="17sp" />
 
             <HorizontalScrollView
@@ -148,6 +149,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:checked="true"
+                        android:textColor="@color/textColorLight"
                         android:text="Без иконки" />
 
                     <RadioButton
@@ -156,7 +158,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.1" />
 
-                    <ImageView
+                    <com.levkorol.todo.views.RoundRectCornerImageView
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
@@ -288,7 +290,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1" />
 
-                    <ImageView
+                    <com.levkorol.todo.views.RoundRectCornerImageView
                         android:layout_width="43dp"
                         android:layout_height="43dp"
                         android:layout_gravity="center"
@@ -367,7 +369,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="Цвет карточки:"
-                android:textColor="@android:color/black"
+                android:textColor="@color/textColorLight"
                 android:textSize="17sp" />
 
             <LinearLayout
@@ -394,6 +396,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="true"
+                            android:textColor="@color/textColorLight"
                             android:text="Белый" />
 
                         <RadioButton
@@ -401,6 +404,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Сиреневый" />
 
                         <RadioButton
@@ -408,6 +412,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Темно-синий" />
 
                         <RadioButton
@@ -415,6 +420,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Оранжевый" />
 
                         <RadioButton
@@ -422,6 +428,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Зеленый" />
 
                         <RadioButton
@@ -429,6 +436,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Голубой" />
 
                         <RadioButton
@@ -436,6 +444,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/textColorLight"
                             android:text="Светло-розовый" />
 
                     </RadioGroup>

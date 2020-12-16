@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
@@ -39,17 +40,19 @@ class PinCodFragment : Fragment() {
             hideKeyboard()
             replaceFragment(ScheduleFragment())
         } else {
-            showToastf(requireContext(), "Пин-код введен не верно")
+            showToastf(requireContext(), "Пароль введен не верно")
         }
     }
 
     override fun onStart() {
         super.onStart()
         (activity as? MainActivity)?.setBottomNavigationVisible(false)
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) //картинка в статус бар
     }
 
     override fun onStop() {
         (activity as? MainActivity)?.setBottomNavigationVisible(true)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         super.onStop()
     }
 }

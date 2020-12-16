@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@color/textColorLight"
             android:gravity="center"
             android:text="На сегодня дел пока нет..."/>
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:padding="7dp"
             android:background="@drawable/bg_orange"
             android:textStyle="bold"

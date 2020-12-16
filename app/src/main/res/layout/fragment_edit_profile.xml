@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollsign"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="Редактирование"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/textColorLight"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -62,8 +61,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:hint="Имя"
-            android:textColorHint="@android:color/black"
-            app:boxStrokeColor="@android:color/black">
+            android:textColorHint="@color/textColorLight"
+            app:boxStrokeColor="@color/textColorLight">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_name"
@@ -73,7 +72,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textPersonName"
                 android:textAlignment="viewStart"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/textColorLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -86,99 +85,99 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:hint="Е-маил"
-            android:textColorHint="@android:color/black"
-            app:boxStrokeColor="@android:color/black">
+            android:textColorHint="@color/textColorLight"
+            app:boxStrokeColor="@color/textColorLight">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/transparent"
                 android:layout_gravity="start"
-                android:textColor="@android:color/black"
+                android:backgroundTint="@android:color/transparent"
                 android:inputType="textEmailAddress"
                 android:textAlignment="viewStart"
-                android:textColorLink="@android:color/black" />
+                android:textColor="@color/textColorLight"
+                android:textColorLink="@color/textColorLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:textSize="16sp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="Смена пароля личного кабинета" />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@android:color/white"-->
+        <!--            android:layout_marginTop="30dp"-->
+        <!--            android:textSize="16sp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:text="Смена пароля личного кабинета" />-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/inputPassword"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/inputEmail"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:hint="Старый пароль"-->
-<!--            android:textColorHint="@color/white"-->
-<!--            app:boxStrokeColor="@color/white">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/inputPassword"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@+id/inputEmail"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:hint="Старый пароль"-->
+        <!--            android:textColorHint="@color/white"-->
+        <!--            app:boxStrokeColor="@color/white">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/et_password"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:backgroundTint="@android:color/transparent"-->
-<!--                android:textAlignment="viewStart"-->
-<!--                android:textColor="@color/white" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/et_password"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="start"-->
+        <!--                android:inputType="textPassword"-->
+        <!--                android:backgroundTint="@android:color/transparent"-->
+        <!--                android:textAlignment="viewStart"-->
+        <!--                android:textColor="@color/white" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/inputPasswordf"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/inputEmail"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:hint="Новый пароль"-->
-<!--            android:textColorHint="@color/white"-->
-<!--            app:boxStrokeColor="@color/white">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/inputPasswordf"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@+id/inputEmail"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:hint="Новый пароль"-->
+        <!--            android:textColorHint="@color/white"-->
+        <!--            app:boxStrokeColor="@color/white">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/et_password_new"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:backgroundTint="@android:color/transparent"-->
-<!--                android:textAlignment="viewStart"-->
-<!--                android:textColor="@color/white" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/et_password_new"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="start"-->
+        <!--                android:inputType="textPassword"-->
+        <!--                android:backgroundTint="@android:color/transparent"-->
+        <!--                android:textAlignment="viewStart"-->
+        <!--                android:textColor="@color/white" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/inputPasswordfе"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/inputEmail"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:hint="Подтвердите новый пароль"-->
-<!--            android:textColorHint="@color/white"-->
-<!--            app:boxStrokeColor="@color/white">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/inputPasswordfе"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@+id/inputEmail"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:hint="Подтвердите новый пароль"-->
+        <!--            android:textColorHint="@color/white"-->
+        <!--            app:boxStrokeColor="@color/white">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/et_password_new2"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="start"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:backgroundTint="@android:color/transparent"-->
-<!--                android:textAlignment="viewStart"-->
-<!--                android:textColor="@color/white" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/et_password_new2"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="start"-->
+        <!--                android:inputType="textPassword"-->
+        <!--                android:backgroundTint="@android:color/transparent"-->
+        <!--                android:textAlignment="viewStart"-->
+        <!--                android:textColor="@color/white" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/save"
@@ -187,13 +186,12 @@
             android:layout_marginLeft="35dp"
             android:layout_marginTop="60dp"
             android:layout_marginRight="35dp"
-            android:gravity="center"
-            android:elevation="2dp"
-            android:text="Сохранить"
             android:layout_marginBottom="16dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:text="Сохранить"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

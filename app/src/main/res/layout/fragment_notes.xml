@@ -22,7 +22,7 @@
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_add_p"
                 android:background="?attr/selectableItemBackground"
                 />
 
@@ -76,32 +76,39 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:src="@drawable/lion_office" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Записей пока нет. \n Добавить? "
-            android:textColor="@android:color/background_dark" />
+            android:layout_weight="0.1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/add_nf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_orange"
-            android:gravity="center"
-            android:padding="7dp"
-            android:textStyle="bold"
-            android:text="   Да, добавить   "
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|bottom"
+                android:paddingBottom="8dp"
+                android:text="Записей пока нет..."
+                android:textColor="@color/textColorLight" />
 
+            <TextView
+                android:id="@+id/add_nf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_orange"
+                android:gravity="center"
+                android:padding="7dp"
+                android:textStyle="bold"
+                android:text="   Добавить   "
+                android:textAllCaps="false"
+                android:textColor="@color/whiteText" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

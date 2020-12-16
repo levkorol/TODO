@@ -4,14 +4,15 @@
     <item  >
         <shape android:shape="rectangle">
 
-            <corners android:topLeftRadius="12dp"
+            <corners
+                android:topLeftRadius="12dp"
                 android:topRightRadius="12dp"
                 android:bottomLeftRadius="12dp"
-                android:bottomRightRadius="12dp"/>
+                android:bottomRightRadius="12dp" />
 
-            <solid android:color="@android:color/darker_gray" />
-            <gradient android:startColor="@color/electricpurpur"
-                android:endColor="@color/ultramarin"/>
+            <gradient
+                android:endColor="@color/ultramarin_folder"
+                android:startColor="@color/electricpurpur_folder" />
 
         </shape>
     </item>

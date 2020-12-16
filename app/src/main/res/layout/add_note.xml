@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:text="@string/add_note"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/textColorLight"
                     android:textSize="16sp" />
 
             </FrameLayout>
@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/add_note_hint_name_note"
                 android:textAllCaps="false"
+                android:textColor="@color/textColorLight"
                 android:imeOptions="actionDone" />
 
             <TextView
@@ -106,6 +107,7 @@
                     android:background="@null"
                     android:gravity="top|start"
                     android:lines="19"
+                    android:textColor="@color/textColorLight"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
                     android:textAllCaps="false"
@@ -240,8 +242,8 @@
             android:layout_marginEnd="16dp"
             android:text="@string/add_note_save"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

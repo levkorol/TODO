@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:text="@string/edit_note_edit"
-                android:textColor="@android:color/background_dark"
+                android:textColor="@color/textColorLight"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -65,6 +65,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/edit_note_name"
             android:lines="1"
+            android:textColor="@color/textColorLight"
             android:textAllCaps="false"
             android:textStyle="bold" />
 
@@ -98,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="top|start"
+                android:textColor="@color/textColorLight"
                 android:inputType="textMultiLine"
                 android:textAllCaps="false" />
 

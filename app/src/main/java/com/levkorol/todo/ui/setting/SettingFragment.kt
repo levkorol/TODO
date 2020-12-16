@@ -15,12 +15,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
 import com.levkorol.todo.base.BaseFragment
+import com.levkorol.todo.data.DataProvider
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.schedule.viewmodel.ScheduleViewModel
 import com.levkorol.todo.ui.setting.pincode.AddPinFragment
 import com.levkorol.todo.ui.setting.profile.fragments.AuthorizationFragment
 import com.levkorol.todo.ui.setting.profile.fragments.ProfileFragment
-import com.levkorol.todo.utils.isDarkThemeOn
 import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.setting_fragment.*
 
@@ -31,6 +31,7 @@ class SettingFragment : BaseFragment() {
     private var id: Long = 1
     private lateinit var viewModelSchedule: ScheduleViewModel
     private var alarmFlag = false
+    private val userRepo = DataProvider.userRepo
 
     companion object {
         fun newInstance() = SettingFragment()
@@ -62,20 +63,28 @@ class SettingFragment : BaseFragment() {
             startActivity(browserIntent)
         }
 
+        theme.isChecked = userRepo.needToRequestDarkTheme
         theme.setOnClickListener {
-            // TODO добавить флажок темного режима и префы
-            AppCompatDelegate.setDefaultNightMode(
-                if (requireContext().isDarkThemeOn()) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-            )
+            if (!userRepo.needToRequestDarkTheme) {
+                userRepo.needToRequestDarkTheme = true
+                saveToDb(true)
+                AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO
+                )
+            } else {
+                userRepo.needToRequestDarkTheme = false
+                AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO
+                )
+            }
+
+//            AppCompatDelegate.setDefaultNightMode(
+//                if (requireContext().isDarkThemeOn()) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+//            )
         }
 
 
         pin.setOnClickListener {
-//            Toast.makeText(
-//                activity,
-//                "Установка пароля будет доступна совсем скоро :)",
-//                Toast.LENGTH_LONG
-//            ).show()
             replaceFragment(AddPinFragment())
         }
 
@@ -86,6 +95,8 @@ class SettingFragment : BaseFragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
+
+
     }
 
     override fun onStart() {
@@ -103,5 +114,9 @@ class SettingFragment : BaseFragment() {
         viewModelSchedule.getSchedules().observe(this, Observer { schedules ->
             this.schedules = schedules
         })
+    }
+
+    private fun saveToDb(isTheme: Boolean) {
+        userRepo.setDarkTheme(isTheme)
     }
 }

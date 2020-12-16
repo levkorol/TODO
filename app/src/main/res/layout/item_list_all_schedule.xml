@@ -66,11 +66,11 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
-                    android:background="@android:color/white"
                     android:enabled="false"
+                    android:background="@null"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColorLight"
                     android:textSize="18sp"
                     tools:text="Сделать что-тоoooofbdfbdfbdfbdfbdfbdfbdfbdfbdfbdfbdfbdfbdfbdfboo" />
             </LinearLayout>
@@ -165,7 +165,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
-                        android:background="@color/palegray"
                         android:text="Дата"
                         android:textSize="15sp" />
 
@@ -175,10 +174,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
-                        android:background="@color/palegray"
                         android:gravity="end"
                         android:text="02.02.2020"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/textColorLight"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -195,7 +193,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="4"
-                        android:background="@color/palegray"
                         android:text="Время"
                         android:textSize="15sp" />
 
@@ -207,6 +204,7 @@
                         android:layout_weight="1.1"
                         android:drawableEnd="@drawable/ic_acc"
                         android:gravity="end"
+
                         android:text="Сбросить "
                         android:visibility="gone"
                         tools:visibility="visible" />
@@ -218,10 +216,9 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="22dp"
                         android:layout_weight="0.2"
-                        android:background="@color/palegray"
                         android:gravity="end"
                         android:text="19.00"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/textColorLight"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -236,7 +233,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
-                        android:background="@color/palegray"
                         android:text="Оповещение"
                         android:textSize="15sp" />
 
@@ -246,7 +242,6 @@
                         android:layout_height="25dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1.2"
-                        android:background="@color/palegray"
                         android:gravity="end"
                         android:textSize="16sp" />
                 </LinearLayout>

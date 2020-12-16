@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.levkorol.todo.R
 import com.levkorol.todo.data.DataProvider
+import com.levkorol.todo.utils.hideKeyboard
 import com.levkorol.todo.utils.showToast
 import kotlinx.android.synthetic.main.fragment_add_pin.*
 
@@ -26,8 +27,14 @@ class AddPinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (userRepo.getPinCode() != "") {
-            saved_pin.text = "Текущий сохраненный пароль: ${userRepo.getPinCode()}"
+
+        saved_pin.setOnClickListener {
+            if (userRepo.getPinCode() != "") {
+                requireContext().showToast("${userRepo.getPinCode()}")
+            } else {
+                requireContext().showToast("У вас еще нет сохраненного пароля")
+            }
+
         }
 
         btnSavePinCode.setOnClickListener {
@@ -36,18 +43,22 @@ class AddPinFragment : Fragment() {
 
         switch_pin.isChecked = userRepo.needToRequestPinCode
         switch_pin.setOnClickListener {
-            userRepo.needToRequestPinCode = !userRepo.needToRequestPinCode
+            if (userRepo.getPinCode() == "") {
+                requireContext().showToast("Создайте сначала пароль")
+                switch_pin.isChecked = false
+            } else {
+                userRepo.needToRequestPinCode = !userRepo.needToRequestPinCode
+            }
         }
     }
 
     private fun checkPin(pin: String, pinRepeat: String) {
-        // проверить одинаковость
         if (pin == pinRepeat) {
             saveToDb(pin)
-            saved_pin.text = "Текущий сохраненный пароль: ${userRepo.getPinCode()}"
-            requireContext().showToast("Пин-код сохранен")
+            requireContext().showToast("Пароль сохранен")
+            hideKeyboard()
         } else {
-            requireContext().showToast("Пин-коды не совпадают")
+            requireContext().showToast("Пароли не совпадают")
         }
     }
 

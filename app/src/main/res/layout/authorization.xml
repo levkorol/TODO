@@ -28,7 +28,7 @@
            android:layout_marginTop="8dp"
            android:layout_gravity="center"
            android:gravity="center"
-           android:textColor="@android:color/black"
+           android:textColor="@color/textColorLight"
            android:shadowDx="2"
            android:shadowDy="2"
            android:shadowRadius="5"
@@ -42,8 +42,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="@string/authorization_email"
-            android:textColorHint="@android:color/black"
-            app:boxStrokeColor="@android:color/black">
+            android:textColorHint="@color/textColorLight"
+            app:boxStrokeColor="@color/textColorLight">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login"
@@ -53,7 +53,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textEmailAddress"
                 android:textAlignment="viewStart"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/textColorLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -63,8 +63,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="@string/authorization_password"
-            android:textColorHint="@android:color/black"
-            app:boxStrokeColor="@android:color/black">
+            android:textColorHint="@color/textColorLight"
+            app:boxStrokeColor="@color/textColorLight">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -75,7 +75,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:inputType="textPassword"
                 android:textAlignment="viewStart"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/textColorLight" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -107,7 +107,7 @@
             android:shadowDy="2"
             android:shadowRadius="7"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColorLight"
             android:textSize="16sp" />
 
 
