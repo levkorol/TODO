@@ -69,7 +69,7 @@ class SettingFragment : BaseFragment() {
                 userRepo.needToRequestDarkTheme = true
                 saveToDb(true)
                 AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO
+                    AppCompatDelegate.MODE_NIGHT_YES
                 )
             } else {
                 userRepo.needToRequestDarkTheme = false
