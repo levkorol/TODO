@@ -1,6 +1,7 @@
 package com.levkorol.todo.ui.folder.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -148,6 +149,7 @@ class FolderFragment : BaseFragment() {
         val builder = MaterialAlertDialogBuilder(requireContext())
 //        AlertDialog.Builder(requireContext())
         with(builder) {
+            setBackground(ColorDrawable(resources.getColor(android.R.color.black)))
             setView(view)
             setPositiveButton("Сохранить") { _, _ ->
                 folder.nameFolder = view.new_name.text.toString()
