@@ -43,6 +43,9 @@ class AuthorizationFragment : Fragment() {
                 if (it.isSuccessful) {
                     replaceFragment(ProfileFragment())
                     //  parentFragmentManager.popBackStack() //todo ne rab
+                } else {
+                    Toast.makeText(activity, "Неверный Е-маил или пароль", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         } else {
