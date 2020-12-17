@@ -126,14 +126,19 @@ class ProfileFragment : Fragment() {
                 })
         }
 
-        mDataBase.child("users").child(auth.currentUser!!.uid)
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                if (hello != null) {
-                    user = it.getValue(User::class.java)!!
-                    hello.text = "Привет, ${user.name} ! :) \n"
-                }
-            })
-
+        auth.currentUser?.let {
+            mDataBase.child("users").child(it.uid)
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter { data ->
+                    if (hello != null) {
+                        data.getValue(User::class.java)?.let {
+                            user = it
+                            hello.text = "Привет, ${user.name} ! :) \n"
+                        } ?: run {
+                            hello.text = "Привет! :) \n"
+                        }
+                    }
+                })
+        }
     }
 
     override fun onStart() {
