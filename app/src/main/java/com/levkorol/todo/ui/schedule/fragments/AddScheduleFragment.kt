@@ -19,6 +19,7 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.schedule.AlarmReceiver
+import com.levkorol.todo.utils.DateUtil
 import com.levkorol.todo.utils.Tools
 import com.levkorol.todo.utils.mergeDateHoursMinutes
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
@@ -30,6 +31,7 @@ import java.util.Calendar.*
 class AddScheduleFragment : Fragment() {
 
     private lateinit var schedule: Schedule
+    private val dates = mutableListOf<Date>()
     private var date: Long = 1
     private var dateAdd: Long = 1
     private var hours: Int = -1
@@ -39,6 +41,7 @@ class AddScheduleFragment : Fragment() {
     private lateinit var alarmIntent: PendingIntent
     private var scheduleId: Long = 0
     private var addTime = false
+    private var repeatAfter7day = true
 
     companion object {
         private const val DATE = "DATE"
@@ -77,7 +80,8 @@ class AddScheduleFragment : Fragment() {
     private fun initViews() {
         save_btn.setOnClickListener {
             if (add_description_text.text.isNotEmpty()) {
-                saveSchedule()
+                saveSchedule(date)
+                //         saveRepeatingSchedule(dates)
                 Toast.makeText(activity, "Добавлено в расписание", Toast.LENGTH_LONG).show()
                 parentFragmentManager.popBackStack()
 
@@ -96,13 +100,14 @@ class AddScheduleFragment : Fragment() {
             picker.addOnPositiveButtonClickListener { unixTime ->
                 date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
                 date = unixTime
+                setupRepeatingTask(date)
             }
             picker.show(parentFragmentManager, picker.toString())
         }
 
         add_time.setOnClickListener {
             val cal = Calendar.getInstance()
-           // cal.timeInMillis = 0
+            // cal.timeInMillis = 0
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
                 cal.set(HOUR_OF_DAY, hour)
                 cal.set(MINUTE, minute)
@@ -143,9 +148,23 @@ class AddScheduleFragment : Fragment() {
         }
     }
 
-    private fun saveSchedule() {
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    // TODO Разобраться с логикой повторения
+    private fun setupRepeatingTask(date: Long) {
+        val originalDate = Date(date)
+        if (repeatAfter7day) {
+            val dateAfter7Days = DateUtil.addDays(originalDate, 7)
+            dates.add(dateAfter7Days)
+        }
+        dates.add(originalDate)
+    }
 
+    private fun saveRepeatingSchedule(dates: List<Date>) {
+        dates.forEach {
+            saveSchedule(it.time)
+        }
+    }
+
+    private fun saveSchedule(date: Long) {
         schedule = Schedule(
             description = add_description_text.text.toString(),
             comment = "",
@@ -157,25 +176,31 @@ class AddScheduleFragment : Fragment() {
             addTime = addTime,
             archive = false
         )
-        MainRepository.addSchedule(schedule) {id ->
+        MainRepository.addSchedule(schedule) { id ->
             scheduleId = id
+            setAlarm()
+        }
+    }
+
+    private fun setAlarm() {
+        if (alarmFlag) {
+
+            alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
             alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
                 intent.putExtra("SCHEDULE_ID", scheduleId)
                 intent.putExtra("NOTE", false)
-                Log.i("AddScheduleFragment","saveScheduleExtras${intent.extras}")
+                Log.i("AddScheduleFragment", "saveScheduleExtras${intent.extras}")
                 PendingIntent.getBroadcast(context, 0, intent, FLAG_CANCEL_CURRENT)
             }
 
-            if (alarmFlag) {
-                val needTime = mergeDateHoursMinutes(date, hours, minutes)
-                alarmManager?.set(
-                    RTC_WAKEUP,
-                    needTime,
-                    alarmIntent
-                )
-                Log.i("AddScheduleFragment","need $needTime ,date = $date, time = ")
-            }
+            val needTime = mergeDateHoursMinutes(date, hours, minutes)
+            alarmManager?.set(
+                RTC_WAKEUP,
+                needTime,
+                alarmIntent
+            )
+            Log.i("AddScheduleFragment", "need $needTime ,date = $date, time = ")
         }
     }
 }

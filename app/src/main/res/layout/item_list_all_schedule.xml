@@ -202,11 +202,10 @@
                         android:layout_height="21dp"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1.1"
-                        android:drawableEnd="@drawable/ic_acc"
                         android:gravity="end"
-
                         android:text="Сбросить "
                         android:visibility="gone"
+                        app:drawableEndCompat="@drawable/ic_acc"
                         tools:visibility="visible" />
 
                     <TextView

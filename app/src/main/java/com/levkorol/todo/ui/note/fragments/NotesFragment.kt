@@ -203,8 +203,8 @@ class NotesFragment : Fragment() {
 
     private fun showAlterDialog() {
         val builder = MaterialAlertDialogBuilder(
-            requireContext(),
-            R.style.ThemeOverlay_App_MaterialAlertDialog
+            requireContext()
+            // , R.style.ThemeOverlay_App_MaterialAlertDialog
         )
         builder.setMessage("Что вы хотите создать?")
         builder.setPositiveButton("Заметку") { _, _ ->

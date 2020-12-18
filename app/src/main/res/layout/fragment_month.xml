@@ -22,6 +22,9 @@
         app:highlightedDaysLabelsColor="@color/biu"
         app:pagesColor="@color/fragment_background"
         app:selectionColor="@color/biu"
+        app:anotherMonthsDaysLabelsColor="@color/textColorCalendar"
+        app:daysLabelsColor="@color/textColorDark"
+        app:disabledDaysLabelsColor="@color/textColorDark"
         app:todayLabelColor="@color/colorAccent" />
 
 </LinearLayout>

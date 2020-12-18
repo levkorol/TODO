@@ -33,7 +33,7 @@ class UserRepoImpl(
         }
 
     override fun setPinCode(pinCode: String) {
-        needToRequestPinCode = true
+      //  needToRequestPinCode = true
         sp.edit().putString(PIN_KEY, pinCode).apply()
     }
 

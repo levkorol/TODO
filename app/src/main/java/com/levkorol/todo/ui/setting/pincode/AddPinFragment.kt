@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_add_pin.*
 class AddPinFragment : Fragment() {
 
     private val userRepo = DataProvider.userRepo
+    private var visibleFlag = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,9 @@ class AddPinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        back_profile.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
         saved_pin.setOnClickListener {
             if (userRepo.getPinCode() != "") {
@@ -34,8 +38,18 @@ class AddPinFragment : Fragment() {
             } else {
                 requireContext().showToast("У вас еще нет сохраненного пароля")
             }
-
         }
+
+//        add_new_pin.setOnClickListener {
+//            if (visibleFlag){
+//                visibleFlag = false
+//                linear_add_new_pin.visibility = View.GONE
+//            }
+//            if (!visibleFlag) {
+//                visibleFlag = true
+//                linear_add_new_pin.visibility = View.VISIBLE
+//            }
+//        }
 
         btnSavePinCode.setOnClickListener {
             checkPin(vPinCode.text.toString(), vPinCodeRepeat.text.toString())
@@ -57,6 +71,7 @@ class AddPinFragment : Fragment() {
             saveToDb(pin)
             requireContext().showToast("Пароль сохранен")
             hideKeyboard()
+            //linear_add_new_pin.visibility = View.GONE
         } else {
             requireContext().showToast("Пароли не совпадают")
         }
@@ -65,5 +80,12 @@ class AddPinFragment : Fragment() {
     private fun saveToDb(pin: String) {
         userRepo.setPinCode(pin)
     }
+
+//   private fun changeIc() {
+//       val titleRes =
+//           if (visibleFlag) R.drawable. else R.drawable.ic_question_no_activ
+//       titleImage.setImageResource(titleRes)
+//   }
+//
 
 }
