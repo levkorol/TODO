@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#737375</color>
+    <!--    <color name="colorPrimary">#737375</color>-->
     <color name="colorPrimaryDark">#737375</color>
     <color name="colorAccent">#737375</color>
 
     <color name="textColorDark">#96FFFFFF</color>
     <color name="textColorLight">#D9FFFFFF</color>
+
+    <color name="textColorCalendar">#535252</color>
+
     <color name="whiteText">#D9FFFCFB</color>
     <color name="fragment_background">#121212</color>
 

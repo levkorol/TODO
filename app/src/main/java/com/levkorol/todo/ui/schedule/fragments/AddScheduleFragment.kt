@@ -80,8 +80,8 @@ class AddScheduleFragment : Fragment() {
     private fun initViews() {
         save_btn.setOnClickListener {
             if (add_description_text.text.isNotEmpty()) {
-//                saveSchedule(date)
-                saveRepeatingSchedule(dates)
+                saveSchedule(date)
+                //         saveRepeatingSchedule(dates)
                 Toast.makeText(activity, "Добавлено в расписание", Toast.LENGTH_LONG).show()
                 parentFragmentManager.popBackStack()
 

@@ -22,6 +22,7 @@ import com.levkorol.todo.ui.setting.pincode.AddPinFragment
 import com.levkorol.todo.ui.setting.profile.fragments.AuthorizationFragment
 import com.levkorol.todo.ui.setting.profile.fragments.ProfileFragment
 import com.levkorol.todo.utils.replaceFragment
+import com.levkorol.todo.utils.showToastf
 import kotlinx.android.synthetic.main.setting_fragment.*
 
 class SettingFragment : BaseFragment() {
@@ -96,6 +97,9 @@ class SettingFragment : BaseFragment() {
             ).show()
         }
 
+        vidget.setOnClickListener {
+            showToastf(requireContext(), "Виджет будет доступен в следующей версии:)")
+        }
 
     }
 

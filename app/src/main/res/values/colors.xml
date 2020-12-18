@@ -8,6 +8,8 @@
     <color name="textColorDark">#000000</color>
     <color name="textColorLight">#000000</color>
 
+    <color name="textColorCalendar">#302E2E</color>
+
     <color name="electricpurpur">#9d19ff</color>
     <color name="ultramarin">#4000c0</color>
     <color name="lichtpinck">#fffafc</color>
@@ -25,6 +27,7 @@
     <color name="color_accent_night">#2196F3</color>
 
     <color name="color_grey">#9CA9BA</color>
+    <color name="ic_red">#C7043F</color>
 
 
     <!--    &lt;!&ndash;    dont use&ndash;&gt;-->
