@@ -96,6 +96,7 @@
                 android:background="@null"
                 android:gravity="top|start"
                 android:hint="Описание..."
+                android:lines="11"
                 android:inputType="textMultiLine"
                 android:textAllCaps="false"
                 android:textColor="@color/textColorLight" />

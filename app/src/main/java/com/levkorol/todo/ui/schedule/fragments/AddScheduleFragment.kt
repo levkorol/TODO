@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.levkorol.todo.R
@@ -21,6 +22,7 @@ import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.schedule.AlarmReceiver
 import com.levkorol.todo.utils.DateUtil
 import com.levkorol.todo.utils.Tools
+import com.levkorol.todo.utils.hideKeyboard
 import com.levkorol.todo.utils.mergeDateHoursMinutes
 import kotlinx.android.synthetic.main.fragment_add_schedule.*
 import java.lang.System.currentTimeMillis
@@ -41,21 +43,13 @@ class AddScheduleFragment : Fragment() {
     private lateinit var alarmIntent: PendingIntent
     private var scheduleId: Long = 0
     private var addTime = false
-    private var repeatAfter7day = true
 
-    companion object {
-        private const val DATE = "DATE"
+    private var isRepeat = false
+    private var repeatAfter7day = false
+    private var repeatAfter1day = false
+    private var repeatAfter3day = false
+    private var counterRepeat = 0
 
-        fun newInstance(date: Long): AddScheduleFragment {
-            val fragment = AddScheduleFragment()
-            val arg = Bundle()
-            arg.apply {
-                putLong(DATE, date)
-            }
-            fragment.arguments = arg
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +63,9 @@ class AddScheduleFragment : Fragment() {
         initViews()
         date = currentTimeMillis()
 
+        repeatView()
+        repeatCounterView()
+
         date_selected.text = Tools.dateToString(date)
         if (arguments != null) {
             dateAdd = arguments?.getLong(DATE, -1)!!
@@ -77,15 +74,22 @@ class AddScheduleFragment : Fragment() {
         }
     }
 
+
     private fun initViews() {
+
         save_btn.setOnClickListener {
-            if (add_description_text.text.isNotEmpty()) {
+            if (add_description_text.text.isNotEmpty() && !isRepeat) {
                 saveSchedule(date)
-                //         saveRepeatingSchedule(dates)
                 Toast.makeText(activity, "Добавлено в расписание", Toast.LENGTH_LONG).show()
                 parentFragmentManager.popBackStack()
-
-            } else {
+                hideKeyboard()
+            } else if (add_description_text.text.isNotEmpty() && isRepeat) {
+                parentFragmentManager.popBackStack()
+                setupRepeatingTask(date)
+                saveRepeatingSchedule(dates)
+                dates.clear()
+                hideKeyboard()
+            } else if (add_description_text.text.isEmpty()) {
                 Toast.makeText(activity, "Введите описание задачи", Toast.LENGTH_LONG).show()
             }
         }
@@ -100,7 +104,7 @@ class AddScheduleFragment : Fragment() {
             picker.addOnPositiveButtonClickListener { unixTime ->
                 date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
                 date = unixTime
-                setupRepeatingTask(date)
+
             }
             picker.show(parentFragmentManager, picker.toString())
         }
@@ -146,14 +150,96 @@ class AddScheduleFragment : Fragment() {
             time_tv.text = "Назначить время выполнения"
             clear_time.visibility = View.GONE
         }
+
+        checkBoxRepeat.setOnCheckedChangeListener { _, isChecked ->
+            isRepeat = isChecked
+            when {
+                repeatAfter1day -> repeatAfter1day = isChecked
+                repeatAfter3day -> repeatAfter3day = isChecked
+                repeatAfter7day -> repeatAfter7day = isChecked
+            }
+        }
     }
 
-    // TODO Разобраться с логикой повторения
+    private fun repeatView() {
+        val popupMenu2 = PopupMenu(requireContext(), interval_repeat)
+        popupMenu2.inflate(R.menu.menu_repit)
+        popupMenu2.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.every_day -> {
+                    interval_repeat.text = "Каждый день"
+                    repeatAfter1day = true
+                }
+                R.id.dayThree -> {
+                    interval_repeat.text = "Раз в 3 дня"
+                    repeatAfter3day = true
+                }
+                R.id.day7 -> {
+                    interval_repeat.text = "Раз в неделю"
+                    repeatAfter7day = true
+                }
+            }
+            false
+        }
+        interval_repeat.setOnClickListener {
+            popupMenu2.show()
+        }
+    }
+
+    private fun repeatCounterView() {
+        val popupMenu = PopupMenu(requireContext(), current_repeat)
+        popupMenu.inflate(R.menu.counter_repeat)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.number_2 -> {
+                    current_repeat.text = "Количество: 2"
+                    counterRepeat = 2
+                }
+                R.id.number_5 -> {
+                    current_repeat.text = "Количество: 5"
+                    counterRepeat = 5
+                }
+                R.id.number_10 -> {
+                    current_repeat.text = "Количество: 10"
+                    counterRepeat = 10
+                }
+                R.id.number_15 -> {
+                    current_repeat.text = "Количество: 15"
+                    counterRepeat = 15
+                }
+                R.id.number_30 -> {
+                    current_repeat.text = "Количество: 30"
+                    counterRepeat = 30
+                }
+            }
+            false
+        }
+        current_repeat.setOnClickListener {
+            popupMenu.show()
+        }
+    }
+
     private fun setupRepeatingTask(date: Long) {
         val originalDate = Date(date)
-        if (repeatAfter7day) {
-            val dateAfter7Days = DateUtil.addDays(originalDate, 7)
-            dates.add(dateAfter7Days)
+        when {
+            repeatAfter7day -> {
+                for (i in 1..counterRepeat) {
+                    val dateAfter7Days = DateUtil.addDays(originalDate, 7 * i)
+                    dates.add(dateAfter7Days)
+                }
+            }
+            repeatAfter1day -> {
+                for (i in 1..counterRepeat) {
+                    val dateAfter1Days = DateUtil.addDays(originalDate, 1 * i)
+                    dates.add(dateAfter1Days)
+                }
+            }
+            repeatAfter3day -> {
+                for (i in 1..counterRepeat) {
+                    val dateAfter3Days = DateUtil.addDays(originalDate, 3 * i)
+                    dates.add(dateAfter3Days)
+                }
+            }
         }
         dates.add(originalDate)
     }
@@ -201,6 +287,20 @@ class AddScheduleFragment : Fragment() {
                 alarmIntent
             )
             Log.i("AddScheduleFragment", "need $needTime ,date = $date, time = ")
+        }
+    }
+
+    companion object {
+        private const val DATE = "DATE"
+
+        fun newInstance(date: Long): AddScheduleFragment {
+            val fragment = AddScheduleFragment()
+            val arg = Bundle()
+            arg.apply {
+                putLong(DATE, date)
+            }
+            fragment.arguments = arg
+            return fragment
         }
     }
 }

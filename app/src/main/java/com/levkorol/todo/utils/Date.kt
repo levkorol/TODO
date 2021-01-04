@@ -103,7 +103,7 @@ fun mergeDateHoursMinutes(date: Long, hours: Int, minutes: Int): Long {
 }
 
 
-fun isSameWeek(time: Long): Boolean {
+fun isSameWeek(time: Long): Boolean { // todo
     val calendar = GregorianCalendar()
     calendar.timeInMillis = time
     calendar.firstDayOfWeek = MONDAY

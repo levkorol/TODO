@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/every_day"
+        android:title="Каждый день"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/dayThree"
+        android:title="Раз в 3 дня"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/day7"
+        android:title="Раз в неделю"
+        app:showAsAction="never" />
+
+</menu>

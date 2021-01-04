@@ -31,6 +31,7 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
             notifyDataSetChanged()
         }
 
+
     override fun onBindViewHolder(holder: ViewHolderTargets, position: Int) {
         val targetItem = dataItems[position]
 
@@ -165,12 +166,12 @@ class AdapterTargets(val activity: MainActivity, val draggableListDelegate: Drag
 
 
     fun moveItem(from: Int, to: Int) {
-        val fromEmoji = dataItems[from]
+        val fromItem = dataItems[from]
         dataItems.removeAt(from)
         if (to < from) {
-            dataItems.add(to, fromEmoji)
+            dataItems.add(to, fromItem)
         } else {
-            dataItems.add(to - 1, fromEmoji)
+            dataItems.add(to - 1, fromItem)
         }
     }
 

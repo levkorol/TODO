@@ -88,6 +88,7 @@ class MyTargetsFragment : Fragment(), DraggableListDelegate {
 
     override fun startDragging(viewHolder: RecyclerView.ViewHolder) {
         itemTouchHelper.startDrag(viewHolder)
+
     }
 
     companion object {

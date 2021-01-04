@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="0.2">
 
             <ImageView
                 android:id="@+id/back_profile"
@@ -34,17 +34,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="2.5">
+            android:layout_weight="0.9">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:text="Добавление в расписание"
+                android:text="Новая задача"
                 android:textColor="@color/textColorLight"
                 android:textSize="16sp" />
 
         </FrameLayout>
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="16dp"
+            android:text="Сохранить"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -86,7 +97,6 @@
         android:layout_height="wrap_content"
         android:background="@color/palegray"
         android:orientation="horizontal"
-
         >
 
         <ImageView
@@ -100,8 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Выбрать дату"
-            android:textColor="@color/ultramarin" />
+            android:text="Выбрать дату" />
 
 
     </LinearLayout>
@@ -124,10 +133,7 @@
 
     <!--    </LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
 
         <LinearLayout
             android:id="@+id/add_time"
@@ -148,8 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Назначить время выполнения"
-                android:textColor="@color/colorAccent" />
+                android:text="Назначить время выполнения" />
 
             <TextView
                 android:id="@+id/clear_time"
@@ -167,46 +172,76 @@
         </LinearLayout>
 
 
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/palegray"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="horizontal">
 
-        >
+        <CheckBox
+            android:id="@+id/checkBoxRepeat"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginStart="11dp"
+            android:text="Повтор" />
+
+        <TextView
+            android:id="@+id/interval_repeat"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/opov"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:text="Интервал" />
 
-        <Switch
-            android:id="@+id/switch_"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:layout_margin="12dp" />
-
+        <TextView
+            android:id="@+id/current_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Количество" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/save_btn"
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/palegray"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:text=" @string/opov"-->
+    <!--           />-->
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Сохранить"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:text=" Оповещение" />
+    <!--    </LinearLayout>-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/save_btn"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        android:text="Сохранить"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:textColor="@android:color/white"-->
+    <!--        android:textStyle="bold" />-->
 
 
 </LinearLayout>
