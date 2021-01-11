@@ -55,7 +55,7 @@
             android:text="Сохранить"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            />
 
 
     </LinearLayout>
@@ -63,31 +63,30 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:layout_weight="1"
         android:background="@drawable/background_item_note">
 
-        <ScrollView
-            android:id="@+id/text_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--        <ScrollView-->
+        <!--            android:id="@+id/text_scroll"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent">-->
 
-            <EditText
-                android:id="@+id/add_description_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="top|start"
-                android:hint="Описание..."
-                android:inputType="textMultiLine"
-                android:lines="11"
-                android:textAllCaps="false"
+        <EditText
+            android:id="@+id/add_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top|start"
+            android:hint="Описание..."
+            android:inputType="textMultiLine"
+            android:lines="15"
+            android:textAllCaps="false"
                 android:textColor="@color/textColorLight" />
 
-        </ScrollView>
+        <!--        </ScrollView>-->
 
     </FrameLayout>
 

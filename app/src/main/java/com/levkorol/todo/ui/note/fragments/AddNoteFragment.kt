@@ -21,6 +21,7 @@ import com.levkorol.todo.MainActivity
 import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
+import com.levkorol.todo.utils.hideKeyboard
 import kotlinx.android.synthetic.main.add_note.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -89,10 +90,12 @@ class AddNoteFragment : Fragment() {
         save_note_btn.setOnClickListener {
             saveNote()
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
 
         back_profile.setOnClickListener {
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
 
         star_image_btn.setOnClickListener {
@@ -101,6 +104,7 @@ class AddNoteFragment : Fragment() {
 
         photoView.setOnClickListener {
             showAlterDialog()
+            //   hideKeyboard()
         }
 
         addSchedule.setOnClickListener {

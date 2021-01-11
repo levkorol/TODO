@@ -11,6 +11,7 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Folder
 import com.levkorol.todo.model.Folder.Background.PURPLE
+import com.levkorol.todo.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_add_folder.*
 
 class AddFolderFragment : Fragment() {
@@ -50,6 +51,7 @@ class AddFolderFragment : Fragment() {
             if(add_title_text_folder.text.isNotEmpty()) {
                 saveFolder()
                 parentFragmentManager.popBackStack()
+                hideKeyboard()
             } else {
                 Toast.makeText(activity, "Введите название папки", Toast.LENGTH_SHORT).show()
             }
@@ -57,6 +59,7 @@ class AddFolderFragment : Fragment() {
 
         back_profile.setOnClickListener {
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
     }
 

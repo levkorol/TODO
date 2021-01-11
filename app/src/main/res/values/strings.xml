@@ -34,7 +34,7 @@
 
     <!--    edit_note_fragment-->
     <string name="edit_note_edit">Редактирование</string>
-    <string name="edit_note_save_edit">Сохранить изменения</string>
+    <string name="edit_note_save_edit">Сохранить</string>
     <string name="edit_note_name">Название...</string>
     <string name="edit_note_description">Описание</string>
     <string name="edit_note_delete_photo">Удалить фото</string>

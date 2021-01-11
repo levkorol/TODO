@@ -96,6 +96,7 @@ class AddScheduleFragment : Fragment() {
 
         back_profile.setOnClickListener {
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
 
         add_date.setOnClickListener {
@@ -104,7 +105,6 @@ class AddScheduleFragment : Fragment() {
             picker.addOnPositiveButtonClickListener { unixTime ->
                 date_selected.text = SimpleDateFormat("EEEE, dd MMM, yyyy").format(Date(unixTime))
                 date = unixTime
-
             }
             picker.show(parentFragmentManager, picker.toString())
         }
@@ -193,23 +193,23 @@ class AddScheduleFragment : Fragment() {
             when (it.itemId) {
                 R.id.number_2 -> {
                     current_repeat.text = "Количество: 2"
-                    counterRepeat = 2
+                    counterRepeat = 1
                 }
                 R.id.number_5 -> {
                     current_repeat.text = "Количество: 5"
-                    counterRepeat = 5
+                    counterRepeat = 4
                 }
                 R.id.number_10 -> {
                     current_repeat.text = "Количество: 10"
-                    counterRepeat = 10
+                    counterRepeat = 9
                 }
                 R.id.number_15 -> {
                     current_repeat.text = "Количество: 15"
-                    counterRepeat = 15
+                    counterRepeat = 14
                 }
                 R.id.number_30 -> {
                     current_repeat.text = "Количество: 30"
-                    counterRepeat = 30
+                    counterRepeat = 29
                 }
             }
             false

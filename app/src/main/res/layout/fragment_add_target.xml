@@ -48,7 +48,15 @@
 
             </FrameLayout>
 
-
+            <Button
+                android:id="@+id/save_target_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_note_save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,21 +71,20 @@
                 android:id="@+id/name_target"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:textAllCaps="false"
                 android:textColor="@color/textColorLight"
                 android:hint="  Название..."
                 android:imeOptions="actionDone" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="@string/add_note_description_note"
-                android:textSize="17sp"
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="@string/add_note_description_note"-->
+            <!--                android:textSize="17sp"-->
 
-                />
+            <!--                />-->
 
         </LinearLayout>
 
@@ -85,8 +92,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_weight="2.5"
+            android:layout_weight="0.6"
             android:background="@drawable/background_item_note">
 
             <EditText
@@ -114,9 +122,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="Выберите иконку:"
+                android:text="Иконка:"
                 android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -351,7 +359,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Цвет карточки:"
                 android:textColor="@color/textColorLight"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -436,23 +444,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.5">
-            <Button
-                android:id="@+id/save_target_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/add_note_save"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

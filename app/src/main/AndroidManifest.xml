@@ -65,7 +65,6 @@
                 android:resource="@xml/widget_metadata" />
         </receiver>
 
-
     </application>
 
 

@@ -24,6 +24,7 @@ import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Note
 import com.levkorol.todo.ui.note.viewmodel.NotesViewModel
 import com.levkorol.todo.utils.Tools
+import com.levkorol.todo.utils.hideKeyboard
 import com.levkorol.todo.utils.replaceFragment
 import kotlinx.android.synthetic.main.add_note.back_profile
 import kotlinx.android.synthetic.main.edit_note_fragment.*
@@ -90,6 +91,7 @@ class EditNoteFragment : Fragment() {
 
         back_profile.setOnClickListener {
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
 
         edit_save_note_btn.setOnClickListener {
@@ -97,6 +99,7 @@ class EditNoteFragment : Fragment() {
             saveEditNote()
             parentFragmentManager.popBackStack()
             replaceFragment(NoteFragment.instance(note!!.id))
+            hideKeyboard()
         }
 
         star_ed.setOnClickListener {

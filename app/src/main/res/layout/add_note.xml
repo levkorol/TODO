@@ -54,6 +54,16 @@
 
             </FrameLayout>
 
+            <Button
+                android:id="@+id/save_note_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_note_save"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
@@ -71,58 +81,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_note_hint_name_note"
+                android:imeOptions="actionDone"
                 android:textAllCaps="false"
-                android:textColor="@color/textColorLight"
-                android:imeOptions="actionDone" />
+                android:textColor="@color/textColorLight" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/add_note_description_note"
-                android:textSize="17sp"
-
-                />
 
         </LinearLayout>
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="5"
-            android:background="@drawable/background_item_note">
-
-            <ScrollView
-                android:id="@+id/text_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/add_description_note_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="top|start"
-                    android:lines="19"
-                    android:textColor="@color/textColorLight"
-                    android:imeOptions="actionDone"
-                    android:inputType="textMultiLine"
-                    android:textAllCaps="false"
-                    />
-
-
-            </ScrollView>
-
-        </FrameLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="6dp"
             android:orientation="horizontal">
 
 
@@ -156,7 +126,7 @@
                     android:layout_gravity="center"
                     android:text="@string/add_note_add_photo"
                     android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -179,7 +149,7 @@
                     android:layout_gravity="center"
                     android:text="@string/add_note_importantly"
                     android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -216,7 +186,7 @@
                     android:text="@string/add_note_add_date"
                     android:textAlignment="center"
                     android:textColor="@color/ultramarin"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/text_date"
@@ -233,17 +203,36 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/save_note_btn"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/add_note_save"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            android:background="@drawable/background_item_note">
+
+            <!--            <ScrollView-->
+            <!--                android:id="@+id/text_scroll"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent">-->
+
+            <EditText
+                android:id="@+id/add_description_note_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top|start"
+                android:hint="Описание..."
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine"
+                android:lines="20"
+                android:textAllCaps="false"
+                android:textColor="@color/textColorLight" />
+
+
+            <!--            </ScrollView>-->
+
+        </FrameLayout>
+
 
     </LinearLayout>
 

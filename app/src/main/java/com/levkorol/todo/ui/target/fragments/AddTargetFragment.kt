@@ -11,6 +11,7 @@ import com.levkorol.todo.R
 import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Targets
 import com.levkorol.todo.utils.DEFAULT_DATE
+import com.levkorol.todo.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_add_target.*
 
 
@@ -36,10 +37,12 @@ class AddTargetFragment : Fragment() {
     private fun initViews() {
         back_click.setOnClickListener {
             parentFragmentManager.popBackStack()
+            hideKeyboard()
         }
 
         save_target_btn.setOnClickListener {
             if (name_target.text.isNotEmpty()) {
+                hideKeyboard()
                 saveTarget()
                 Toast.makeText(
                     activity,
