@@ -5,8 +5,12 @@ import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.levkorol.todo.R
+import com.levkorol.todo.data.note.MainRepository
 import com.levkorol.todo.model.Schedule
 import com.levkorol.todo.ui.widget.ScheduleWidgetProvider.Companion.ITEM_POSITION
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 data class WidgetItem(
@@ -17,7 +21,7 @@ data class WidgetItem(
     val timeMinutes: Int
 )
 
-fun mapperForWidget(schedule: Schedule): WidgetItem {
+fun mapForWidget(schedule: Schedule): WidgetItem {
     return WidgetItem(
         id = schedule.id,
         description = schedule.description,
@@ -37,8 +41,14 @@ class RemoteViewsFactory(
 
     override fun onCreate() {
         // генерация тестовых данных
-        for (i in 0 until 10) {
-            testWidgetItems.add(WidgetItem(i.toLong(), "Задача №$i", true, 1, 1))
+//        for (i in 0 until 10) {
+//            testWidgetItems.add(WidgetItem(i.toLong(), "Задача №$i", true, 1, 1))
+//        }
+
+        GlobalScope.launch(Dispatchers.IO) {
+            MainRepository.getAllSchedulesNow().forEach {
+                testWidgetItems.add(mapForWidget(it))
+            }
         }
     }
 

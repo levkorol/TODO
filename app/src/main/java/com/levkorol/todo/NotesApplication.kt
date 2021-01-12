@@ -19,6 +19,7 @@ class NotesApplication : Application() {
         ctx = this
 
         database = Room.databaseBuilder(this, NoteDatabase::class.java, "todo")
+            .allowMainThreadQueries()
             // addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             //.addMigrations(MIGRATION_1_2)
             .build()

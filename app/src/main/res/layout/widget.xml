@@ -9,14 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#6600ff00"
-        android:gravity="center"
-        android:text="1111111"
-        android:textColor="#000"
-        android:textSize="18sp"></TextView>
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="#6600ff00"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="1111111"-->
+    <!--        android:textColor="#000"-->
+    <!--        android:textSize="18sp"></TextView>-->
 
 </LinearLayout>
